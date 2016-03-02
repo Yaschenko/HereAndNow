@@ -9,13 +9,21 @@
 /* Begin PBXBuildFile section */
 		34D0D8849853E683AFAC3FA9 /* Pods_HereAndNow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6755625A4352281BB10864E8 /* Pods_HereAndNow.framework */; };
 		5A04ADE41C79FCF6009BD4E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04ADE31C79FCF6009BD4E6 /* AppDelegate.swift */; };
-		5A04ADE61C79FCF6009BD4E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04ADE51C79FCF6009BD4E6 /* ViewController.swift */; };
+		5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */; };
 		5A04ADE91C79FCF6009BD4E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */; };
 		5A04ADEC1C79FCF6009BD4E6 /* HereAndNow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A04ADEA1C79FCF6009BD4E6 /* HereAndNow.xcdatamodeld */; };
 		5A04ADEE1C79FCF6009BD4E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A04ADED1C79FCF6009BD4E6 /* Assets.xcassets */; };
 		5A04ADF11C79FCF6009BD4E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A04ADEF1C79FCF6009BD4E6 /* LaunchScreen.storyboard */; };
 		5A04ADFC1C79FCF6009BD4E6 /* HereAndNowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04ADFB1C79FCF6009BD4E6 /* HereAndNowTests.swift */; };
 		5A04AE071C79FCF6009BD4E6 /* HereAndNowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE061C79FCF6009BD4E6 /* HereAndNowUITests.swift */; };
+		5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE141C7B5331009BD4E6 /* AuthorizeViewController.swift */; };
+		5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE161C7C52FB009BD4E6 /* CreateEventViewController.swift */; };
+		5A253D1F1C7EF5D80022A44E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A253D1E1C7EF5D80022A44E /* Media.xcassets */; };
+		5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */; };
+		5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */; };
+		5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */; };
+		5AD720F21C85A8AD00FF1A05 /* SearchEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */; };
+		5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD720F51C85C16100FF1A05 /* GeoPointView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +47,7 @@
 		0B7D6AA99160203EC5F4E1DC /* Pods-HereAndNow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndNow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndNow/Pods-HereAndNow.debug.xcconfig"; sourceTree = "<group>"; };
 		5A04ADE01C79FCF6009BD4E6 /* HereAndNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HereAndNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A04ADE31C79FCF6009BD4E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5A04ADE51C79FCF6009BD4E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5A04ADE81C79FCF6009BD4E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5A04ADEB1C79FCF6009BD4E6 /* HereAndNow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HereAndNow.xcdatamodel; sourceTree = "<group>"; };
 		5A04ADED1C79FCF6009BD4E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +59,14 @@
 		5A04AE021C79FCF6009BD4E6 /* HereAndNowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HereAndNowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A04AE061C79FCF6009BD4E6 /* HereAndNowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereAndNowUITests.swift; sourceTree = "<group>"; };
 		5A04AE081C79FCF6009BD4E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A04AE141C7B5331009BD4E6 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
+		5A04AE161C7C52FB009BD4E6 /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
+		5A253D1E1C7EF5D80022A44E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsListViewController.swift; sourceTree = "<group>"; };
+		5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
+		5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointView.swift; sourceTree = "<group>"; };
+		5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEventsViewController.swift; sourceTree = "<group>"; };
+		5AD720F51C85C16100FF1A05 /* GeoPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPointView.xib; sourceTree = "<group>"; };
 		6755625A4352281BB10864E8 /* Pods_HereAndNow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndNow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FEC6B6A71E278F5CEE8AB3 /* Pods-HereAndNow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndNow.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndNow/Pods-HereAndNow.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,12 +140,20 @@
 			isa = PBXGroup;
 			children = (
 				5A04ADE31C79FCF6009BD4E6 /* AppDelegate.swift */,
-				5A04ADE51C79FCF6009BD4E6 /* ViewController.swift */,
+				5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */,
 				5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */,
 				5A04ADED1C79FCF6009BD4E6 /* Assets.xcassets */,
 				5A04ADEF1C79FCF6009BD4E6 /* LaunchScreen.storyboard */,
 				5A04ADF21C79FCF6009BD4E6 /* Info.plist */,
 				5A04ADEA1C79FCF6009BD4E6 /* HereAndNow.xcdatamodeld */,
+				5A04AE141C7B5331009BD4E6 /* AuthorizeViewController.swift */,
+				5A04AE161C7C52FB009BD4E6 /* CreateEventViewController.swift */,
+				5A253D1E1C7EF5D80022A44E /* Media.xcassets */,
+				5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */,
+				5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */,
+				5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */,
+				5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */,
+				5AD720F51C85C16100FF1A05 /* GeoPointView.xib */,
 			);
 			path = HereAndNow;
 			sourceTree = "<group>";
@@ -261,6 +285,8 @@
 			files = (
 				5A04ADF11C79FCF6009BD4E6 /* LaunchScreen.storyboard in Resources */,
 				5A04ADEE1C79FCF6009BD4E6 /* Assets.xcassets in Resources */,
+				5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */,
+				5A253D1F1C7EF5D80022A44E /* Media.xcassets in Resources */,
 				5A04ADE91C79FCF6009BD4E6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,7 +361,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A04ADEC1C79FCF6009BD4E6 /* HereAndNow.xcdatamodeld in Sources */,
-				5A04ADE61C79FCF6009BD4E6 /* ViewController.swift in Sources */,
+				5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */,
+				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
+				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
+				5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */,
+				5AD720F21C85A8AD00FF1A05 /* SearchEventsViewController.swift in Sources */,
+				5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */,
+				5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */,
 				5A04ADE41C79FCF6009BD4E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

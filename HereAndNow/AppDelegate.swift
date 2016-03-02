@@ -11,11 +11,28 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let APP_ID:String! = "FABF5EEF-5E7A-A6DE-FF33-52704CC23600"
+    let SECRET_KEY:String! = "975E3521-1859-D2D9-FF75-8FF7F6D20F00"
+    let VERSION_NUM:String! = "v1"
+    
     var window: UIWindow?
 
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+            print("AppDelegate -> application:openURL: \(url.scheme)")
+
+            let backendless = Backendless.sharedInstance()
+            let user = backendless.userService.handleOpenURL(url)
+            if user != nil {
+                print("AppDelegate -> application:openURL: user = \(user)")
+                // do something, call some ViewController method, for example
+            }
+            
+            return true
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Backendless.sharedInstance().initApp(APP_ID, secret: SECRET_KEY, version: VERSION_NUM)
+        Backendless.sharedInstance().userService.setStayLoggedIn( true )
         // Override point for customization after application launch.
         return true
     }

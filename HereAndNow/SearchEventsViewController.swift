@@ -8,20 +8,24 @@
 
 import UIKit
 class SearchEventsViewController: UIViewController, GeoPointDelegate {
-    weak var point:GeoPointView?
+    var point:GeoPointView?
+    @IBOutlet weak var collectionView:CustomCollectionView!
     var data:[GeoPoint] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData()
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.collectionView.setSubviewsFrames()
         self.generatePoints(20)
     }
 

@@ -144,7 +144,7 @@
                                     <constraint firstAttribute="height" constant="71" id="zdF-dJ-HMm"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IdH-mT-rFX">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IdH-mT-rFX" customClass="CustomCollectionView" customModule="HereAndNow" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="430" width="600" height="170"/>
                                 <color key="backgroundColor" white="1" alpha="0.3127639358108108" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -171,6 +171,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bzg-z2-bhe"/>
+                    <connections>
+                        <outlet property="collectionView" destination="IdH-mT-rFX" id="bUQ-Vr-M0q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdu-j1-uZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -18,6 +18,8 @@
 		5A04AE071C79FCF6009BD4E6 /* HereAndNowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE061C79FCF6009BD4E6 /* HereAndNowUITests.swift */; };
 		5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE141C7B5331009BD4E6 /* AuthorizeViewController.swift */; };
 		5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04AE161C7C52FB009BD4E6 /* CreateEventViewController.swift */; };
+		5A06554C1C87518900F3FEC9 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */; };
+		5A0655501C88364D00F3FEC9 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A06554F1C88364D00F3FEC9 /* CustomCollectionViewCell.xib */; };
 		5A253D1F1C7EF5D80022A44E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A253D1E1C7EF5D80022A44E /* Media.xcassets */; };
 		5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */; };
 		5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */; };
@@ -61,6 +63,8 @@
 		5A04AE081C79FCF6009BD4E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A04AE141C7B5331009BD4E6 /* AuthorizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizeViewController.swift; sourceTree = "<group>"; };
 		5A04AE161C7C52FB009BD4E6 /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
+		5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
+		5A06554F1C88364D00F3FEC9 /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
 		5A253D1E1C7EF5D80022A44E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsListViewController.swift; sourceTree = "<group>"; };
 		5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */,
 				5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */,
 				5AD720F51C85C16100FF1A05 /* GeoPointView.xib */,
+				5A06554F1C88364D00F3FEC9 /* CustomCollectionViewCell.xib */,
+				5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */,
 			);
 			path = HereAndNow;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A04ADF11C79FCF6009BD4E6 /* LaunchScreen.storyboard in Resources */,
+				5A0655501C88364D00F3FEC9 /* CustomCollectionViewCell.xib in Resources */,
 				5A04ADEE1C79FCF6009BD4E6 /* Assets.xcassets in Resources */,
 				5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */,
 				5A253D1F1C7EF5D80022A44E /* Media.xcassets in Resources */,
@@ -365,6 +372,7 @@
 				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
 				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
 				5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */,
+				5A06554C1C87518900F3FEC9 /* CustomCollectionView.swift in Sources */,
 				5AD720F21C85A8AD00FF1A05 /* SearchEventsViewController.swift in Sources */,
 				5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */,
 				5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */,

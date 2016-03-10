@@ -3,17 +3,66 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomCollectionView" customModule="HereAndNow" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="CuQ-Jw-lIb">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="CuQ-Jw-lIb" customClass="CustomCollectionViewCell" customModule="HereAndNow" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="300" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-TU-RAl">
+                    <rect key="frame" x="100" y="8" width="192" height="69"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyK-fm-WIW">
+                    <rect key="frame" x="100" y="77" width="192" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="blg-ES-Fcu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-9z-Zdd">
+                    <rect key="frame" x="8" y="8" width="84" height="84"/>
+                    <color key="backgroundColor" red="0.91204245679999996" green="0.8269385118" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="u1a-9z-Zdd" secondAttribute="height" multiplier="1:1" id="dTy-07-lI7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                            <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="u1a-9z-Zdd" firstAttribute="leading" secondItem="CuQ-Jw-lIb" secondAttribute="leading" constant="8" id="4jQ-Ek-kjC"/>
+                <constraint firstItem="DNp-TU-RAl" firstAttribute="top" secondItem="CuQ-Jw-lIb" secondAttribute="top" constant="8" id="5AQ-2f-6gl"/>
+                <constraint firstAttribute="trailing" secondItem="nyK-fm-WIW" secondAttribute="trailing" constant="8" id="H8i-DT-L39"/>
+                <constraint firstAttribute="bottom" secondItem="nyK-fm-WIW" secondAttribute="bottom" constant="8" id="M86-5P-yjH"/>
+                <constraint firstAttribute="bottom" secondItem="u1a-9z-Zdd" secondAttribute="bottom" constant="8" id="k0P-aq-llJ"/>
+                <constraint firstItem="DNp-TU-RAl" firstAttribute="leading" secondItem="u1a-9z-Zdd" secondAttribute="trailing" constant="8" id="ntG-Fu-7MG"/>
+                <constraint firstItem="nyK-fm-WIW" firstAttribute="leading" secondItem="u1a-9z-Zdd" secondAttribute="trailing" constant="8" id="puB-o2-pq9"/>
+                <constraint firstItem="u1a-9z-Zdd" firstAttribute="top" secondItem="CuQ-Jw-lIb" secondAttribute="top" constant="8" id="w9x-Ob-z2q"/>
+                <constraint firstAttribute="trailing" secondItem="DNp-TU-RAl" secondAttribute="trailing" constant="8" id="wJh-7f-oac"/>
+                <constraint firstAttribute="bottom" secondItem="DNp-TU-RAl" secondAttribute="bottom" constant="23" id="xB4-BD-pAx"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="distanceTitle" destination="nyK-fm-WIW" id="tCG-3Y-RRd"/>
+                <outlet property="image" destination="u1a-9z-Zdd" id="fT3-1O-wpk"/>
+                <outlet property="title" destination="DNp-TU-RAl" id="8f5-qP-rD2"/>
                 <outletCollection property="gestureRecognizers" destination="ah7-nW-0gH" appends="YES" id="kts-UL-Vfe"/>
             </connections>
             <point key="canvasLocation" x="354" y="299"/>

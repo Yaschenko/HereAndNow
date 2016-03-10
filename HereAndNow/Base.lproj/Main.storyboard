@@ -145,10 +145,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IdH-mT-rFX" customClass="CustomCollectionView" customModule="HereAndNow" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="430" width="600" height="170"/>
+                                <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="0.3127639358108108" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="j2b-ax-FzK"/>
+                                    <constraint firstAttribute="height" constant="80" id="j2b-ax-FzK"/>
                                 </constraints>
                             </view>
                         </subviews>

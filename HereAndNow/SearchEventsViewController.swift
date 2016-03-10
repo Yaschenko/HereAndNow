@@ -25,7 +25,7 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate {
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.collectionView.setSubviewsFrames()
+        self.collectionView.prepareSubviews()
         self.generatePoints(20)
     }
 
@@ -54,7 +54,8 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate {
             Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
                 print(collection.data)
                 self.data = collection.data as! [GeoPoint]
-                
+                self.collectionView.data = collection.data as! [GeoPoint]
+                self.collectionView.reloadData()
                 }) { (fault:Fault!) -> Void in
                     
             }

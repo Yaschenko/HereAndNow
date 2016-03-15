@@ -28,7 +28,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     @IBAction func easyFacebookLogin() {
         
-        Backendless.sharedInstance().userService.easyLoginWithFacebookFieldsMapping(["email":"email"], permissions: ["email"],
+        Backendless.sharedInstance().userService.easyLoginWithFacebookFieldsMapping(["email":"email", "name":"name"], permissions: ["email", "name"],
             response: {(result : NSNumber!) -> () in
                 print ("Result: \(result)")
                 if self.getMainViewController() != nil {

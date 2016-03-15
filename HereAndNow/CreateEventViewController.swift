@@ -119,8 +119,9 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             return
         }
         let userId:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
+        let userName:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
         Backendless.sharedInstance().fileService.upload("profile/\(userId)", content: UIImageJPEGRepresentation(self.profileImage!, 1), response: { (file:BackendlessFile!) -> Void in
-            let point:GeoPoint! = GeoPoint(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), categories: ["geo"], metadata: ["user_id":userId, "public":"1", "imageUrl":file.fileURL, "message":self.textView.text])
+            let point:GeoPoint! = GeoPoint(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), categories: ["geo"], metadata: ["user_id":userId, "public":"1", "imageUrl":file.fileURL, "message":self.textView.text, "userName":userName])
             Backendless.sharedInstance().geoService.savePoint(point, response: { (point:GeoPoint!) -> Void in
 
                 }, error: { (fault:Fault!) -> Void in

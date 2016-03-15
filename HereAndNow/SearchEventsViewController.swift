@@ -7,13 +7,14 @@
 //
 
 import UIKit
-class SearchEventsViewController: UIViewController, GeoPointDelegate {
+class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomCollectionViewActionProtocol {
     var point:GeoPointView?
     @IBOutlet weak var collectionView:CustomCollectionView!
     var data:[GeoPoint] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData()
+        self.collectionView.collectionViewDelegate = self
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(animated: Bool) {
@@ -48,7 +49,8 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate {
     
     func updateData() {
         if self.getMainViewController()!.locationManager!.location != nil {
-            let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10000, units:KILOMETERS, categories: ["geoservice_sample"])
+            print(self.getMainViewController()!.locationManager!.location?.coordinate)
+            let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: /*self.getMainViewController()!.locationManager!.location!.coordinate.latitude*/51.51, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10000, units:KILOMETERS, categories: ["geo"])
             query.includeMeta(true)
             query.pageSize(20)
             Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
@@ -76,5 +78,8 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate {
         }
         self.point = point
         self.point!.startAnimation(true)
+    }
+    func collectionView(collectionView: CustomCollectionView!, actionInCell cell: CustomCollectionViewCell, index:Int) {
+        print(index)
     }
 }

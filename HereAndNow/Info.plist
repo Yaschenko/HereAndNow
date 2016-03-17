@@ -18,22 +18,8 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>backendlessFABF5EEF-5E7A-A6DE-FF33-52704CC23600</string>
-				<string>fb1672137846389202</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>1672137846389202</string>
-	<key>FacebookDisplayName</key>
-	<string>HereAndNow</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -59,5 +45,25 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb714559375314209</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>714559375314209</string>
+	<key>FacebookDisplayName</key>
+	<string>Here&amp;Now</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+</array>
 </dict>
 </plist>

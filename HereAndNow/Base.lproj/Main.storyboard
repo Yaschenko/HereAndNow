@@ -208,7 +208,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cKh-2C-v0b">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cKh-2C-v0b">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="rab-sy-BjW">
                                     <size key="itemSize" width="320" height="568"/>
@@ -258,6 +258,28 @@
                                     <outlet property="delegate" destination="ioB-od-TvL" id="YrU-Vo-Ohg"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnY-ya-f1s">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R3R-Vw-Uh6">
+                                        <rect key="frame" x="0.0" y="48" width="320" height="320"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="R3R-Vw-Uh6" secondAttribute="height" multiplier="1:1" id="75N-et-dQx"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="R3R-Vw-Uh6" secondAttribute="trailing" id="Anc-TJ-itq"/>
+                                    <constraint firstItem="R3R-Vw-Uh6" firstAttribute="leading" secondItem="dnY-ya-f1s" secondAttribute="leading" id="X5T-Ti-YEO"/>
+                                    <constraint firstItem="R3R-Vw-Uh6" firstAttribute="top" secondItem="dnY-ya-f1s" secondAttribute="top" constant="48" id="gz2-0V-AnJ"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="wcd-kY-1d0" appends="YES" id="JrS-y5-wA6"/>
+                                    <outletCollection property="gestureRecognizers" destination="Twh-6B-6kv" appends="YES" id="I7W-vM-yxp"/>
+                                </connections>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWV-0w-9QA">
                                 <rect key="frame" x="56" y="518" width="208" height="30"/>
                                 <constraints>
@@ -273,11 +295,15 @@
                         <constraints>
                             <constraint firstItem="cKh-2C-v0b" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leading" id="9ly-8Q-CDW"/>
                             <constraint firstItem="cKh-2C-v0b" firstAttribute="top" secondItem="STL-Xb-PYA" secondAttribute="bottom" constant="-20" id="L1B-Ib-hKr"/>
+                            <constraint firstItem="dnY-ya-f1s" firstAttribute="top" secondItem="STL-Xb-PYA" secondAttribute="bottom" constant="-20" id="Yez-w5-6bl"/>
                             <constraint firstItem="JML-Ek-n6Z" firstAttribute="top" secondItem="kWV-0w-9QA" secondAttribute="bottom" constant="20" id="ZNm-pf-HRu"/>
                             <constraint firstItem="kWV-0w-9QA" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leadingMargin" constant="40" id="cVq-ts-Zyx"/>
+                            <constraint firstItem="JML-Ek-n6Z" firstAttribute="top" secondItem="dnY-ya-f1s" secondAttribute="bottom" id="d0y-L1-hom"/>
+                            <constraint firstItem="dnY-ya-f1s" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leading" id="d5w-zm-bkp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kWV-0w-9QA" secondAttribute="trailing" constant="40" id="hBV-se-QKi"/>
                             <constraint firstItem="JML-Ek-n6Z" firstAttribute="top" secondItem="cKh-2C-v0b" secondAttribute="bottom" id="jsK-ea-G92"/>
                             <constraint firstAttribute="trailing" secondItem="cKh-2C-v0b" secondAttribute="trailing" id="lTA-CY-ebq"/>
+                            <constraint firstAttribute="trailing" secondItem="dnY-ya-f1s" secondAttribute="trailing" id="pJR-ge-9Up"/>
                             <constraint firstItem="cKh-2C-v0b" firstAttribute="top" secondItem="Q06-Mx-NtO" secondAttribute="top" id="tmF-a5-Gll"/>
                         </constraints>
                         <variation key="default">
@@ -287,8 +313,21 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="F9Z-w8-hZw"/>
+                    <connections>
+                        <outlet property="animationImageView" destination="R3R-Vw-Uh6" id="WwX-js-Ed5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rv3-td-46M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="wcd-kY-1d0" userLabel="Right">
+                    <connections>
+                        <action selector="swipeRight:" destination="ioB-od-TvL" id="X1m-pC-1zH"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="Twh-6B-6kv" userLabel="Left">
+                    <connections>
+                        <action selector="swipeLeft:" destination="ioB-od-TvL" id="oK6-eB-ACT"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="36" y="-315"/>
         </scene>

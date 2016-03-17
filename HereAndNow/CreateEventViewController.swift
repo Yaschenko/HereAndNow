@@ -105,31 +105,31 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func createPoint() {
         return self.createEventSuccess()
         
-        if self.getMainViewController()!.locationManager!.location == nil {
-            UIAlertView(title: "Error", message: "Some problems with Your location.", delegate: nil, cancelButtonTitle: "Done").show()
-            return
-        }
-        if self.textView.text.characters.count == 0 {
-            UIAlertView(title: "Error", message: "Your message is empty. Fill \"Your message\" field please.", delegate: nil, cancelButtonTitle: "Done").show()
-            
-            return
-        }
-        if self.profileImage == nil {
-            UIAlertView(title: "Error", message: "Your profile image is empty.", delegate: nil, cancelButtonTitle: "Done").show()
-            return
-        }
-        let userId:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
-        let userName:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
-        Backendless.sharedInstance().fileService.upload("profile/\(userId)", content: UIImageJPEGRepresentation(self.profileImage!, 1), response: { (file:BackendlessFile!) -> Void in
-            let point:GeoPoint! = GeoPoint(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), categories: ["geo"], metadata: ["user_id":userId, "public":"1", "imageUrl":file.fileURL, "message":self.textView.text, "userName":userName])
-            Backendless.sharedInstance().geoService.savePoint(point, response: { (point:GeoPoint!) -> Void in
-
-                }, error: { (fault:Fault!) -> Void in
-                    
-            })
-            }) { (fault:Fault!) -> Void in
-                
-        }
+//        if self.getMainViewController()!.locationManager!.location == nil {
+//            UIAlertView(title: "Error", message: "Some problems with Your location.", delegate: nil, cancelButtonTitle: "Done").show()
+//            return
+//        }
+//        if self.textView.text.characters.count == 0 {
+//            UIAlertView(title: "Error", message: "Your message is empty. Fill \"Your message\" field please.", delegate: nil, cancelButtonTitle: "Done").show()
+//            
+//            return
+//        }
+//        if self.profileImage == nil {
+//            UIAlertView(title: "Error", message: "Your profile image is empty.", delegate: nil, cancelButtonTitle: "Done").show()
+//            return
+//        }
+//        let userId:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
+//        let userName:String! = Backendless.sharedInstance().userService.currentUser.getProperty("objectId") as! String
+//        Backendless.sharedInstance().fileService.upload("profile/\(userId)", content: UIImageJPEGRepresentation(self.profileImage!, 1), response: { (file:BackendlessFile!) -> Void in
+//            let point:GeoPoint! = GeoPoint(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), categories: ["geo"], metadata: ["user_id":userId, "public":"1", "imageUrl":file.fileURL, "message":self.textView.text, "userName":userName])
+//            Backendless.sharedInstance().geoService.savePoint(point, response: { (point:GeoPoint!) -> Void in
+//
+//                }, error: { (fault:Fault!) -> Void in
+//                    
+//            })
+//            }) { (fault:Fault!) -> Void in
+//                
+//        }
         
     }
     func updateFlexibleConstraints() {

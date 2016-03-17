@@ -15,7 +15,7 @@ class BarTableViewCell: UITableViewCell {
 class BarsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView:UITableView!
-    var data:[GeoPoint] = []
+    var data:[AnyObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,9 +37,9 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:BarTableViewCell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as! BarTableViewCell
-        let point:GeoPoint = self.data[indexPath.row]
-        cell.barTitle.text = point.metadata["city"] as? String
-        cell.barDistance.text = String(point.distance.floatValue)
+//        let point:GeoPoint = self.data[indexPath.row]
+//        cell.barTitle.text = point.metadata["city"] as? String
+//        cell.barDistance.text = String(point.distance.floatValue)
         return cell
     }
     /*
@@ -52,18 +52,18 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     */
     func updateData() {
-        if self.getMainViewController()!.locationManager!.location != nil {
-        let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10, units:KILOMETERS, categories: ["geoservice_sample"])
-            query.includeMeta(true)
-            query.pageSize(20)
-            Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
-                print(collection.data)
-                self.data = collection.data as! [GeoPoint]
-                self.tableView.reloadData()
-                }) { (fault:Fault!) -> Void in
-                    
-            }
-        }
+//        if self.getMainViewController()!.locationManager!.location != nil {
+//        let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: self.getMainViewController()!.locationManager!.location!.coordinate.latitude, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10, units:KILOMETERS, categories: ["geoservice_sample"])
+//            query.includeMeta(true)
+//            query.pageSize(20)
+//            Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
+//                print(collection.data)
+//                self.data = collection.data as! [GeoPoint]
+//                self.tableView.reloadData()
+//                }) { (fault:Fault!) -> Void in
+//                    
+//            }
+//        }
     }
     
 }

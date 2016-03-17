@@ -10,7 +10,7 @@ import UIKit
 class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomCollectionViewActionProtocol {
     var point:GeoPointView?
     @IBOutlet weak var collectionView:CustomCollectionView!
-    var data:[GeoPoint] = []
+    var data:[AnyObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData()
@@ -48,20 +48,20 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
     }
     
     func updateData() {
-        if self.getMainViewController()!.locationManager!.location != nil {
-            print(self.getMainViewController()!.locationManager!.location?.coordinate)
-            let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: /*self.getMainViewController()!.locationManager!.location!.coordinate.latitude*/51.51, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10000, units:KILOMETERS, categories: ["geo"])
-            query.includeMeta(true)
-            query.pageSize(20)
-            Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
-                print(collection.data)
-                self.data = collection.data as! [GeoPoint]
-                self.collectionView.data = collection.data as! [GeoPoint]
-                self.collectionView.reloadData()
-                }) { (fault:Fault!) -> Void in
-                    
-            }
-        }
+//        if self.getMainViewController()!.locationManager!.location != nil {
+//            print(self.getMainViewController()!.locationManager!.location?.coordinate)
+//            let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: /*self.getMainViewController()!.locationManager!.location!.coordinate.latitude*/51.51, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10000, units:KILOMETERS, categories: ["geo"])
+//            query.includeMeta(true)
+//            query.pageSize(20)
+//            Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
+//                print(collection.data)
+//                self.data = collection.data as! [GeoPoint]
+//                self.collectionView.data = collection.data as! [GeoPoint]
+//                self.collectionView.reloadData()
+//                }) { (fault:Fault!) -> Void in
+//                    
+//            }
+//        }
     }
     /*
     // MARK: - Navigation

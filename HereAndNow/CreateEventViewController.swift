@@ -8,7 +8,7 @@
 
 import UIKit
 import MobileCoreServices
-
+import CoreLocation
 class CreateEventViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     @IBOutlet weak var profileImageView:UIImageView!
@@ -26,6 +26,8 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     var profileImage:UIImage? = nil
     let maxLettersCount:Int! = 100
     var keyboarHeight:CGFloat! = 0.0
+    var location:CLLocation?
+    var didShowLocationError:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getMainViewController()!.updateMyLocation()
@@ -39,13 +41,25 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+//    func checkLocation(timer:NSTimer?) {
+//        guard let location = self.getMainViewController()?.locationManager?.location else {
+//            if didShowLocationError == false {
+//                LocalNotificationManager.showError("We cannot get Your location.", inViewController: self, completion: { () -> Void in
+//                
+//                })
+//                didShowLocationError = true
+//            }
+//            self.transitionView.hidden = true
+//            return
+//        }
+//        self.transitionView.hidden = false
+//        self.location = location
+//        timer?.invalidate()
+//    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.getMainViewController()?.locationManager?.location == nil {
-            LocalNotificationManager.showError("We cannot get Your location.", inViewController: self, completion: { () -> Void in
-                
-            })
-        }
+//        self.checkLocation(nil)
+//        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "checkLocation:", userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -112,33 +126,48 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             })
             return
         }
-//        guard let image = self.profileImage else {
-//            LocalNotificationManager.showError("Your profile image is empty.", inViewController: self, completion: { () -> Void in
-//                
-//            })
-//            return
-//        }
-
-        let event = Event()
-        event.latitude = 40;
-        event.longitude = 50;
-        event.photo = "https://www.petfinder.com/wp-content/uploads/2012/11/140272627-grooming-needs-senior-cat-632x475.jpg"
-        event.eventDescription = self.textView.text
-        event.uploadEvent { (success, result) -> Void in
-            
+        guard let image = self.profileImage else {
+            LocalNotificationManager.showError("Your profile image is empty.", inViewController: self, completion: { () -> Void in
+                
+            })
+            return
         }
-        /*
         guard let location = self.getMainViewController()?.locationManager?.location else {
             LocalNotificationManager.showError("We cannot get Your location.", inViewController: self, completion: { () -> Void in
                 
             })
             return
         }
-        */
-//        FileUploadTask().uploadUIIMage(image) { (success, result) -> Void in
-//            print(result)
-//        }
-        
+        self.transitionView.hidden = true
+        FileUploadTask().uploadUIIMage(image) { (success, result) -> Void in
+            guard success == true else {
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    LocalNotificationManager.showError(result, inViewController: self, completion: { () -> Void in
+                        
+                    })
+                    self.transitionView.hidden = false
+                })
+                return
+            }
+            let event = Event()
+            event.latitude = location.coordinate.latitude
+            event.longitude = location.coordinate.longitude
+            event.photo = result
+//            "https://herenowstorage.s3-us-west-2.amazonaws.com/uploads/event/photo/74/size_128x128_quisesseat.png"
+            event.eventDescription = self.textView.text
+            event.uploadEvent { (success, result) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.transitionView.hidden = false
+                    if success == false {
+                        LocalNotificationManager.showError(result, inViewController: self, completion: { () -> Void in
+                            
+                        })
+                    } else {
+                        self.createEventSuccess()
+                    }
+                })
+            }
+        }
     }
     func updateFlexibleConstraints() {
         if self.keyboarHeight > 0 {

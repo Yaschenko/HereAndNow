@@ -60,6 +60,9 @@ class FileUploadTask: NSObject {
                 return
             } else {
                 callback(success: true, result: url)
+                if contentType == "image/jpeg" {
+                    ImageDownloadModel.sharedInstance.setCashe(url, fileUrl: NSURL(fileURLWithPath: path))
+                }
             }
         }
         self.task!.resume()

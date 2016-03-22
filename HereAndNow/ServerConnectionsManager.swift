@@ -34,7 +34,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
 //                if json?.valueForKey("message") != nil {result = false}
                 if json?.valueForKey("errors") != nil {
                     result = false
-                    json = ["error":json?.valueForKey("errors") as! String]
+                    json = ["error":json?.valueForKey("errors")?.firstObject as! String]
                 }
                 if callback != nil{
                     callback!(result: result, json: json)

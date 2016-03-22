@@ -43,7 +43,7 @@ class CustomCollectionView: UIView {
     var width:CGFloat = 0
     let widthK:CGFloat = 0.9
     let distanceK:CGFloat = 0.8
-    var data:[AnyObject] = []
+    var data:[Event] = []
     var currentIndex:Int! = 0
     weak var collectionViewDelegate:CustomCollectionViewActionProtocol?
     /*
@@ -124,23 +124,30 @@ class CustomCollectionView: UIView {
         }
         print(self.currentIndex)
     }
-    func setData(data:AnyObject!, cell:CustomCollectionViewCell!) {
-//        cell.image.image = UIImage(named:"profile-icon")
-//        cell.distanceTitle.text = data.distance.description
-//        cell.title.text = data.metadata.valueForKey("userName") as? String
-//        cell.cellTag = data.metadata.valueForKey("imageUrl") as! String
-//        NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: cell.cellTag)!) { (data, response, error) -> Void in
-//            if let errorV = error {
-//                print(errorV)
-//            } else if let dataV = data {
-//                if cell.cellTag == response!.URL?.absoluteString {
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        cell.image.image = UIImage(data: dataV)
-//                    })
-//                }
-//            }
-//
-//        }.resume()
+    func setData(data:Event!, cell:CustomCollectionViewCell!) {
+        cell.image.image = nil
+        cell.distanceTitle.text = String(format: "%0.3f", data.distance)
+        cell.title.text = data.title
+        cell.cellTag = data.photo
+        if let url = data.photo {
+            print(url)
+            ImageDownloadModel().downloadImage(url) { (file, error) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let _ = error {
+                        
+                    } else if let path = file {
+                        if cell.cellTag == data.photo {
+                            guard let data = NSData(contentsOfURL:path) else {
+                                print("no data")
+                                return
+                            }
+                            cell.image.image = UIImage(data: data)
+                        }
+                    }
+                })
+            }
+
+        }
     }
     func reloadVisibleCells() {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in

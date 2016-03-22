@@ -9,11 +9,12 @@
 import UIKit
 class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomCollectionViewActionProtocol {
     var point:GeoPointView?
+    var eventsModel:EventModel?
     @IBOutlet weak var collectionView:CustomCollectionView!
     var data:[AnyObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateData()
+        self.createEventModel()
         self.collectionView.collectionViewDelegate = self
         // Do any additional setup after loading the view.
     }
@@ -47,21 +48,26 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         point.prepareView()
     }
     
+    func createEventModel() {
+        var longitude:Double = 0
+        var latitude:Double = 0
+        if let location = self.getMainViewController()?.locationManager?.location {
+            longitude = location.coordinate.longitude
+            latitude = location.coordinate.latitude
+        } else if let event = Event.myEvent{
+            longitude = event.longitude!
+            latitude = event.latitude!
+        }
+        self.eventsModel = EventModel(longitude: longitude, latitude: latitude)
+        self.updateData()
+    }
+    
     func updateData() {
-//        if self.getMainViewController()!.locationManager!.location != nil {
-//            print(self.getMainViewController()!.locationManager!.location?.coordinate)
-//            let query:BackendlessGeoQuery! = BackendlessGeoQuery(point: GEO_POINT(latitude: /*self.getMainViewController()!.locationManager!.location!.coordinate.latitude*/51.51, longitude: self.getMainViewController()!.locationManager!.location!.coordinate.longitude), radius:10000, units:KILOMETERS, categories: ["geo"])
-//            query.includeMeta(true)
-//            query.pageSize(20)
-//            Backendless.sharedInstance().geoService.getPoints(query, response: { (collection:BackendlessCollection!) -> Void in
-//                print(collection.data)
-//                self.data = collection.data as! [GeoPoint]
-//                self.collectionView.data = collection.data as! [GeoPoint]
-//                self.collectionView.reloadData()
-//                }) { (fault:Fault!) -> Void in
-//                    
-//            }
-//        }
+        
+        self.eventsModel!.loadEvents { (result, data, error) -> Void in
+            self.collectionView.data = self.eventsModel!.data
+            self.collectionView.reloadData()
+        }
     }
     /*
     // MARK: - Navigation

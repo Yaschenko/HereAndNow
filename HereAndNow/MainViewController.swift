@@ -40,15 +40,29 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     @IBOutlet weak var tabBarHeight:NSLayoutConstraint!
     @IBOutlet weak var contentView:UIView!
     @IBOutlet weak var tabBarView:CustomTabbarView!
+    @IBOutlet weak var noLocationView:UIView!
+    var needDisplayViewController:UIViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let json = NSUserDefaults.standardUserDefaults().objectForKey("MyEvent") as? [String:String] {
+            if let event = Event.event(json) {
+                Event.myEvent = event
+            }
+        }
+        
+        
         self.setTabbarVisible(true, animation: false)
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
         
         self.updateMyLocation()
         if AuthorizationModel.sharedInstance.isAuthorized() {
-            self.showCreateEventViewController()
+            guard let _ = Event.myEvent else {
+                self.showCreateEventViewController()
+                return
+            }
+            self.showTabbarViewController()
+            
         } else {
             self.showAuthViewController()
         }
@@ -58,6 +72,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         return self.storyboard!.instantiateViewControllerWithIdentifier(indentifier)
     }
     func showAuthViewController() {
+        self.noLocationView.hidden = true
         self.authViewController = self.getViewController("AuthorizeNavigationViewController") as? UINavigationController
         if self.authViewController != nil {
             self.displayContentController(self.authViewController!)
@@ -81,6 +96,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {            self.updateMyLocation()
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.noLocationView.hidden = true
+        if let controller = self.needDisplayViewController {
+            self.needDisplayViewController = nil
+            self.displayContentController(controller)
+        }
         
     }
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -107,6 +127,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     func showCreateEventViewController() {
         self.hideAllControllers()
         self.contentViewController = self.getViewController("CreateEventNavigationViewController") as? UINavigationController
+        if self.locationManager?.location == nil {
+            self.noLocationView.hidden = false
+            self.needDisplayViewController = self.contentViewController
+            return
+        }
         self.displayContentController(self.contentViewController!)
     }
     
@@ -114,8 +139,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         self.hideAllControllers()
         self.contentViewController = self.getViewController("TabbarViewController") as? UITabBarController
         self.setTabbarVisible(false, animation: false)
-        self.displayContentController(self.contentViewController!)
         self.tabBarView.customTabbarDelegate = self
+        if self.locationManager?.location == nil {
+            self.noLocationView.hidden = false
+            self.needDisplayViewController = self.contentViewController
+            return
+        }
+        self.displayContentController(self.contentViewController!)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

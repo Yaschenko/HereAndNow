@@ -44,18 +44,19 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:BarTableViewCell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as! BarTableViewCell
         let point:Event = self.eventsModel!.data[indexPath.row]
-        cell.barTitle.text = point.eventDescription
-        cell.barDistance.text = String(point.distance)
+        cell.barTitle.text = point.title
+        cell.barDistance.text = String(format: "%0.3f", point.distance)
         cell.barImageView.tag = indexPath.row
         cell.barImageView.layer.cornerRadius = cell.barImageView.frame.height / 2
         cell.barImageView.layer.masksToBounds = true
-        
+        cell.barImageView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).CGColor
+        cell.barImageView.layer.borderWidth = 1
         if let url = point.photo {
             cell.barImageView.image = nil
-            NSURLSession.sharedSession().downloadTaskWithURL(NSURL(string: url)!, completionHandler: { (file, response, error) -> Void in
+            ImageDownloadModel().downloadImage(url, callback: { (file, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     if let err = error {
-                        LocalNotificationManager.showError(err.localizedDescription, inViewController: self, completion: { () -> Void in
+                        LocalNotificationManager.showError(err, inViewController: self, completion: { () -> Void in
                             
                         })
                         return
@@ -76,7 +77,7 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
                         print("not display")
                     }
                 })
-            }).resume()
+            })
         }
         return cell
     }
@@ -132,9 +133,6 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func createEventModel() {
         guard let location = self.getMainViewController()?.locationManager?.location else {
-//            LocalNotificationManager.showError("We cannot get Your location.", inViewController: self, completion: { () -> Void in
-//                
-//            })
             self.eventsModel = EventModel(longitude: 40, latitude: 40)
             self.eventsModel!.type = "1"
             self.refresh(nil)

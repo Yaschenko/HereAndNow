@@ -47,16 +47,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         self.locationManager!.delegate = self
         
         self.updateMyLocation()
-        
-//        Backendless.sharedInstance().userService.isValidUserToken({ (result:AnyObject!) -> Void in
-////            if (result as! Int) == 0 {
-//                self.showAuthViewController()
-////            } else {
-////                self.showCreateEventViewController()
-////            }
-//            }) { (fault:Fault!) -> Void in
-                self.showAuthViewController()
-//        }
+        if AuthorizationModel.sharedInstance.isAuthorized() {
+            self.showCreateEventViewController()
+        } else {
+            self.showAuthViewController()
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
     func getViewController(indentifier:String!) -> UIViewController {

@@ -43,4 +43,11 @@ class AuthorizationModel: NSObject {
         NSUserDefaults.standardUserDefaults().setValue(user["auth_token"], forKey: "auth_token")
         callback(token: user["auth_token"], errorString: nil)
     }
+    func isAuthorized() -> Bool {
+        if let _ = NSUserDefaults.standardUserDefaults().valueForKey("auth_token") {
+            return true
+        } else {
+            return false
+        }
+    }
 }

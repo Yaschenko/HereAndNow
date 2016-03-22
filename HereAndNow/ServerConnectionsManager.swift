@@ -12,7 +12,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
     lazy var urlSession : NSURLSession! = {return NSURLSession.sharedSession()//NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue:NSOperationQueue.mainQueue())
     }()
     
-    lazy var backgroundUrlSession : NSURLSession! = {return NSURLSession(configuration: NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("MyMoodBackgroundSession"), delegate: self, delegateQueue:NSOperationQueue.mainQueue())}()
+    lazy var backgroundUrlSession : NSURLSession! = {return NSURLSession(configuration: NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("HereAndNowBGSession"), delegate: self, delegateQueue:NSOperationQueue.mainQueue())}()
     
     init(server : String!) {
         self.serverUrlString = server
@@ -28,13 +28,21 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
                     json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
                 }
                 catch {
-                    json = nil
+                    json = ["error":"Some thing went wrong."]
                     result = false
                 }
-                if json?.valueForKey("message") != nil {result = false}
+//                if json?.valueForKey("message") != nil {result = false}
+                if json?.valueForKey("errors") != nil {
+                    result = false
+                    json = ["error":json?.valueForKey("errors") as! String]
+                }
                 if callback != nil{
                     callback!(result: result, json: json)
                 }
+            } else if let err = error {
+                callback!(result: false, json: ["error":err.localizedDescription])
+            } else {
+                callback!(result: false, json: ["error":"Some thing went wrong."])
             }
         })
         task.resume();
@@ -98,6 +106,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
         }
         self.sendRequest(urlRequest, callback: callback)
     }
+    
     func sendGetRequest(path path:String!, data:[String:String]?, callback:((result:Bool!, json:AnyObject?)->Void)?) {
         var requestUrl:String! = self.serverUrlString+path
 //        let urlRequest:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: requestUrl)!)
@@ -111,6 +120,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
             }
             requestUrl.appendContentsOf(httpData)
         }
+        print(requestUrl)
         let urlRequest:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: requestUrl)!)
         urlRequest.HTTPMethod = "GET"
         let token:String? = NSUserDefaults.standardUserDefaults().valueForKey("auth_token") as? String

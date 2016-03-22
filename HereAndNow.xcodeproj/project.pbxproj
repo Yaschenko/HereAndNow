@@ -852,6 +852,9 @@
 		5AB6405B1C9AE7E700F92533 /* ServerConnectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB6405A1C9AE7E700F92533 /* ServerConnectionsManager.swift */; };
 		5AB6405D1C9AF63100F92533 /* AuthorizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */; };
 		5AB6405F1C9B0F2D00F92533 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB6405E1C9B0F2D00F92533 /* LocalNotificationManager.swift */; };
+		5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB640601C9D9A6500F92533 /* EventModel.swift */; };
+		5AB640671C9FE46300F92533 /* FileUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB640661C9FE46300F92533 /* FileUploadTask.swift */; };
+		5AB6406B1CA08C6B00F92533 /* ImageDownloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB6406A1CA08C6B00F92533 /* ImageDownloadModel.swift */; };
 		5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */; };
 		5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */; };
 		5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */; };
@@ -1728,6 +1731,10 @@
 		5AB6405A1C9AE7E700F92533 /* ServerConnectionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerConnectionsManager.swift; sourceTree = "<group>"; };
 		5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationModel.swift; sourceTree = "<group>"; };
 		5AB6405E1C9B0F2D00F92533 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		5AB640601C9D9A6500F92533 /* EventModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		5AB640621C9DA58400F92533 /* HereAndNow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HereAndNow-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AB640661C9FE46300F92533 /* FileUploadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploadTask.swift; sourceTree = "<group>"; };
+		5AB6406A1CA08C6B00F92533 /* ImageDownloadModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloadModel.swift; sourceTree = "<group>"; };
 		5AD720E91C81D39700FF1A05 /* BarsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarsListViewController.swift; sourceTree = "<group>"; };
 		5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
 		5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointView.swift; sourceTree = "<group>"; };
@@ -1807,7 +1814,10 @@
 			children = (
 				5A0655511C988C6200F3FEC9 /* animation */,
 				5A04ADE31C79FCF6009BD4E6 /* AppDelegate.swift */,
+				5AB640661C9FE46300F92533 /* FileUploadTask.swift */,
+				5AB6406A1CA08C6B00F92533 /* ImageDownloadModel.swift */,
 				5AB6405A1C9AE7E700F92533 /* ServerConnectionsManager.swift */,
+				5AB640601C9D9A6500F92533 /* EventModel.swift */,
 				5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */,
 				5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */,
 				5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */,
@@ -1826,6 +1836,7 @@
 				5A06554F1C88364D00F3FEC9 /* CustomCollectionViewCell.xib */,
 				5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */,
 				5AB6405E1C9B0F2D00F92533 /* LocalNotificationManager.swift */,
+				5AB640621C9DA58400F92533 /* HereAndNow-Bridging-Header.h */,
 			);
 			path = HereAndNow;
 			sourceTree = "<group>";
@@ -2754,6 +2765,7 @@
 				TargetAttributes = {
 					5A04ADDF1C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 8UDWX3Z26Y;
 					};
 					5A04ADF61C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3700,7 +3712,9 @@
 				5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */,
 				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
 				5AB6405F1C9B0F2D00F92533 /* LocalNotificationManager.swift in Sources */,
+				5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */,
 				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
+				5AB640671C9FE46300F92533 /* FileUploadTask.swift in Sources */,
 				5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */,
 				5AB6405D1C9AF63100F92533 /* AuthorizationModel.swift in Sources */,
 				5A06554C1C87518900F3FEC9 /* CustomCollectionView.swift in Sources */,
@@ -3709,6 +3723,7 @@
 				5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */,
 				5AD720EA1C81D39700FF1A05 /* BarsListViewController.swift in Sources */,
 				5A04ADE41C79FCF6009BD4E6 /* AppDelegate.swift in Sources */,
+				5AB6406B1CA08C6B00F92533 /* ImageDownloadModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3851,10 +3866,14 @@
 			baseConfigurationReference = 0B7D6AA99160203EC5F4E1DC /* Pods-HereAndNow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HereAndNow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -3863,10 +3882,13 @@
 			baseConfigurationReference = B6FEC6B6A71E278F5CEE8AB3 /* Pods-HereAndNow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HereAndNow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 			};
 			name = Release;
 		};

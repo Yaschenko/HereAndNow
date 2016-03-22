@@ -4,10 +4,10 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'HereAndNow' do
-    #pod 'Backendless-ios-SDK'
     pod 'FBSDKLoginKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKCoreKit'
+    #    pod 'AWSS3'
 end
 
 target 'HereAndNowTests' do

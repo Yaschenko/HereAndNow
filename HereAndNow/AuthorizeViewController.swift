@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QuartzCore
 class IntroCell: UICollectionViewCell {
     @IBOutlet weak var backgraundImageView:UIImageView!
     @IBOutlet weak var textLabel:UILabel!
@@ -21,7 +21,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     let imagesForAnimation:[[Int]] = [[124, 150],[200, 360],[450, 570],[700, 780],[840, 951]]
     @IBOutlet weak var animationImageViewSuperView:UIView!
     var animationImageView:UIImageView?
-    
+    var swipeLayer:CALayer?
     var currentIndex:Int! = 0
     var directionRight:Bool = true
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
@@ -61,11 +61,44 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.startAnimationForCurrentIndex()
+        self.loginButton.layer.cornerRadius = 22
+        self.loginButton.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        let fontSize:CGFloat = 19+5
+        let colorTop = UIColor.clearColor().CGColor
+        let colorBottom = UIColor.whiteColor().CGColor
+        let gl = CAGradientLayer()
+        gl.colors = [ colorTop, colorBottom, colorTop]
+        gl.locations = [ 0.0, 0.5, 1]
+        gl.startPoint = CGPoint(x: 0, y: 0.5)
+        gl.endPoint = CGPoint(x: 1, y: 0.5)
+        gl.frame = CGRect(x: 0, y: 0, width: fontSize, height: fontSize)
+        let parentLayer:CALayer = CALayer()
+        parentLayer.frame = CGRect(x: 0 ,y: self.view.bounds.height - fontSize - 30 ,width: self.view.bounds.width,height: fontSize)
+        let textLayer = CATextLayer()
+        textLayer.frame = CGRect(x: 0,y: 0,width: self.view.bounds.width,height: fontSize)
+        textLayer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0).CGColor
+        textLayer.foregroundColor = UIColor.blackColor().CGColor
+        textLayer.string = "Swipe Left"
+        textLayer.fontSize = fontSize-5
+        textLayer.font = CGFontCreateWithFontName("HelveticaNeue-Light")
+        textLayer.alignmentMode = kCAAlignmentCenter
+        parentLayer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
+        parentLayer.addSublayer(gl)
+        parentLayer.mask = textLayer
+        let anim:CABasicAnimation = CABasicAnimation()
+        anim.keyPath = "position"
+        anim.fromValue = NSValue(CGPoint: CGPoint(x: self.view.bounds.width, y: gl.position.y))
+        anim.toValue = NSValue(CGPoint: CGPoint(x: 0, y: gl.position.y))
+        anim.repeatCount = Float.infinity
+        anim.duration = 2
+        gl.addAnimation(anim, forKey: nil)
+        self.view.layer.addSublayer(parentLayer)
+        self.swipeLayer = parentLayer
+        self.startAnimationForCurrentIndex()
     }
     func createImageView(index:Int) {
         if self.animationImageView != nil {
@@ -83,6 +116,9 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     func startAnimationForCurrentIndex() {
+        if let layer = self.swipeLayer {
+            layer.hidden = (self.currentIndex == 4)
+        }
         self.loginButton.hidden = (self.currentIndex != 4)
         var start:Int
         var stop:Int
@@ -103,6 +139,9 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         
         if isAnimating {
             return
+        }
+        if let layer = self.swipeLayer {
+            layer.hidden = true
         }
         print("anim start")
         isAnimating = true

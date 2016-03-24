@@ -11,6 +11,13 @@ class BarTableViewCell: UITableViewCell {
     @IBOutlet weak var barImageView:UIImageView!
     @IBOutlet weak var barTitle:UILabel!
     @IBOutlet weak var barDistance:UILabel!
+    weak var delegate:BarsListViewController?
+    @IBAction func showMore() {
+        guard let d = self.delegate else {
+            return
+        }
+        d.showMore(self)
+    }
 }
 class BarsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var isLoading:Bool = false
@@ -43,6 +50,7 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:BarTableViewCell = tableView.dequeueReusableCellWithIdentifier("BarCell", forIndexPath: indexPath) as! BarTableViewCell
+        cell.delegate = self
         let point:Event = self.eventsModel!.data[indexPath.row]
         cell.barTitle.text = point.title
         cell.barDistance.text = String(format: "%0.3f", point.distance)
@@ -130,7 +138,9 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
             })
         }
     }
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
     func createEventModel() {
         guard let location = self.getMainViewController()?.locationManager?.location else {
             self.eventsModel = EventModel(longitude: 40, latitude: 40)
@@ -142,5 +152,14 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
         self.eventsModel!.type = "advertisement"
         self.refresh(nil)
     }
-    
+    func showMore(cell:BarTableViewCell) {
+        let VC:DetailEventViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailPublicEventViewController") as! DetailEventViewController
+        guard let index = self.tableView.indexPathForCell(cell)?.row else {
+            return
+        }
+        if self.eventsModel!.data.count > index {
+            VC.event = self.eventsModel!.data[index]
+            self.displayModalController(VC)
+        }
+    }
 }

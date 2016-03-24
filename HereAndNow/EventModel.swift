@@ -23,6 +23,7 @@ class Event: NSObject {
     var userName:String?
     var userEmail:String?
     var userPhone:String?
+    var userFB:String?
     
     var title:String?
     var thumb:String?
@@ -91,23 +92,28 @@ class Event: NSObject {
                 if let v = self.userEmail {
                     user["email"] = v
                 } else {
-                    user["email"] = ""
+//                    user["email"] = ""
                 }
                 if let v = self.userName {
                     user["name"] = v
                 } else {
-                    user["name"] = ""
+//                    user["name"] = ""
                 }
                 if let v = self.userPhone {
                     user["phone"] = v
                 } else {
-                    user["phone"] = ""
+//                    user["phone"] = ""
+                }
+                if let v = self.userFB {
+                    user["fb_profile_url"] = v
                 }
                 user["id"] = "\(self.userId)"
                 json["user"] = user
                 
             } else {
-                json["user"] = "\(self.userId)"
+                let user:NSMutableDictionary = NSMutableDictionary()
+                user["id"] = "\(self.userId)"
+                json["user"] = user
             }
         }
         return json
@@ -166,12 +172,13 @@ class Event: NSObject {
             self.userEmail = (json.valueForKey("user")?.valueForKey("email") as? String)
             self.userName = (json.valueForKey("user")?.valueForKey("name") as? String)
             self.userPhone = (json.valueForKey("user")?.valueForKey("phone") as? String)
+            self.userFB = (json.valueForKey("user")?.valueForKey("fb_profile_url") as? String)
             
         } else {
             self.isPublic = false
-            if let userId = json.valueForKey("user") as? String{
+            if let userId = json.valueForKey("user")?.valueForKey("id") as? String{
                 self.userId = Int(userId)!
-            } else if let userId = json.valueForKey("user") {
+            } else if let userId = json.valueForKey("user")?.valueForKey("id") {
                 self.userId = userId as! Int
             } else {
                 return false

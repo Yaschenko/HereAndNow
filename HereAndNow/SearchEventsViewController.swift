@@ -91,6 +91,5 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
             VC.event = collectionView.data[index]
             self.displayModalController(VC)
         }
-        
     }
 }

@@ -22,7 +22,7 @@ extension UIViewController {
             self.parentViewController!.displayFullScreenModalController(content)
         }
     }
-    func hideFullScreenModalController() {
+    @IBAction func hideFullScreenModalController() {
         if self.parentViewController != nil {
             self.parentViewController!.hideFullScreenModalController()
         }
@@ -37,7 +37,7 @@ extension UIViewController {
             self.parentViewController!.displayModalController(content)
         }
     }
-    func hideModalController() {
+    @IBAction func hideModalController() {
         if self.parentViewController != nil {
             self.parentViewController!.hideModalController()
         }
@@ -53,6 +53,7 @@ extension UIViewController {
     }
 }
 class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTabbarViewDelegate {
+    let animationDurationForModalView:NSTimeInterval = 0.4
     let tabBarViewHeight:CGFloat = 44.0
     var locationManager:CLLocationManager? = nil
     var authViewController:UINavigationController?
@@ -66,9 +67,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     var needDisplayViewController:UIViewController?
     var modalController:UIViewController?
     var fullScreenModalViewController:UIViewController?
-    
+    @IBOutlet weak var fullScreenModalViewPositionY:NSLayoutConstraint!
+    @IBOutlet weak var modalViewPositionY:NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addBlurView(toView:self.fullScreenModalViewContainer)
         self.modalViewContainer.layer.cornerRadius = 5
         self.modalViewContainer.layer.masksToBounds = true
         if let json = NSUserDefaults.standardUserDefaults().objectForKey("MyEvent") as? NSDictionary {
@@ -93,7 +96,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         } else {
             self.showAuthViewController()
         }
-        self.addBlurView(toView:self.fullScreenModalViewContainer)
         // Do any additional setup after loading the view, typically from a nib.
     }
     func addBlurView(toView view:UIView) {
@@ -224,17 +226,31 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         content.view.frame = self.modalViewContainer.bounds
         self.modalViewContainer.addSubview(content.view)
         content.didMoveToParentViewController(self);
+        
+        modalViewPositionY.constant = -self.view.bounds.height
         self.modalViewContainer.superview!.hidden = false
+        self.view.layoutIfNeeded()
+        modalViewPositionY.constant = 0
+        UIView.animateWithDuration(self.animationDurationForModalView, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (result) -> Void in
+                
+        }
     }
     override func hideModalController() {
         guard let content = self.modalController else {
             return
         }
         self.modalController = nil
-        content.willMoveToParentViewController(nil)
-        content.view.removeFromSuperview()
-        content.removeFromParentViewController()
-        self.modalViewContainer.superview!.hidden = true
+        modalViewPositionY.constant = -self.view.bounds.height
+        UIView.animateWithDuration(self.animationDurationForModalView, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (result) -> Void in
+                self.modalViewContainer.superview!.hidden = true
+                content.willMoveToParentViewController(nil)
+                content.view.removeFromSuperview()
+                content.removeFromParentViewController()
+        }
     }
     override func displayFullScreenModalController(content:UIViewController) {
         if self.fullScreenModalViewController != nil {
@@ -245,17 +261,30 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         content.view.frame = self.fullScreenModalViewContainer.bounds
         self.fullScreenModalViewContainer.addSubview(content.view)
         content.didMoveToParentViewController(self);
+        fullScreenModalViewPositionY.constant = -self.view.bounds.height
         self.fullScreenModalViewContainer!.hidden = false
+        self.view.layoutIfNeeded()
+        fullScreenModalViewPositionY.constant = 0
+        UIView.animateWithDuration(self.animationDurationForModalView, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (result) -> Void in
+                
+        }
     }
     override func hideFullScreenModalController() {
         guard let content = self.fullScreenModalViewController else {
             return
         }
         self.fullScreenModalViewController = nil
-        content.willMoveToParentViewController(nil)
-        content.view.removeFromSuperview()
-        content.removeFromParentViewController()
-        self.fullScreenModalViewContainer.hidden = true
+        fullScreenModalViewPositionY.constant = -self.view.bounds.height
+        UIView.animateWithDuration(self.animationDurationForModalView, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (result) -> Void in
+                self.fullScreenModalViewContainer.hidden = true
+                content.willMoveToParentViewController(nil)
+                content.view.removeFromSuperview()
+                content.removeFromParentViewController()
+        }
     }
 }
 

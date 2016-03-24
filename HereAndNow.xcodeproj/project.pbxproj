@@ -2771,7 +2771,6 @@
 				TargetAttributes = {
 					5A04ADDF1C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 8UDWX3Z26Y;
 					};
 					5A04ADF61C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3875,11 +3874,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Illya Deyneko (X6R4G9JQVK)";
 				INFOPLIST_FILE = HereAndNow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e39e138c-3f95-41a1-9397-fb2f84833311";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3891,11 +3891,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Illya Deyneko (X6R4G9JQVK)";
 				INFOPLIST_FILE = HereAndNow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e39e138c-3f95-41a1-9397-fb2f84833311";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 			};
 			name = Release;

@@ -140,5 +140,5 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
             }
         }.resume()
     }
-    static let sharedInstance = ServerConnectionsManager(server: "http://54.191.93.88/api/v1/")
+    static let sharedInstance = ServerConnectionsManager(server: "http://swampoff.com/api/v1/")
 }

@@ -59,7 +59,12 @@ class DetailEventViewController: UIViewController {
         self.hideModalController()
     }
     @IBAction func showContactas() {
-        
+        let VC:ContactsViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ContactsViewController") as! ContactsViewController
+        guard let e = self.event else {
+            return
+        }
+        VC.event = e
+        self.displayFullScreenModalController(VC)
     }
     @IBAction func sendRequest() {
         

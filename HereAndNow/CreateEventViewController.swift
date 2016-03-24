@@ -23,6 +23,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var takeSelfieButton:UIButton!
     @IBOutlet weak var barsListView:UIView!
     @IBOutlet weak var transitionView:UIView!
+    @IBOutlet weak var waitingView:UIView!
     var profileImage:UIImage? = nil
     let maxLettersCount:Int! = 100
     var keyboarHeight:CGFloat! = 0.0
@@ -138,14 +139,14 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             })
             return
         }
-        self.transitionView.hidden = true
+        self.waitingView.hidden = false
         FileUploadTask().uploadUIIMage(image) { (success, result) -> Void in
             guard success == true else {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     LocalNotificationManager.showError(result, inViewController: self, completion: { () -> Void in
                         
                     })
-                    self.transitionView.hidden = false
+                    self.waitingView.hidden = true
                 })
                 return
             }
@@ -157,7 +158,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             event.eventDescription = self.textView.text
             event.uploadEvent { (success, result) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.transitionView.hidden = false
+                    self.waitingView.hidden = true
                     if success == false {
                         LocalNotificationManager.showError(result, inViewController: self, completion: { () -> Void in
                             

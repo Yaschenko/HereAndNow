@@ -22,7 +22,7 @@ class ImageDownloadModel: NSObject {
                 return
             }
             if let tempData = NSData(contentsOfURL: path) {
-                let fileName:String = NSTemporaryDirectory()+String(format: "%0.0f.png", NSDate().timeIntervalSince1970)
+                let fileName:String = NSTemporaryDirectory()+String(format: "%f.png", NSDate().timeIntervalSince1970)
                 if tempData.writeToFile(fileName, atomically: true) {
                     self.setCashe(url, fileUrl: NSURL(fileURLWithPath: fileName))
                 }

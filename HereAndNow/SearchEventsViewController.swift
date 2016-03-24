@@ -86,6 +86,11 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         self.point!.startAnimation(true)
     }
     func collectionView(collectionView: CustomCollectionView!, actionInCell cell: CustomCollectionViewCell, index:Int) {
-        print(index)
+        let VC:DetailEventViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailPublicEventViewController") as! DetailEventViewController
+        if collectionView.data.count > index {
+            VC.event = collectionView.data[index]
+            self.displayModalController(VC)
+        }
+        
     }
 }

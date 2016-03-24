@@ -860,6 +860,8 @@
 		5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */; };
 		5AD720F21C85A8AD00FF1A05 /* SearchEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */; };
 		5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD720F51C85C16100FF1A05 /* GeoPointView.xib */; };
+		5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */; };
+		5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1740,6 +1742,8 @@
 		5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointView.swift; sourceTree = "<group>"; };
 		5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEventsViewController.swift; sourceTree = "<group>"; };
 		5AD720F51C85C16100FF1A05 /* GeoPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPointView.xib; sourceTree = "<group>"; };
+		5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEventViewController.swift; sourceTree = "<group>"; };
+		5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		6755625A4352281BB10864E8 /* Pods_HereAndNow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndNow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FEC6B6A71E278F5CEE8AB3 /* Pods-HereAndNow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndNow.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndNow/Pods-HereAndNow.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1815,12 +1819,14 @@
 				5A0655511C988C6200F3FEC9 /* animation */,
 				5A04ADE31C79FCF6009BD4E6 /* AppDelegate.swift */,
 				5AB640661C9FE46300F92533 /* FileUploadTask.swift */,
+				5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */,
 				5AB6406A1CA08C6B00F92533 /* ImageDownloadModel.swift */,
 				5AB6405A1C9AE7E700F92533 /* ServerConnectionsManager.swift */,
 				5AB640601C9D9A6500F92533 /* EventModel.swift */,
 				5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */,
 				5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */,
 				5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */,
+				5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */,
 				5A04ADED1C79FCF6009BD4E6 /* Assets.xcassets */,
 				5A04ADEF1C79FCF6009BD4E6 /* LaunchScreen.storyboard */,
 				5A04ADF21C79FCF6009BD4E6 /* Info.plist */,
@@ -3712,6 +3718,8 @@
 				5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */,
 				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
 				5AB6405F1C9B0F2D00F92533 /* LocalNotificationManager.swift in Sources */,
+				5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */,
+				5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */,
 				5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */,
 				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
 				5AB640671C9FE46300F92533 /* FileUploadTask.swift in Sources */,

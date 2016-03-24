@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class Event: NSObject {
 
     static var myEvent:Event? = nil
@@ -17,10 +18,17 @@ class Event: NSObject {
     var latitude:Double? = nil
     var photo:String?
     var video:String?
+    
     var userId:Int = 0
+    var userName:String?
+    var userEmail:String?
+    var userPhone:String?
+    
     var title:String?
+    var thumb:String?
+    var isPublic:Bool = true
     func uploadEvent(callback:(success:Bool!, result:String?)->Void) {
-        ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json()) { (result, json) -> Void in
+        ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json(false) as? [String:String]) { (result, json) -> Void in
             guard result == true else {
                 let error = json!["error"] as! String
                 callback(success: false, result: error)
@@ -29,7 +37,7 @@ class Event: NSObject {
             
             self.setValuesFromJson(json as! NSDictionary)
             Event.myEvent = self
-            NSUserDefaults.standardUserDefaults().setObject(self.json(), forKey: "MyEvent")
+            NSUserDefaults.standardUserDefaults().setObject(self.json(true), forKey: "MyEvent")
             NSUserDefaults.standardUserDefaults().synchronize()
             callback(success: true, result: "Done")
         }
@@ -47,11 +55,11 @@ class Event: NSObject {
         }
         return true
     }
-    func json()->[String:String]? {
+    func json(includeUser:Bool)->NSDictionary? {
         if !self.checkEvent() {
             return nil
         }
-        var json:[String:String] = [String:String]()
+        let json:NSMutableDictionary = NSMutableDictionary()
         json["photo"] = self.photo!
         json["longitude"] = "\(self.longitude!)"
         json["latitude"] = "\(self.latitude!)"
@@ -60,16 +68,48 @@ class Event: NSObject {
         }
         if let v = self.video {
             json["video"] = v
+        } else {
+            json["video"] = ""
         }
-        json["user_id"] = "\(self.userId)"
         json["distance"] = "\(self.distance)"
         json["id"] = "\(self.id)"
-        if let v = self.video {
+
+        if let v = self.thumb {
+            json["photo_128x128"] = v
+        } else {
+            json["photo_128x128"] = ""
+        }
+        if let v = self.title {
             json["title"] = v
         } else {
             json["title"] = ""
         }
-//        json["title"] = "sadasd"
+        json["public"] = "\(self.isPublic)"
+        if includeUser == true {
+            if self.isPublic == true {
+                let user:NSMutableDictionary = NSMutableDictionary()
+                if let v = self.userEmail {
+                    user["email"] = v
+                } else {
+                    user["email"] = ""
+                }
+                if let v = self.userName {
+                    user["name"] = v
+                } else {
+                    user["name"] = ""
+                }
+                if let v = self.userPhone {
+                    user["phone"] = v
+                } else {
+                    user["phone"] = ""
+                }
+                user["id"] = "\(self.userId)"
+                json["user"] = user
+                
+            } else {
+                json["user"] = "\(self.userId)"
+            }
+        }
         return json
         
     }
@@ -111,17 +151,35 @@ class Event: NSObject {
         } else {
             return false
         }
-        
-        if let userId = json.valueForKey("user_id") as? String{
-            self.userId = Int(userId)!
-        } else if let userId = json.valueForKey("user_id") {
-            self.userId = userId as! Int
-        } else {
+        guard let isPublicObj = json.valueForKey("public") else {
             return false
         }
-        
-        
+        if isPublicObj.boolValue == true {
+            self.isPublic = true
+            if let userId = json.valueForKey("user")?.valueForKey("id") as? String{
+                self.userId = Int(userId)!
+            } else if let userId = json.valueForKey("user")?.valueForKey("id") {
+                self.userId = userId as! Int
+            } else {
+                return false
+            }
+            self.userEmail = (json.valueForKey("user")?.valueForKey("email") as? String)
+            self.userName = (json.valueForKey("user")?.valueForKey("name") as? String)
+            self.userPhone = (json.valueForKey("user")?.valueForKey("phone") as? String)
+            
+        } else {
+            self.isPublic = false
+            if let userId = json.valueForKey("user") as? String{
+                self.userId = Int(userId)!
+            } else if let userId = json.valueForKey("user") {
+                self.userId = userId as! Int
+            } else {
+                return false
+            }
+        }
+
         self.photo = (json.valueForKey("photo") as? String)
+        self.thumb = (json.valueForKey("photo_128x128") as? String)
         return true
     }
     static func event(json:NSDictionary) -> Event? {

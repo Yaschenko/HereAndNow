@@ -17,6 +17,7 @@ class CustomCollectionViewCell: UIView {
     @IBOutlet weak var button:UIButton!
     @IBOutlet weak var delegate:CustomCollectionView!
     @IBOutlet weak var backgroundImage:UIImageView!
+    @IBOutlet weak var distanceImage:UIImageView!
     var cellTag:String! = ""
     override func layoutSubviews() {
         let offset:CGFloat = 0.1 * self.frame.height
@@ -126,17 +127,17 @@ class CustomCollectionView: UIView {
     }
     func setData(data:Event!, cell:CustomCollectionViewCell!) {
         cell.image.image = nil
-        cell.distanceTitle.text = String(format: "%0.3f", data.distance)
+        cell.distanceTitle.text = String(format: "%0.0f m", data.distance)
         cell.title.text = data.title
-        cell.cellTag = data.photo
-        if let url = data.photo {
+        cell.cellTag = data.thumb
+        if let url = data.thumb {
             print(url)
             ImageDownloadModel().downloadImage(url) { (file, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     if let _ = error {
                         
                     } else if let path = file {
-                        if cell.cellTag == data.photo {
+                        if cell.cellTag == data.thumb {
                             guard let data = NSData(contentsOfURL:path) else {
                                 print("no data")
                                 return

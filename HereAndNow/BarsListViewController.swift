@@ -51,7 +51,7 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.barImageView.layer.masksToBounds = true
         cell.barImageView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).CGColor
         cell.barImageView.layer.borderWidth = 1
-        if let url = point.photo {
+        if let url = point.thumb {
             cell.barImageView.image = nil
             ImageDownloadModel().downloadImage(url, callback: { (file, error) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in

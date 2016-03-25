@@ -28,6 +28,8 @@ class Event: NSObject {
     var title:String?
     var thumb:String?
     var isPublic:Bool = true
+    var createDate:NSDate = NSDate()
+    
     func uploadEvent(callback:(success:Bool!, result:String?)->Void) {
         ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json(false) as? [String:String]) { (result, json) -> Void in
             guard result == true else {
@@ -61,6 +63,7 @@ class Event: NSObject {
             return nil
         }
         let json:NSMutableDictionary = NSMutableDictionary()
+        
         json["photo"] = self.photo!
         json["longitude"] = "\(self.longitude!)"
         json["latitude"] = "\(self.latitude!)"
@@ -87,6 +90,9 @@ class Event: NSObject {
         }
         json["public"] = "\(self.isPublic)"
         if includeUser == true {
+            
+            json["createDate"] = self.createDate
+            
             if self.isPublic == true {
                 let user:NSMutableDictionary = NSMutableDictionary()
                 if let v = self.userEmail {
@@ -133,6 +139,12 @@ class Event: NSObject {
             return false
         }
         self.title = t as? String
+        
+        if let c = json.valueForKey("createDate") as? NSDate {
+            self.createDate = c
+        } else {
+            self.createDate = NSDate()
+        }
         
         if let latitude = json.valueForKey("latitude") as? String{
             self.latitude = Double(latitude)!
@@ -206,7 +218,7 @@ class EventModel: NSObject {
     var page:Int = 0
     var totalObjects:Int = Int.max
     var data:[Event] = []
-    var type:String = "common"
+    var type:String = "0"
     init(longitude:Double, latitude:Double) {
         self.longitude = longitude
         self.latitude = latitude

@@ -149,7 +149,7 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         self.eventsModel = EventModel(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
-        self.eventsModel!.type = "advertisement"
+        self.eventsModel!.type = "1"
         self.refresh(nil)
     }
     func showMore(cell:BarTableViewCell) {

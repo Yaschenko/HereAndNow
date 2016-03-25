@@ -60,14 +60,20 @@
                 <outlet property="image" destination="RjO-RY-FUU" id="oP4-q9-eLs"/>
                 <outlet property="title" destination="tw0-Fn-Gw9" id="Tf0-nQ-0s6"/>
                 <outletCollection property="gestureRecognizers" destination="x4Y-vw-Ro3" appends="YES" id="bfu-gS-4eu"/>
+                <outletCollection property="gestureRecognizers" destination="pIx-Nk-z4a" appends="YES" id="vx2-PQ-2BL"/>
             </connections>
             <point key="canvasLocation" x="340" y="260"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="x4Y-vw-Ro3">
+        <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" id="x4Y-vw-Ro3">
             <connections>
                 <action selector="panView:" destination="-1" id="7SM-M3-egf"/>
             </connections>
         </panGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="pIx-Nk-z4a">
+            <connections>
+                <action selector="swipeView:" destination="-1" id="tsY-mC-TFy"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="card" width="435" height="180"/>

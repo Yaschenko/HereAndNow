@@ -46,6 +46,7 @@ class CustomCollectionView: UIView {
     let distanceK:CGFloat = 0.8
     var data:[Event] = []
     var currentIndex:Int! = 0
+    var isSwipeLeft:Bool = false
     weak var collectionViewDelegate:CustomCollectionViewActionProtocol?
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -87,18 +88,24 @@ class CustomCollectionView: UIView {
             self.addSubview(self.thirdView!)
             self.addSubview(self.secondView!)
             self.addSubview(self.firstView!)
+            let swipe:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeView:")
+            swipe.direction = UISwipeGestureRecognizerDirection.Left
+            self.addGestureRecognizer(swipe)
         }
         self.setSubviewsBGColor()
         self.width = self.frame.width * self.widthK
         self.setSubviewsFrames()
     }
     func startAnimation() {
-
         let height:CGFloat = self.frame.height - 30
         let delta:CGFloat = fabs(self.center.x - self.firstView!.center.x)/((self.frame.width + self.width)/2.0)
-        if delta > 0.5 {
+        if delta > 0.5 || self.isSwipeLeft {
             self.currentIndex = self.currentIndex + 1
-            let animationTime : Double = Double(0.3 * delta)
+            var animationTime : Double = Double(0.3 * delta)
+            if self.isSwipeLeft {
+                animationTime = 0.4
+            }
+            self.isSwipeLeft = false
             UIView.animateWithDuration(animationTime, animations: { () -> Void in
                 self.firstView!.center.x = -1 - self.firstView!.frame.width / 2
                 self.secondView!.frame = CGRect(x:(self.frame.width - self.width) / 2.0, y: 25, width: self.width, height: height)
@@ -156,10 +163,16 @@ class CustomCollectionView: UIView {
                 self.setData(self.data[self.currentIndex], cell: self.firstView!)
             }
             if self.data.count > self.currentIndex + 1 {
+                self.secondView!.hidden = false
                 self.setData(self.data[self.currentIndex + 1], cell: self.secondView!)
+            } else {
+                self.secondView!.hidden = true
             }
             if self.data.count > self.currentIndex + 2 {
+                self.thirdView!.hidden = false
                 self.setData(self.data[self.currentIndex + 2], cell: self.thirdView!)
+            } else {
+                self.thirdView!.hidden = true
             }
         }
     }
@@ -174,6 +187,17 @@ class CustomCollectionView: UIView {
         self.firstView = self.secondView
         self.secondView = self.thirdView
         self.thirdView = tempVar
+
+        if self.data.count > self.currentIndex + 1 {
+            self.secondView!.hidden = false
+        } else {
+            self.secondView!.hidden = true
+        }
+        if self.data.count > self.currentIndex + 2 {
+            self.thirdView!.hidden = false
+        } else {
+            self.thirdView!.hidden = true
+        }
     }
     func getValue(min:CGFloat, max:CGFloat, percent:CGFloat) -> CGFloat {
         return min + (max - min) * percent
@@ -229,6 +253,15 @@ class CustomCollectionView: UIView {
     
     @IBAction func swipeView(recognizer:UISwipeGestureRecognizer) {
         
+        guard self.currentIndex + 1 < self.data.count else {
+            return
+        }
+        self.isSwipeLeft = true
+//        var center:CGPoint = self.firstView!.center
+//        center.x = self.center.x - 0.3 * (self.frame.width + self.width)
+//        self.firstView!.center = center
+//        self.updateSubviews()
+        self.startAnimation()
     }
     
     func reloadData() {

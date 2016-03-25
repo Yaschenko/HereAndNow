@@ -862,6 +862,7 @@
 		5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD720F51C85C16100FF1A05 /* GeoPointView.xib */; };
 		5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */; };
 		5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */; };
+		5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5031CA510D900EB5ADC /* RequestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1744,6 +1745,7 @@
 		5AD720F51C85C16100FF1A05 /* GeoPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPointView.xib; sourceTree = "<group>"; };
 		5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEventViewController.swift; sourceTree = "<group>"; };
 		5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		5AFAA5031CA510D900EB5ADC /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 		6755625A4352281BB10864E8 /* Pods_HereAndNow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndNow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FEC6B6A71E278F5CEE8AB3 /* Pods-HereAndNow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndNow.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndNow/Pods-HereAndNow.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1823,6 +1825,7 @@
 				5AB6406A1CA08C6B00F92533 /* ImageDownloadModel.swift */,
 				5AB6405A1C9AE7E700F92533 /* ServerConnectionsManager.swift */,
 				5AB640601C9D9A6500F92533 /* EventModel.swift */,
+				5AFAA5031CA510D900EB5ADC /* RequestModel.swift */,
 				5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */,
 				5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */,
 				5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */,
@@ -2771,6 +2774,7 @@
 				TargetAttributes = {
 					5A04ADDF1C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = X6R4G9JQVK;
 					};
 					5A04ADF61C79FCF6009BD4E6 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3717,6 +3721,7 @@
 				5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */,
 				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
 				5AB6405F1C9B0F2D00F92533 /* LocalNotificationManager.swift in Sources */,
+				5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */,
 				5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */,
 				5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */,
 				5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */,
@@ -3874,12 +3879,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Illya Deyneko (X6R4G9JQVK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Illya Deyneko (XNC8WJK56D)";
 				INFOPLIST_FILE = HereAndNow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e39e138c-3f95-41a1-9397-fb2f84833311";
+				PROVISIONING_PROFILE = "b680097e-9f73-44e9-b22c-061ad50b9271";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};

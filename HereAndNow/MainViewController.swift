@@ -43,6 +43,9 @@ extension UIViewController {
         }
     }
     func getMainViewController() -> MainViewController? {
+        if MainViewController.instance != nil {
+            return MainViewController.instance
+        }
         if self.isKindOfClass(MainViewController) {
             return self as? MainViewController
         } else if self.parentViewController != nil {
@@ -53,6 +56,8 @@ extension UIViewController {
     }
 }
 class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTabbarViewDelegate {
+    static var instance:MainViewController?
+    let livePeriod:NSTimeInterval = 2000
     let animationDurationForModalView:NSTimeInterval = 0.4
     let tabBarViewHeight:CGFloat = 44.0
     var locationManager:CLLocationManager? = nil
@@ -69,17 +74,30 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     var fullScreenModalViewController:UIViewController?
     @IBOutlet weak var fullScreenModalViewPositionY:NSLayoutConstraint!
     @IBOutlet weak var modalViewPositionY:NSLayoutConstraint!
+    func checkEvent(timer:NSTimer?) {
+        if let event = Event.myEvent {
+            if NSDate().timeIntervalSinceDate(event.createDate) > livePeriod {
+                self.setTabbarVisible(true, animation: false)
+                Event.myEvent = nil
+                if AuthorizationModel.sharedInstance.isAuthorized() {
+                    self.showCreateEventViewController()
+                }
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        MainViewController.instance = self
         self.addBlurView(toView:self.fullScreenModalViewContainer)
         self.modalViewContainer.layer.cornerRadius = 5
         self.modalViewContainer.layer.masksToBounds = true
         if let json = NSUserDefaults.standardUserDefaults().objectForKey("MyEvent") as? NSDictionary {
             if let event = Event.event(json) {
-                Event.myEvent = event
+                if NSDate().timeIntervalSinceDate(event.createDate) < livePeriod {
+                    Event.myEvent = event
+                }
             }
         }
-        
         
         self.setTabbarVisible(true, animation: false)
         self.locationManager = CLLocationManager()
@@ -96,6 +114,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         } else {
             self.showAuthViewController()
         }
+        NSTimer.scheduledTimerWithTimeInterval(100, target: self, selector: "checkEvent:", userInfo: nil, repeats: true)
         // Do any additional setup after loading the view, typically from a nib.
     }
     func addBlurView(toView view:UIView) {
@@ -138,7 +157,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         content.view.removeFromSuperview()
         content.removeFromParentViewController()
     }
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {            self.updateMyLocation()
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        self.updateMyLocation()
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.noLocationView.hidden = true

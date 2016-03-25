@@ -65,8 +65,13 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         self.loginButton.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.createSwipeLayer()
+        self.startAnimationForCurrentIndex()
+    }
+    func createSwipeLayer() {
         let fontSize:CGFloat = 19+5
         let colorTop = UIColor.clearColor().CGColor
         let colorBottom = UIColor.whiteColor().CGColor
@@ -98,7 +103,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         gl.addAnimation(anim, forKey: nil)
         self.view.layer.addSublayer(parentLayer)
         self.swipeLayer = parentLayer
-        self.startAnimationForCurrentIndex()
+
     }
     func createImageView(index:Int) {
         if self.animationImageView != nil {
@@ -199,7 +204,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell:IntroCell = collectionView.dequeueReusableCellWithReuseIdentifier("IntroCell", forIndexPath: indexPath) as! IntroCell
-        cell.textLabel.text = String(indexPath.row)
+//        cell.textLabel.text = String(indexPath.row)
         return cell
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

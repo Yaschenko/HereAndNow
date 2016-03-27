@@ -67,7 +67,21 @@ class DetailEventViewController: UIViewController {
         self.displayFullScreenModalController(VC)
     }
     @IBAction func sendRequest() {
-        
+        if let e = self.event {
+            e.sendRequest({ (success, result) -> Void in
+                if success == true {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.hide()
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        LocalNotificationManager.showError(result, inViewController: self, completion: { () -> Void in
+                            
+                        })
+                    })
+                }
+            })
+        }
     }
     @IBAction func showMap() {
         guard let e = self.event else {

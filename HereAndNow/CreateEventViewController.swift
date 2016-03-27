@@ -154,7 +154,6 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             event.latitude = location.coordinate.latitude
             event.longitude = location.coordinate.longitude
             event.photo = result
-//            "https://herenowstorage.s3-us-west-2.amazonaws.com/uploads/event/photo/74/size_128x128_quisesseat.png"
             event.eventDescription = self.textView.text
             event.uploadEvent { (success, result) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in

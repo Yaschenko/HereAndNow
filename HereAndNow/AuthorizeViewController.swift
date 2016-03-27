@@ -17,7 +17,7 @@ class IntroCell: UICollectionViewCell {
 class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var loginButton:UIButton!
     var isAnimating:Bool = false
-    let frameDuration:Double = 0.04
+    let frameDuration:Double = 0.03
     let imagesForAnimation:[[Int]] = [[124, 150],[200, 360],[450, 570],[700, 780],[840, 951]]
     @IBOutlet weak var animationImageViewSuperView:UIView!
     var animationImageView:UIImageView?

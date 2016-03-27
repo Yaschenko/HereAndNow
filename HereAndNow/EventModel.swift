@@ -29,7 +29,9 @@ class Event: NSObject {
     var thumb:String?
     var isPublic:Bool = true
     var createDate:NSDate = NSDate()
-    
+    func sendRequest(callback:(success:Bool!, result:String?)->Void) {
+        RequestModel().createRequest(self, callback: callback)
+    }
     func uploadEvent(callback:(success:Bool!, result:String?)->Void) {
         ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json(false) as? [String:String]) { (result, json) -> Void in
             guard result == true else {
@@ -218,7 +220,7 @@ class EventModel: NSObject {
     var page:Int = 0
     var totalObjects:Int = Int.max
     var data:[Event] = []
-    var type:String = "0"
+    var type:String = "1"
     init(longitude:Double, latitude:Double) {
         self.longitude = longitude
         self.latitude = latitude

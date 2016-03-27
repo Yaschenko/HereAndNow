@@ -101,10 +101,10 @@
             </objects>
             <point key="canvasLocation" x="-676" y="-2389"/>
         </scene>
-        <!--View Controller-->
+        <!--Requests View Controller-->
         <scene sceneID="Nyq-NS-bLZ">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="745-wJ-Gaw" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="745-wJ-Gaw" customClass="RequestsViewController" customModule="HereAndNow" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rMB-uA-B5P"/>
                         <viewControllerLayoutGuide type="bottom" id="Qh7-vz-rJd"/>

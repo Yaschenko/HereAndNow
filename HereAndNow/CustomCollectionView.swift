@@ -9,6 +9,7 @@
 import UIKit
 protocol CustomCollectionViewActionProtocol:NSObjectProtocol {
     func collectionView(collectionView:CustomCollectionView!, actionInCell cell:CustomCollectionViewCell, index:Int)
+    func collectionView(collectionView:CustomCollectionView!, showCellAtIndex index:Int)
 }
 class CustomCollectionViewCell: UIView {
     @IBOutlet weak var image:UIImageView!
@@ -173,6 +174,9 @@ class CustomCollectionView: UIView {
                 self.setData(self.data[self.currentIndex + 2], cell: self.thirdView!)
             } else {
                 self.thirdView!.hidden = true
+            }
+            if let delegate = self.collectionViewDelegate {
+                delegate.collectionView(self, showCellAtIndex: self.currentIndex)
             }
         }
     }

@@ -863,6 +863,7 @@
 		5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */; };
 		5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */; };
 		5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5031CA510D900EB5ADC /* RequestModel.swift */; };
+		5AFAA5451CA8254C00EB5ADC /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5441CA8254C00EB5ADC /* RequestsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1746,6 +1747,7 @@
 		5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEventViewController.swift; sourceTree = "<group>"; };
 		5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		5AFAA5031CA510D900EB5ADC /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
+		5AFAA5441CA8254C00EB5ADC /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		6755625A4352281BB10864E8 /* Pods_HereAndNow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HereAndNow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FEC6B6A71E278F5CEE8AB3 /* Pods-HereAndNow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HereAndNow.release.xcconfig"; path = "Pods/Target Support Files/Pods-HereAndNow/Pods-HereAndNow.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1829,6 +1831,7 @@
 				5AB6405C1C9AF63100F92533 /* AuthorizationModel.swift */,
 				5A04ADE51C79FCF6009BD4E6 /* MainViewController.swift */,
 				5A04ADE71C79FCF6009BD4E6 /* Main.storyboard */,
+				5AFAA5441CA8254C00EB5ADC /* RequestsViewController.swift */,
 				5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */,
 				5A04ADED1C79FCF6009BD4E6 /* Assets.xcassets */,
 				5A04ADEF1C79FCF6009BD4E6 /* LaunchScreen.storyboard */,
@@ -3727,6 +3730,7 @@
 				5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */,
 				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
 				5AB640671C9FE46300F92533 /* FileUploadTask.swift in Sources */,
+				5AFAA5451CA8254C00EB5ADC /* RequestsViewController.swift in Sources */,
 				5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */,
 				5AB6405D1C9AF63100F92533 /* AuthorizationModel.swift in Sources */,
 				5A06554C1C87518900F3FEC9 /* CustomCollectionView.swift in Sources */,

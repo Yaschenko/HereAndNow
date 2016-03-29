@@ -26,6 +26,11 @@ class Requst: NSObject {
             if self.event == nil {
                  return false
             }
+        } else if let e = json["from_event"] as? NSDictionary {
+            self.event = Event.event(e)
+            if self.event == nil {
+                return false
+            }
         }
         self.status = json.valueForKey("status") as? String
         return true
@@ -76,7 +81,29 @@ class RequestModel: NSObject {
             callback(success: true, result: array, error: nil)
         }
     }
-    func getRequestsForMyEvent(callback:(success:Bool!, result:String?)->Void) {
-        
+    func getRequestsForMyEvent(callback:(success:Bool!, result:[Requst]?, error:NSString?)->Void) {
+        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/requests", data: ["page": "\(page)"]) { (result, json) -> Void in
+            guard result == true else {
+                let error = json!["error"] as! String
+                callback(success: false, result:nil, error:error)
+                return
+            }
+            guard let requests = json?.valueForKey("requests") as? [NSDictionary] else {
+                callback(success: false, result: nil, error: "Something went wrong.")
+                return
+            }
+            var array:[Requst] = []
+            for request in requests {
+                let r = Requst()
+                
+                if r.setValuesFromJson(request, type: 0) {
+                    array.append(r)
+                }
+            }
+            self.totalObjects = json!.valueForKey("total_entries") as! Int
+            self.data += array
+            self.page = self.page + 1
+            callback(success: true, result: array, error: nil)
+        }
     }
 }

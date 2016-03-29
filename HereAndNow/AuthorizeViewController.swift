@@ -25,6 +25,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     var swipeLayer:CALayer?
     var currentIndex:Int! = 0
     var directionRight:Bool = true
+    let titlesData:[String] = ["Find new friends", "Connect", "Find new friends"]
     let textsData:[String] = ["Hey!\nYou are a part of SWAMPOFF now!\nMy name is Mr. Swampoff, nice to meet you.\nYou did the right thing.", "Here's the deal.\nYou have to pick an event around you within two hours.\nThey are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out)\nIt's not a chat. Make a call.\nEverything you're looking for is on the map.\nJoin your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward!\nI wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
         var images:[CGImageRef] = []

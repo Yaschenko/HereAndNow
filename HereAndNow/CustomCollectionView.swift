@@ -132,7 +132,9 @@ class CustomCollectionView: UIView {
                 self.setSubviewsFrames()
                 self.setSubviewsBGColor()
                 }, completion: { (result) -> Void in
-                    
+                    self.setSubviewsFrames()
+                    self.isMovingCell = false
+//                    self.finishAnimation()
             })
         }
         print(self.currentIndex)
@@ -207,6 +209,7 @@ class CustomCollectionView: UIView {
         } else {
             self.thirdView!.hidden = true
         }
+        self.isMovingCell = false
     }
     func getValue(min:CGFloat, max:CGFloat, percent:CGFloat) -> CGFloat {
         return min + (max - min) * percent
@@ -230,13 +233,14 @@ class CustomCollectionView: UIView {
         
     }
     @IBAction func panView(recognizer:UIPanGestureRecognizer) {
-        self.isMovingCell = true
         switch recognizer.state {
         case UIGestureRecognizerState.Began :
+            self.isMovingCell = true
             self.startPosition = recognizer.locationInView(self)
         case UIGestureRecognizerState.Ended, UIGestureRecognizerState.Cancelled, UIGestureRecognizerState.Failed :
             self.startAnimation()
         default:
+            self.isMovingCell = true
             var center:CGPoint = self.firstView!.center
             center.x -= self.startPosition!.x - recognizer.locationInView(self).x
             if center.x <= self.center.x {

@@ -78,8 +78,7 @@ class Event: NSObject {
             json["video"] = ""
         }
         json["distance"] = "\(self.distance)"
-        json["id"] = "\(self.id)"
-
+        
         if let v = self.thumb {
             json["photo_128x128"] = v
         } else {
@@ -92,7 +91,8 @@ class Event: NSObject {
         }
         json["public"] = "\(self.isPublic)"
         if includeUser == true {
-            
+            json["id"] = "\(self.id)"
+
             json["createDate"] = self.createDate
             
             if self.isPublic == true {
@@ -220,7 +220,7 @@ class EventModel: NSObject {
     var page:Int = 0
     var totalObjects:Int = Int.max
     var data:[Event] = []
-    var type:String = "1"
+    var type:String = "all"
     init(longitude:Double, latitude:Double) {
         self.longitude = longitude
         self.latitude = latitude
@@ -247,7 +247,11 @@ class EventModel: NSObject {
             callback(result: true, data: [], error: nil)
             return
         }
-        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/all", data: ["kind":type, "longitude":"\(self.longitude)", "latitude":"\(self.latitude)", "page": "\(page)", "range":"\(self.range)" ]) { (result, json) -> Void in
+        var arr:[String:String] = ["longitude":"\(self.longitude)", "latitude":"\(self.latitude)", "page": "\(page)", "range":"\(self.range)" ]
+        if self.type != "all" {
+            arr["kind"] = self.type
+        }
+        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/all", data: arr) { (result, json) -> Void in
             if !result {
                 let error = json!["error"] as! String
                 callback(result: false, data: nil, error: error)

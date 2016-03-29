@@ -12,17 +12,30 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
     var requestModel:RequestModel = RequestModel()
     var requestModelForMyEvents:RequestModel = RequestModel()
     @IBOutlet weak var tableView:UITableView!
+    @IBOutlet weak var titleLabel:UILabel!
+    @IBOutlet weak var requestedButton:UIButton!
+    @IBOutlet weak var confirmedButton:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.text = Event.myEvent?.title
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.requestModel.clearData()
+        self.requestModelForMyEvents.clearData()
+        
         self.requestModel.getRequestedEvents { (success, result, error) -> Void in
             dispatch_async(dispatch_get_main_queue(), { 
                 self.tableView.reloadData()
             })
-            
+            self.requestModelForMyEvents.getRequestsForMyEvent({ (success, result, error) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            })
         }
+
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -101,13 +114,14 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
         return view
     }
     func showMore(cell:BarTableViewCell) {
-//        let VC:DetailEventViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailPublicEventViewController") as! DetailEventViewController
-//        guard let index = self.tableView.indexPathForCell(cell)?.row else {
-//            return
-//        }
-//        if self.eventsModel!.data.count > index {
-//            VC.event = self.eventsModel!.data[index]
-//            self.displayModalController(VC)
-//        }
+        let VC:DetailEventViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailPublicEventViewController") as! DetailEventViewController
+        guard let indexPath = self.tableView.indexPathForCell(cell) else {
+            return
+        }
+        let model = (indexPath.section == 0) ? self.requestModel : self.requestModelForMyEvents
+        if model.data.count > indexPath.row {
+            VC.request = model.data[indexPath.row]
+            self.displayModalController(VC)
+        }
     }
 }

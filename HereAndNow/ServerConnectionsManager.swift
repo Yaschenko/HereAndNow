@@ -82,6 +82,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
         let token:String? = NSUserDefaults.standardUserDefaults().valueForKey("auth_token") as? String
         if token != nil {
             urlRequest.setValue("Token token=\"\(token!)\"", forHTTPHeaderField:"Authorization")
+            print("token = " + token!)
         }
         self.sendRequest(urlRequest, callback: callback)
     }
@@ -103,6 +104,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
         let token:String? = NSUserDefaults.standardUserDefaults().valueForKey("auth_token") as? String
         if token != nil {
             urlRequest.setValue("Token token=\"\(token!)\"", forHTTPHeaderField:"Authorization")
+            print("token = " + token!)
         }
         self.sendRequest(urlRequest, callback: callback)
     }
@@ -126,6 +128,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
         let token:String? = NSUserDefaults.standardUserDefaults().valueForKey("auth_token") as? String
         if token != nil {
             urlRequest.setValue("Token token=\"\(token!)\"", forHTTPHeaderField:"Authorization")
+            print("token = " + token!)
         }
         self.sendRequest(urlRequest, callback: callback)
     }

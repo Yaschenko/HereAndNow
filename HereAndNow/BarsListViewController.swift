@@ -11,7 +11,7 @@ class BarTableViewCell: UITableViewCell {
     @IBOutlet weak var barImageView:UIImageView!
     @IBOutlet weak var barTitle:UILabel!
     @IBOutlet weak var barDistance:UILabel!
-    weak var delegate:BarsListViewController?
+    weak var delegate:AnyObject?
     @IBAction func showMore() {
         guard let d = self.delegate else {
             return
@@ -27,7 +27,7 @@ class BarsListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(BarsListViewController.refresh(_:)), forControlEvents: .ValueChanged)
         self.tableView.addSubview(refreshControl)
         self.createEventModel()
     }

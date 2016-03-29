@@ -57,7 +57,7 @@ extension UIViewController {
 }
 class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTabbarViewDelegate {
     static var instance:MainViewController?
-    let livePeriod:NSTimeInterval = 2000
+    let livePeriod:NSTimeInterval = 2*60*60
     let animationDurationForModalView:NSTimeInterval = 0.4
     let tabBarViewHeight:CGFloat = 44.0
     var locationManager:CLLocationManager? = nil

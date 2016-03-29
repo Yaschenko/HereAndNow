@@ -3891,6 +3891,7 @@
 				PROVISIONING_PROFILE = "b680097e-9f73-44e9-b22c-061ad50b9271";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3907,6 +3908,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e39e138c-3f95-41a1-9397-fb2f84833311";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

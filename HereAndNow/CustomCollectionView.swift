@@ -48,6 +48,7 @@ class CustomCollectionView: UIView {
     var data:[Event] = []
     var currentIndex:Int! = 0
     var isSwipeLeft:Bool = false
+    var isMovingCell:Bool = false
     weak var collectionViewDelegate:CustomCollectionViewActionProtocol?
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -57,6 +58,9 @@ class CustomCollectionView: UIView {
     }
     */
     func actionInCell(cell:CustomCollectionViewCell!, sender:UIButton?) {
+        if self.isMovingCell == true {
+            return
+        }
         if let delegate = self.collectionViewDelegate {
             delegate.collectionView(self, actionInCell:cell, index: self.currentIndex)
         }
@@ -178,6 +182,7 @@ class CustomCollectionView: UIView {
             if let delegate = self.collectionViewDelegate {
                 delegate.collectionView(self, showCellAtIndex: self.currentIndex)
             }
+            self.isMovingCell = false
         }
     }
     func finishAnimation() {
@@ -225,6 +230,7 @@ class CustomCollectionView: UIView {
         
     }
     @IBAction func panView(recognizer:UIPanGestureRecognizer) {
+        self.isMovingCell = true
         switch recognizer.state {
         case UIGestureRecognizerState.Began :
             self.startPosition = recognizer.locationInView(self)
@@ -256,7 +262,7 @@ class CustomCollectionView: UIView {
     }
     
     @IBAction func swipeView(recognizer:UISwipeGestureRecognizer) {
-        
+        self.isMovingCell = true
         guard self.currentIndex + 1 < self.data.count else {
             return
         }

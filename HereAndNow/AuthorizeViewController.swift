@@ -15,6 +15,7 @@ class IntroCell: UICollectionViewCell {
     @IBOutlet weak var imageView:UIImageView!
 }
 class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var collectionView:UICollectionView!
     @IBOutlet weak var loginButton:UIButton!
     var isAnimating:Bool = false
     let frameDuration:Double = 0.03
@@ -24,6 +25,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     var swipeLayer:CALayer?
     var currentIndex:Int! = 0
     var directionRight:Bool = true
+    let textsData:[String] = ["Hey!\nYou are a part of SWAMPOFF now!\nMy name is Mr. Swampoff, nice to meet you.\nYou did the right thing.", "Here's the deal.\nYou have to pick an event around you within two hours.\nThey are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out)\nIt's not a chat. Make a call.\nEverything you're looking for is on the map.\nJoin your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward!\nI wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
         var images:[CGImageRef] = []
         if from < to {
@@ -33,7 +35,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
         } else {
-            for var i = from;i >= to; i-- {
+            for var i = from;i >= to; i -= 1 {
                 if i%2 == 0 {
                     images.append(self.loadImage(i).CGImage!)
                 }
@@ -48,7 +50,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
                 images.append(self.loadImage(i))
             }
         } else {
-            for var i = from;i >= to; i-- {
+            for var i = from;i >= to; i -= 1 {
                 images.append(self.loadImage(i))
             }
         }
@@ -141,6 +143,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         isAnimating = false
     }
     func startAnimation() {
+        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: self.currentIndex, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         
         if isAnimating {
             return
@@ -204,7 +207,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell:IntroCell = collectionView.dequeueReusableCellWithReuseIdentifier("IntroCell", forIndexPath: indexPath) as! IntroCell
-//        cell.textLabel.text = String(indexPath.row)
+        cell.textLabel.text = self.textsData[indexPath.row]
         return cell
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

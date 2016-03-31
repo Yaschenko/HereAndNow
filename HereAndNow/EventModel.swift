@@ -29,6 +29,7 @@ class Event: NSObject {
     var thumb:String?
     var isPublic:Bool = true
     var createDate:NSDate = NSDate()
+    var isSendRequest:Bool = false
     static func deleteMyEvent () {
         Event.myEvent = nil
         NSUserDefaults.standardUserDefaults().removeObjectForKey("MyEvent")

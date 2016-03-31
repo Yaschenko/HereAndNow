@@ -11,6 +11,8 @@ import UIKit
 class RequestsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var requestModel:RequestModel = RequestModel()
     var requestModelForMyEvents:RequestModel = RequestModel()
+    var observer1:AnyObject? = nil
+    var observer2:AnyObject? = nil
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var requestedButton:UIButton!
@@ -22,9 +24,48 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         titleLabel.text = Event.myEvent?.title
     }
+    func removeRequest(request:Requst) {
+        
+        guard let i = self.requestModelForMyEvents.data.indexOf(request) else {
+            return
+        }
+        self.requestModelForMyEvents.data.removeAtIndex(i)
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow:i, inSection:1)], withRowAnimation: UITableViewRowAnimation.None)
+        }
+    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadAllRequests()
+        weak var weakSelf = self
+        self.observer1 = NSNotificationCenter.defaultCenter().addObserverForName(Requst.kAcceptRequestNotification, object: nil, queue: nil) { (notification) in
+            guard let s = weakSelf else {
+                return
+            }
+            guard let r = notification.object as? Requst else {
+                return
+            }
+            s.removeRequest(r)
+            
+        }
+        self.observer2 = NSNotificationCenter.defaultCenter().addObserverForName(Requst.kAcceptRequestNotification, object: nil, queue: nil) { (notification) in
+            guard let s = weakSelf else {
+                return
+            }
+            guard let r = notification.object as? Requst else {
+                return
+            }
+            s.removeRequest(r)
+
+        }
+    }
+    override func viewDidDisappear(animated: Bool) {
+        if let obs = self.observer1 {
+            NSNotificationCenter.defaultCenter().removeObserver(obs)
+        }
+        if let obs = self.observer2 {
+            NSNotificationCenter.defaultCenter().removeObserver(obs)
+        }
     }
     func reloadAllRequests() {
         self.requestModel.clearData()

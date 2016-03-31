@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class DetailEventViewController: UIViewController {
     var event:Event?
     var request:Requst?
@@ -28,6 +27,10 @@ class DetailEventViewController: UIViewController {
             if e.isPublic {
                 button.setTitle("SHOW CONTACTS", forState: UIControlState.Normal)
                 button.addTarget(self, action: #selector(DetailEventViewController.showContactas), forControlEvents: UIControlEvents.TouchUpInside)
+            }else if e.isSendRequest == true {
+                button.enabled = false
+                button.setTitle("WAITING FOR COMFIRMATION", forState: UIControlState.Normal)
+                button.alpha = 0.5
             }else{
                 button.setTitle("SEND REQUEST", forState: UIControlState.Normal)
                 button.addTarget(self, action: #selector(DetailEventViewController.sendRequest), forControlEvents: UIControlEvents.TouchUpInside)
@@ -102,6 +105,7 @@ class DetailEventViewController: UIViewController {
             e.sendRequest({ (success, result) -> Void in
                 if success == true {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        e.isSendRequest = true
                         self.hide()
                     })
                 } else {
@@ -140,6 +144,19 @@ class DetailEventViewController: UIViewController {
         }
     }
     @IBAction func reject() {
-        
+        guard let r = self.request else {
+            return
+        }
+        r.reject() { (success, result) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if success == true {
+                    self.hide()
+                } else {
+                    LocalNotificationManager.showError(result, inViewController: self, completion: {
+                        
+                    })
+                }
+            })
+        }
     }
 }

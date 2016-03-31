@@ -8,6 +8,9 @@
 
 import Foundation
 class Requst: NSObject {
+    static let kAcceptRequestNotification = "kAcceptRequestNotification"
+    static let kRejectRequestNotification = "kRejectRequestNotification"
+    
     var id:Int!
     var event:Event?
     var status:String?
@@ -38,6 +41,17 @@ class Requst: NSObject {
     func accept(callback:(success:Bool!, result:String?)->Void) {
         ServerConnectionsManager.sharedInstance.sendPostRequest(path: String(format: "requests/\(self.id!)/approve"), data: nil) { (result, json) in
             callback(success: result, result: nil)
+            if result == true {
+                NSNotificationCenter.defaultCenter().postNotificationName(Requst.kAcceptRequestNotification, object: self)
+            }
+        }
+    }
+    func reject(callback:(success:Bool!, result:String?)->Void) {
+        ServerConnectionsManager.sharedInstance.sendPostRequest(path: String(format: "requests/\(self.id!)/reject"), data: nil) { (result, json) in
+            callback(success: result, result: nil)
+            if result == true {
+                NSNotificationCenter.defaultCenter().postNotificationName(Requst.kRejectRequestNotification, object: self)
+            }
         }
     }
 }

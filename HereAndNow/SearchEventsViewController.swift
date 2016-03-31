@@ -58,28 +58,34 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         self.setMotionEffect(self.mapLayer3, valueX: 50, valueY: 20)
     }
     func addPointAtPosiotion(i:Int, inView view:UIView)->GeoPointView {
+        var s:CGFloat = 15
+        if view == self.mapLayer3 {
+            s = 25
+        }
         let width:CGFloat = (view.frame.width - 30) / 4.0
         let height:CGFloat = (view.frame.height - 280)/4.0
         let x:CGFloat = CGFloat(arc4random_uniform(UInt32(width-15))) + 7 + width * CGFloat(i % 4)
         let y:CGFloat = CGFloat(arc4random_uniform(UInt32(height-15))) + 120 + height * CGFloat(Int (i/4))
-        let point = self.addPoint(CGRect(x: x, y: y, width: 15, height: 15), inView: view)
+        let point = self.addPoint(CGRect(x: x, y: y, width: s, height: s), inView: view)
         return point
+    }
+    func  getLayerForEvent(event:Event!) -> UIView {
+        let d = event.distance
+        if d < 1000 {
+            return self.mapLayer3
+        } else if d < 3000 {
+            return self.mapLayer2
+        } else {
+            return self.mapLayer1
+        }
     }
     func generatePoints(count:Int) {
         for point in self.geoPointViews {
             point.removeFromSuperview()
         }
         self.geoPointViews.removeAll()
-        var view:UIView
         for i in 0...count-1 {
-            
-            if i/4 < 1 {
-                view = self.mapLayer1
-            } else if i/4 < 2 {
-                view = self.mapLayer2
-            } else {
-                view = self.mapLayer3
-            }
+            let view:UIView = self.getLayerForEvent(self.eventsModel!.data[i])
             self.geoPointViews.append(self.addPointAtPosiotion(i, inView: view))
         }
     }
@@ -116,7 +122,10 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
                 } else {
                     self.collectionView.hidden = false
                     self.collectionView.reloadData()
-                    self.generatePoints(16)
+                    let count = (self.collectionView.data.count > 16) ? 16 : self.collectionView.data.count
+                    if self.geoPointViews.count == 0 {
+                        self.generatePoints(count)
+                    }
                     self.didSelectPoint(self.geoPointViews[0])
                 }
             })
@@ -140,6 +149,7 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         }
         self.point = point
         self.point!.startAnimation(true)
+        self.point?.superview?.bringSubviewToFront(point)
         if self.point!.superview == self.mapLayer1 {
             self.mapLayer2.alpha = 0.6
             self.mapLayer3.alpha = 0.6
@@ -159,18 +169,28 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         }
     }
     func collectionView(collectionView: CustomCollectionView!, showCellAtIndex index: Int) {
+        if index > collectionView.data.count - 5 {
+            self.updateData()
+        }
         var point : GeoPointView
         if index >= self.geoPointViews.count {
             let i = index % self.geoPointViews.count
             point = self.geoPointViews[i]
-            let superView = point.superview
+            let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
             point.removeFromSuperview()
             
             self.geoPointViews.removeAtIndex(i)
-            point = self.addPointAtPosiotion(i, inView:superView!)
+            point = self.addPointAtPosiotion(i, inView:view)
             self.geoPointViews.insert(point, atIndex: i)
         } else {
             point = self.geoPointViews[index]
+            if self.getLayerForEvent(self.eventsModel!.data[index]) != point.superview {
+                let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
+                point.removeFromSuperview()
+                self.geoPointViews.removeAtIndex(index)
+                point = self.addPointAtPosiotion(index, inView:view)
+                self.geoPointViews.insert(point, atIndex: index)
+            }
         }
         self.didSelectPoint(point)
     }

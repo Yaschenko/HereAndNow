@@ -24,6 +24,8 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var barsListView:UIView!
     @IBOutlet weak var transitionView:UIView!
     @IBOutlet weak var waitingView:UIView!
+    @IBOutlet weak var isPublic:UISwitch!
+    
     var profileImage:UIImage? = nil
     let maxLettersCount:Int! = 100
     var keyboarHeight:CGFloat! = 0.0
@@ -33,7 +35,6 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         self.getMainViewController()!.updateMyLocation()
         textView.inputAccessoryView = self.accessoryView
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
         self.profileImageView.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
@@ -65,11 +66,12 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+            selector: #selector(CreateEventViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
+            selector: #selector(CreateEventViewController.keyboardDidHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
 
     }
     override func viewWillDisappear(animated: Bool) {
@@ -154,6 +156,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
             event.latitude = location.coordinate.latitude
             event.longitude = location.coordinate.longitude
             event.photo = result
+            event.isPublic = self.isPublic.on
             event.eventDescription = self.textView.text
             event.uploadEvent { (success, result) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -171,7 +174,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     }
     func updateFlexibleConstraints() {
         if self.keyboarHeight > 0 {
-            self.topPosition.constant = 200 - self.keyboarHeight
+            self.topPosition.constant = 250 - self.keyboarHeight
         } else {
             self.topPosition.constant = self.keyboarHeight
         }

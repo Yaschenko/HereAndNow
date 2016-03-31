@@ -15,6 +15,8 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var requestedButton:UIButton!
     @IBOutlet weak var confirmedButton:UIButton!
+    @IBOutlet weak var loadindicatorView:UIView!
+    var showPendingEvents:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,22 +24,27 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.reloadAllRequests()
+    }
+    func reloadAllRequests() {
         self.requestModel.clearData()
         self.requestModelForMyEvents.clearData()
-        
+        self.loadRequests()
+    }
+    func loadRequests() {
+        self.loadindicatorView.hidden = false
         self.requestModel.getRequestedEvents { (success, result, error) -> Void in
-            dispatch_async(dispatch_get_main_queue(), { 
+            dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })
             self.requestModelForMyEvents.getRequestsForMyEvent({ (success, result, error) in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
+                    self.loadindicatorView.hidden = true
                 })
             })
         }
-
     }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -123,5 +130,23 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
             VC.request = model.data[indexPath.row]
             self.displayModalController(VC)
         }
+    }
+    @IBAction func showPending() {
+        guard self.showPendingEvents != true else {return}
+        self.showPendingEvents = true
+        self.requestModel.setStatusPending()
+        self.requestModelForMyEvents.setStatusPending()
+        self.reloadAllRequests()
+        self.requestedButton.enabled = false
+        self.confirmedButton.enabled = true
+    }
+    @IBAction func showApproved() {
+        guard self.showPendingEvents != false else {return}
+        self.showPendingEvents = false
+        self.requestModel.setStatusApproved()
+        self.requestModelForMyEvents.setStatusApproved()
+        self.reloadAllRequests()
+        self.requestedButton.enabled = true
+        self.confirmedButton.enabled = false
     }
 }

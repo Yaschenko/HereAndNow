@@ -88,6 +88,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
     }
     func sendPostRequest(path path:String!, data:[String:String]?, callback:((result:Bool!, json:AnyObject?)->Void)?) {
         let requestUrl:String! = self.serverUrlString+path
+        print("request url = "+requestUrl)
         let urlRequest:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: requestUrl)!)
         var httpData:String = ""
         if data != nil {

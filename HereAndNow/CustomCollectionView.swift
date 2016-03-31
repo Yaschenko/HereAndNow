@@ -24,7 +24,7 @@ class CustomCollectionViewCell: UIView {
         let offset:CGFloat = 0.1 * self.frame.height
         let buttonWidth:CGFloat = self.frame.height 
         let buttonHeight:CGFloat = buttonWidth/2.43
-        backgroundImage.frame = CGRect(x: self.frame.width * -0.128, y: -0.44*self.frame.height, width: self.frame.width * 1.256, height: 1.983*self.frame.height)
+        backgroundImage.frame = CGRect(x: self.frame.width * -0.128, y: -0.5*self.frame.height, width: self.frame.width * 1.256, height: 1.983*self.frame.height)
         image.frame = CGRect(x: offset, y: offset, width: self.frame.height * 0.8, height: self.frame.height * 0.8)
         image.layer.cornerRadius = self.frame.height * 0.4
         title.frame = CGRect(x: self.frame.height - 0.5 * offset, y: 2*offset, width: self.frame.width - self.frame.height * 1.1 - buttonWidth, height: self.frame.height * 0.4)
@@ -277,9 +277,11 @@ class CustomCollectionView: UIView {
 //        self.updateSubviews()
         self.startAnimation()
     }
-    
-    func reloadData() {
+    func resetData() {
         self.currentIndex = 0
+    }
+    func reloadData() {
+        
         self.reloadVisibleCells()
     }
 

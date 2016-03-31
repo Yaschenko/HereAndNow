@@ -35,13 +35,18 @@ class Requst: NSObject {
         self.status = json.valueForKey("status") as? String
         return true
     }
+    func accept(callback:(success:Bool!, result:String?)->Void) {
+        ServerConnectionsManager.sharedInstance.sendPostRequest(path: String(format: "requests/\(self.id!)/approve"), data: nil) { (result, json) in
+            callback(success: result, result: nil)
+        }
+    }
 }
 class RequestModel: NSObject {
     
     var page:Int = 0
     var totalObjects:Int = Int.max
     var data:[Requst] = []
-    
+    var status:String = "pending"
     func createRequest(event:Event, callback:(success:Bool!, result:String?)->Void){
         ServerConnectionsManager.sharedInstance.sendPostRequest(path: "requests", data: ["event_id":"\(event.id)"]) { (result, json) -> Void in
             guard result == true else {
@@ -57,7 +62,7 @@ class RequestModel: NSObject {
         self.data.removeAll()
     }
     func getRequestedEvents(callback:(success:Bool!, result:[Requst]?, error:NSString?)->Void) {
-        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "requests", data: ["page": "\(page)"]) { (result, json) -> Void in
+        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "requests", data: ["page": "\(page)", "status":self.status]) { (result, json) -> Void in
             guard result == true else {
                 let error = json!["error"] as! String
                 callback(success: false, result:nil, error:error)
@@ -82,7 +87,7 @@ class RequestModel: NSObject {
         }
     }
     func getRequestsForMyEvent(callback:(success:Bool!, result:[Requst]?, error:NSString?)->Void) {
-        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/requests", data: ["page": "\(page)"]) { (result, json) -> Void in
+        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/requests", data: ["page": "\(page)", "status":self.status]) { (result, json) -> Void in
             guard result == true else {
                 let error = json!["error"] as! String
                 callback(success: false, result:nil, error:error)
@@ -105,5 +110,11 @@ class RequestModel: NSObject {
             self.page = self.page + 1
             callback(success: true, result: array, error: nil)
         }
+    }
+    func setStatusApproved() {
+        self.status = "approved"
+    }
+    func setStatusPending() {
+        self.status = "pending"
     }
 }

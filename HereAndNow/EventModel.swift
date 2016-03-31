@@ -9,7 +9,7 @@
 import UIKit
 
 class Event: NSObject {
-
+    
     static var myEvent:Event? = nil
     var eventDescription:String?
     var distance:Double = 0
@@ -29,6 +29,34 @@ class Event: NSObject {
     var thumb:String?
     var isPublic:Bool = true
     var createDate:NSDate = NSDate()
+    static func deleteMyEvent () {
+        Event.myEvent = nil
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("MyEvent")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    static func setMyEventFromEvent(event:Event) {
+        Event.myEvent = event
+        NSUserDefaults.standardUserDefaults().setObject(event.json(true), forKey: "MyEvent")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    static func getActiveEvent(callback:(success:Bool!)->Void) -> Void {
+        ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/active", data: nil) { (result, json) in
+            if result == false {
+                Event.deleteMyEvent()
+                callback(success: false)
+            } else {
+                guard let j = json as? NSDictionary else {
+                    Event.deleteMyEvent()
+                    callback(success: false)
+                    return
+                }
+                if let e = Event.event(j) {
+                    Event.setMyEventFromEvent(e)
+                    callback(success: true)
+                }
+            }
+        }
+    }
     func sendRequest(callback:(success:Bool!, result:String?)->Void) {
         RequestModel().createRequest(self, callback: callback)
     }
@@ -41,9 +69,7 @@ class Event: NSObject {
             }
             
             self.setValuesFromJson(json as! NSDictionary)
-            Event.myEvent = self
-            NSUserDefaults.standardUserDefaults().setObject(self.json(true), forKey: "MyEvent")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            Event.setMyEventFromEvent(self)
             callback(success: true, result: "Done")
         }
     }
@@ -169,7 +195,8 @@ class Event: NSObject {
         } else if let distance = json.valueForKey("distance") {
             self.distance = distance as! Double
         } else {
-            return false
+            self.distance = 0
+//            return false
         }
         guard let isPublicObj = json.valueForKey("public") else {
             return false

@@ -123,4 +123,23 @@ class DetailEventViewController: UIViewController {
         }
         
     }
+    @IBAction func accept() {
+        guard let r = self.request else {
+            return
+        }
+        r.accept { (success, result) in
+            dispatch_async(dispatch_get_main_queue(), { 
+                if success == true {
+                    self.hide()
+                } else {
+                    LocalNotificationManager.showError(result, inViewController: self, completion: { 
+                        
+                    })
+                }
+            })
+        }
+    }
+    @IBAction func reject() {
+        
+    }
 }

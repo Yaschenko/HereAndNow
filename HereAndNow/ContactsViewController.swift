@@ -8,7 +8,7 @@
 
 import UIKit
 enum ContactsType:Int {
-    case FB, Phone, Email
+    case FB, Phone, Email, Sms
     func stringValue()->String {
         switch self {
         case .FB :
@@ -17,6 +17,8 @@ enum ContactsType:Int {
             return "Email"
         case .Phone :
             return "Phone"
+        case .Sms :
+            return "SMS"
         }
     }
     func action(event:Event!) {
@@ -28,6 +30,8 @@ enum ContactsType:Int {
             url = NSURL(string: "tel://\(event.userPhone!)")
         case .Email :
             url = NSURL(string: "mailto:\(event.userEmail!)")
+        case .Sms :
+            url = NSURL(string: "sms://\(event.userPhone!)")
         }
         guard let u = url else {
             return
@@ -81,12 +85,29 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         if let view = cell.viewWithTag(2) as? UILabel {
             view.text = data[indexPath.row].stringValue()
         }
+        if data[indexPath.row] == ContactsType.Phone {
+            cell.viewWithTag(10)?.hidden = false
+            cell.viewWithTag(11)?.hidden = false
+        } else {
+            cell.viewWithTag(10)?.hidden = true
+            cell.viewWithTag(11)?.hidden = true
+        }
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if self.data[indexPath.row] == ContactsType.Phone {
+            return;
+        }
         self.data[indexPath.row].action(self.event)
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 44
+    }
+    @IBAction func callPhone() {
+        ContactsType.Phone.action(self.event)
+    }
+    @IBAction func sendSms() {
+        ContactsType.Sms.action(self.event)
     }
 }

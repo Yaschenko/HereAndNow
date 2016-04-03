@@ -32,7 +32,7 @@ class GeoPointView: UIView {
     var isAnimated:Bool! = false
     let animationKey: String! = "changeSize"
     override func layoutSubviews() {
-        print("layout")
+//        print("layout")
     }
     func prepareView() {
         

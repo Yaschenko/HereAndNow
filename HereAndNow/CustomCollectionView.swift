@@ -49,6 +49,7 @@ class CustomCollectionView: UIView {
     var currentIndex:Int! = 0
     var isSwipeLeft:Bool = false
     var isMovingCell:Bool = false
+    var mustMove:Int = 0
     weak var collectionViewDelegate:CustomCollectionViewActionProtocol?
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -104,20 +105,16 @@ class CustomCollectionView: UIView {
     func startAnimation() {
         let height:CGFloat = self.frame.height - 30
         let delta:CGFloat = fabs(self.center.x - self.firstView!.center.x)/((self.frame.width + self.width)/2.0)
-        if delta > 0.5 || self.isSwipeLeft {
+        if (self.mustMove == -1) || (self.mustMove == 0 && delta > 0.5) || self.isSwipeLeft {
             self.currentIndex = self.currentIndex + 1
-            var animationTime : Double = Double(0.3 * delta)
-            if self.isSwipeLeft {
-                animationTime = 0.4
-            }
+            let animationTime : Double = 0.4
             self.isSwipeLeft = false
             UIView.animateWithDuration(animationTime, animations: { () -> Void in
                 self.firstView!.center.x = -1 - self.firstView!.frame.width / 2
                 self.secondView!.frame = CGRect(x:(self.frame.width - self.width) / 2.0, y: 25, width: self.width, height: height)
                 self.thirdView!.frame = CGRect(x:(self.frame.width - self.width * self.distanceK) / 2.0 , y: 25-10, width: self.width * self.distanceK, height: height * self.distanceK)
-//                self.secondView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-//                self.thirdView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-//                self.firstView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.1)
+                self.secondView!.layoutSubviews()
+                self.thirdView!.layoutSubviews()
                 self.thirdView!.backgroundImage.alpha = 0.5
                 self.secondView!.backgroundImage.alpha = 1
                 self.firstView!.backgroundImage.alpha = 0.1
@@ -127,7 +124,7 @@ class CustomCollectionView: UIView {
                     
             }
         } else {
-            let animationTime : Double = Double(0.3 * (1-delta))
+            let animationTime : Double = 0.4//Double(0.3 * (1-delta))
             UIView.animateWithDuration(animationTime, animations: { () -> Void in
                 self.setSubviewsFrames()
                 self.setSubviewsBGColor()
@@ -218,19 +215,13 @@ class CustomCollectionView: UIView {
         let height:CGFloat = self.frame.height - 30
         let delta:CGFloat = fabs(self.center.x - self.firstView!.center.x)/((self.frame.width + self.width)/2.0)
         var width:CGFloat = self.getValue(self.width * self.distanceK, max: self.width, percent: delta)
-//        print(delta)
-//        self.firstView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: self.getValue(0.1, max: 1, percent: (1-delta)))
-//        
         self.secondView!.frame = CGRect(x:(self.frame.width - width) / 2.0 , y: self.getValue(25-10, max: 25, percent: delta), width: width, height: self.getValue(height * self.distanceK, max: height, percent: delta))
-//        self.secondView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: self.getValue(0.5, max: 1, percent: delta))
         self.thirdView!.backgroundImage.alpha = self.getValue(0.25, max: 0.5, percent: delta)
         self.secondView!.backgroundImage.alpha = self.getValue(0.5, max: 1, percent: delta)
         self.firstView!.backgroundImage.alpha = self.getValue(0.1, max: 1, percent: (1-delta))
         
         width = self.getValue(self.width * self.distanceK * self.distanceK, max: self.width * self.distanceK, percent: delta)
         self.thirdView!.frame = CGRect(x:(self.frame.width - width) / 2.0 , y: self.getValue(25-20, max: 25-10, percent: delta), width: width, height: self.getValue(height * self.distanceK * self.distanceK, max: height * self.distanceK, percent: delta))
-//        self.thirdView!.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: self.getValue(0.25, max: 0.5, percent: delta))
-        
     }
     @IBAction func panView(recognizer:UIPanGestureRecognizer) {
         switch recognizer.state {
@@ -238,6 +229,13 @@ class CustomCollectionView: UIView {
             self.isMovingCell = true
             self.startPosition = recognizer.locationInView(self)
         case UIGestureRecognizerState.Ended, UIGestureRecognizerState.Cancelled, UIGestureRecognizerState.Failed :
+            if recognizer.velocityInView(self).x > 100 {
+                self.mustMove = 1
+            } else if recognizer.velocityInView(self).x < -100 {
+                self.mustMove = -1
+            } else {
+                self.mustMove = 0
+            }
             self.startAnimation()
         default:
             self.isMovingCell = true

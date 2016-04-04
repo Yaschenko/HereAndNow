@@ -488,6 +488,7 @@
 		5AE530AB1CB23A180010D15A /* Onboarding-30fps_00487.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52EEC1CB23A180010D15A /* Onboarding-30fps_00487.png */; };
 		5AE530AC1CB23A180010D15A /* Onboarding-30fps_00488.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52EED1CB23A180010D15A /* Onboarding-30fps_00488.png */; };
 		5AE530AD1CB23A180010D15A /* Onboarding-30fps_00489.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52EEE1CB23A180010D15A /* Onboarding-30fps_00489.png */; };
+		5AE530EC1CB276E50010D15A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE530EB1CB276E50010D15A /* SettingsViewController.swift */; };
 		5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */; };
 		5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */; };
 		5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5031CA510D900EB5ADC /* RequestModel.swift */; };
@@ -1000,6 +1001,7 @@
 		5AE52EEC1CB23A180010D15A /* Onboarding-30fps_00487.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Onboarding-30fps_00487.png"; sourceTree = "<group>"; };
 		5AE52EED1CB23A180010D15A /* Onboarding-30fps_00488.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Onboarding-30fps_00488.png"; sourceTree = "<group>"; };
 		5AE52EEE1CB23A180010D15A /* Onboarding-30fps_00489.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Onboarding-30fps_00489.png"; sourceTree = "<group>"; };
+		5AE530EB1CB276E50010D15A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEventViewController.swift; sourceTree = "<group>"; };
 		5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		5AFAA5031CA510D900EB5ADC /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -1106,6 +1108,7 @@
 				5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */,
 				5AB6405E1C9B0F2D00F92533 /* LocalNotificationManager.swift */,
 				5AB640621C9DA58400F92533 /* HereAndNow-Bridging-Header.h */,
+				5AE530EB1CB276E50010D15A /* SettingsViewController.swift */,
 			);
 			path = HereAndNow;
 			sourceTree = "<group>";
@@ -2242,6 +2245,7 @@
 			files = (
 				5A04ADEC1C79FCF6009BD4E6 /* HereAndNow.xcdatamodeld in Sources */,
 				5A04ADE61C79FCF6009BD4E6 /* MainViewController.swift in Sources */,
+				5AE530EC1CB276E50010D15A /* SettingsViewController.swift in Sources */,
 				5A04AE171C7C52FB009BD4E6 /* CreateEventViewController.swift in Sources */,
 				5AB6405F1C9B0F2D00F92533 /* LocalNotificationManager.swift in Sources */,
 				5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */,

@@ -77,7 +77,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     func checkEvent(timer:NSTimer?) {
         if let event = Event.myEvent {
             if NSDate().timeIntervalSinceDate(event.createDate) > livePeriod {
-                self.setTabbarVisible(true, animation: false)
+//                self.setTabbarVisible(true, animation: false)
                 Event.deleteMyEvent()
                 if AuthorizationModel.sharedInstance.isAuthorized() {
                     self.showCreateEventViewController()
@@ -107,7 +107,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
             }
         }
         
-        self.setTabbarVisible(true, animation: false)
+//        self.setTabbarVisible(true, animation: false)
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
         
@@ -144,6 +144,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         return self.storyboard!.instantiateViewControllerWithIdentifier(indentifier)
     }
     func showAuthViewController() {
+        self.hideAllControllers()
+        self.hideFullScreenModalController()
+        self.hideModalController()
+        self.setTabbarVisible(true, animation: false)
         self.noLocationView.hidden = true
         self.authViewController = self.getViewController("AuthorizeNavigationViewController") as? UINavigationController
         if self.authViewController != nil {
@@ -199,6 +203,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
     }
     func showCreateEventViewController() {
         self.hideAllControllers()
+        self.setTabbarVisible(true, animation: false)
         self.contentViewController = self.getViewController("CreateEventNavigationViewController") as? UINavigationController
         if self.locationManager?.location == nil {
             self.noLocationView.hidden = false

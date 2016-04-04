@@ -58,14 +58,15 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         self.setMotionEffect(self.mapLayer3, valueX: 50, valueY: 20)
     }
     func addPointAtPosiotion(i:Int, inView view:UIView)->GeoPointView {
-        var s:CGFloat = 15
+        let ii = 16 - i
+        var s:CGFloat = 10
         if view == self.mapLayer3 {
-            s = 25
+            s = 15
         }
         let width:CGFloat = (view.frame.width - 30) / 4.0
         let height:CGFloat = (view.frame.height - 280)/4.0
-        let x:CGFloat = CGFloat(arc4random_uniform(UInt32(width-15))) + 7 + width * CGFloat(i % 4)
-        let y:CGFloat = CGFloat(arc4random_uniform(UInt32(height-15))) + 120 + height * CGFloat(Int (i/4))
+        let x:CGFloat = CGFloat(arc4random_uniform(UInt32(width-15))) + 7 + width * CGFloat(ii % 4)
+        let y:CGFloat = CGFloat(arc4random_uniform(UInt32(height-15))) + 120 + height * CGFloat(Int (ii/4))
         let point = self.addPoint(CGRect(x: x, y: y, width: s, height: s), inView: view)
         return point
     }

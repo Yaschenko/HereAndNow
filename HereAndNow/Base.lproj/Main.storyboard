@@ -40,6 +40,7 @@
             <string>SFUIDisplay-Semibold</string>
             <string>SFUIDisplay-Semibold</string>
             <string>SFUIDisplay-Semibold</string>
+            <string>SFUIDisplay-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -100,10 +101,10 @@
             </objects>
             <point key="canvasLocation" x="-676" y="-3090"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="ABi-k9-Jaf">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="tMY-Wf-Agb" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="tMY-Wf-Agb" customClass="SettingsViewController" customModule="HereAndNow" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S0v-9G-uy5"/>
                         <viewControllerLayoutGuide type="bottom" id="bLf-P8-QEN"/>
@@ -111,7 +112,25 @@
                     <view key="view" contentMode="scaleToFill" id="K1N-eh-zRO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaB-fg-oNH">
+                                <rect key="frame" x="186" y="278" width="228" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="228" id="bp0-NR-7fM"/>
+                                    <constraint firstAttribute="height" constant="44" id="lq0-lY-071"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Semibold" family="SF UI Display" pointSize="15"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="logout" destination="tMY-Wf-Agb" eventType="touchUpInside" id="12w-Da-Qxx"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.91204245679999996" green="0.8269385118" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="eaB-fg-oNH" firstAttribute="centerX" secondItem="K1N-eh-zRO" secondAttribute="centerX" id="7CU-yQ-ugN"/>
+                            <constraint firstItem="eaB-fg-oNH" firstAttribute="centerY" secondItem="K1N-eh-zRO" secondAttribute="centerY" id="iSq-71-4YG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sbA-M1-o2O"/>
                 </viewController>
@@ -173,12 +192,11 @@
                                             <constraint firstAttribute="height" constant="30" id="15j-m0-seW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="13"/>
-                                        <state key="normal" title="Confirmed"/>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <state key="selected">
+                                        <state key="normal" title="Confirmed">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="showApproved" destination="745-wJ-Gaw" eventType="touchUpInside" id="1mZ-el-teP"/>
@@ -190,12 +208,14 @@
                                             <constraint firstAttribute="height" constant="30" id="Fbw-L9-niR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFUIDisplay-Bold" family="SF UI Display" pointSize="13"/>
-                                        <state key="normal" title="Requests"/>
+                                        <state key="normal" title="Requests">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <state key="disabled">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected">
-                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="showPending" destination="745-wJ-Gaw" eventType="touchUpInside" id="MJF-Zh-7h5"/>

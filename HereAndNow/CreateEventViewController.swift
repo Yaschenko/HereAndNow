@@ -60,13 +60,13 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
 //    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
 //        self.checkLocation(nil)
 //        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "checkLocation:", userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: #selector(CreateEventViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
@@ -183,6 +183,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
             }) { (result) -> Void in
+                self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
         }
     }
     @IBAction func accessoryButtonAction(sender:UIButton) {

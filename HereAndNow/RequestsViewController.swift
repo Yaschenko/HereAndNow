@@ -18,6 +18,7 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var requestedButton:UIButton!
     @IBOutlet weak var confirmedButton:UIButton!
     @IBOutlet weak var loadindicatorView:UIView!
+    @IBOutlet weak var noRequestsView:UIView!
     var showPendingEvents:Bool = true
     
     override func viewDidLoad() {
@@ -87,6 +88,11 @@ class RequestsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if self.requestModel.data.count == 0 && self.requestModelForMyEvents.data.count == 0 {
+            self.noRequestsView.hidden = false
+            return 0
+        }
+        self.noRequestsView.hidden = true
         return 2
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

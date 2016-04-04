@@ -60,10 +60,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let h:CGFloat = 44.0 * 2 + 120
+        let h:CGFloat = (64.0 * CGFloat(self.data.count)) + 120
         let offset = (self.view.bounds.height - h) / 2
         self.tableView.contentOffset = CGPoint(x: 0, y: -1 * offset)
-        
+        self.tableView.scrollEnabled = false
     }
     @IBAction func hide() {
         self.hideFullScreenModalController()
@@ -102,7 +102,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         self.data[indexPath.row].action(self.event)
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
+        return 64
     }
     @IBAction func callPhone() {
         ContactsType.Phone.action(self.event)

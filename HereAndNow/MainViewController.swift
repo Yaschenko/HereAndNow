@@ -133,7 +133,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            
+            blurEffectView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
             view.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
 //        } 
 //        else {

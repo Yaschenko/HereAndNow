@@ -19,28 +19,28 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var loginButton:UIButton!
     var isAnimating:Bool = false
     let frameDuration:Double = 0.03
-    let imagesForAnimation:[[Int]] = [[124, 150],[200, 360],[450, 570],[700, 780],[840, 951]]
+    let imagesForAnimation:[[Int]] = [[74, 74],[100, 180],[225, 285],[350, 390],[420, 489]]
     @IBOutlet weak var animationImageViewSuperView:UIView!
     var animationImageView:UIImageView?
     var swipeLayer:CALayer?
     var currentIndex:Int! = 0
     var directionRight:Bool = true
-    let titlesData:[String] = ["Find new friends", "Connect", "Find new friends"]
-    let textsData:[String] = ["Hey!\nYou are a part of SWAMPOFF now!\nMy name is Mr. Swampoff, nice to meet you.\nYou did the right thing.", "Here's the deal.\nYou have to pick an event around you within two hours.\nThey are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out)\nIt's not a chat. Make a call.\nEverything you're looking for is on the map.\nJoin your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward!\nI wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
+    let titlesData:[String] = ["Welcome", "Two hours", "Find it on map", "Make a quick", "Go in action"]
+    let textsData:[String] = ["Hey! You are a part of SWAMPOFF now! My name is Mr. Swampoff, nice to meet you. You did the right thing.", "Here's the deal. You have to pick an event around you within two hours. They are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out) It's not a chat. Make a call. Everything you're looking for is on the map. Join your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward! I wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
         var images:[CGImageRef] = []
         if from < to {
             for i in from...to {
-                if i%2 == 0 {
+//                if i%2 == 0 {
                     images.append(self.loadImage(i).CGImage!)
-                }
+//                }
             }
         } else {
-            for var i = from;i >= to; i -= 1 {
-                if i%2 == 0 {
-                    images.append(self.loadImage(i).CGImage!)
-                }
-            }
+//            for var i = from;i >= to; i -= 1 {
+//                if i%2 == 0 {
+                    images.append(self.loadImage(to).CGImage!)
+//                }
+//            }
         }
         return images
     }
@@ -58,7 +58,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         return images
     }
     func loadImage(index:Int) -> UIImage {
-        let fileName:String = "Onboarding_00\(index)"
+        let fileName:String = String(format:"Onboarding-30fps_00%03i", index)
             let imgN = /*UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource(fileName, ofType: "png")!)*/UIImage(named: fileName)!
             return imgN
     }
@@ -77,7 +77,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     func createSwipeLayer() {
         let fontSize:CGFloat = 19+5
         let colorTop = UIColor.clearColor().CGColor
-        let colorBottom = UIColor.whiteColor().CGColor
+        let colorBottom = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).CGColor
         let gl = CAGradientLayer()
         gl.colors = [ colorTop, colorBottom, colorTop]
         gl.locations = [ 0.0, 0.5, 1]
@@ -91,10 +91,10 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         textLayer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0).CGColor
         textLayer.foregroundColor = UIColor.blackColor().CGColor
         textLayer.string = "Swipe Left"
-        textLayer.fontSize = fontSize-5
+        textLayer.fontSize = 13//fontSize-10
         textLayer.font = CGFontCreateWithFontName("HelveticaNeue-Light")
         textLayer.alignmentMode = kCAAlignmentCenter
-        parentLayer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).CGColor
+        parentLayer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6).CGColor
         parentLayer.addSublayer(gl)
         parentLayer.mask = textLayer
         let anim:CABasicAnimation = CABasicAnimation()
@@ -209,6 +209,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell:IntroCell = collectionView.dequeueReusableCellWithReuseIdentifier("IntroCell", forIndexPath: indexPath) as! IntroCell
         cell.textLabel.text = self.textsData[indexPath.row]
+        cell.titleLabel.text = self.titlesData[indexPath.row]
         return cell
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

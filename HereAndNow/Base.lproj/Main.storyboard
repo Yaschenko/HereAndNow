@@ -6,6 +6,13 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="SFUIDisplay-Regular.ttf">
+            <string>SFUIDisplay-Regular</string>
+            <string>SFUIDisplay-Regular</string>
+            <string>SFUIDisplay-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="WQk-1S-YKa">
@@ -792,14 +799,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQ1-62-2rJ">
-                                                    <rect key="frame" x="30" y="230" width="260" height="30"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <rect key="frame" x="30" y="280" width="260" height="30"/>
+                                                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Oe-tN-Mls">
-                                                    <rect key="frame" x="30" y="260" width="260" height="158"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                                                    <rect key="frame" x="40" y="310" width="240" height="108"/>
+                                                    <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -808,11 +815,11 @@
                                         </view>
                                         <color key="backgroundColor" red="0.21960784310000001" green="0.30980392159999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="NQ1-62-2rJ" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="230" id="29M-wJ-1dZ"/>
+                                            <constraint firstItem="NQ1-62-2rJ" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="280" id="29M-wJ-1dZ"/>
                                             <constraint firstAttribute="trailing" secondItem="jiB-cZ-H55" secondAttribute="trailing" id="5MS-3G-uRa"/>
-                                            <constraint firstItem="7Oe-tN-Mls" firstAttribute="leading" secondItem="gWt-M8-2hz" secondAttribute="leading" constant="30" id="8LU-js-2xC"/>
-                                            <constraint firstItem="7Oe-tN-Mls" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="260" id="CfZ-21-ePB"/>
-                                            <constraint firstAttribute="trailing" secondItem="7Oe-tN-Mls" secondAttribute="trailing" constant="30" id="Iaf-sa-gwJ"/>
+                                            <constraint firstItem="7Oe-tN-Mls" firstAttribute="leading" secondItem="gWt-M8-2hz" secondAttribute="leading" constant="40" id="8LU-js-2xC"/>
+                                            <constraint firstItem="7Oe-tN-Mls" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="310" id="CfZ-21-ePB"/>
+                                            <constraint firstAttribute="trailing" secondItem="7Oe-tN-Mls" secondAttribute="trailing" constant="40" id="Iaf-sa-gwJ"/>
                                             <constraint firstAttribute="trailing" secondItem="NQ1-62-2rJ" secondAttribute="trailing" constant="30" id="SJi-30-6uB"/>
                                             <constraint firstItem="jiB-cZ-H55" firstAttribute="leading" secondItem="gWt-M8-2hz" secondAttribute="leading" id="ZyL-4E-CAC"/>
                                             <constraint firstItem="jiB-cZ-H55" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" id="bDW-Aa-eFs"/>
@@ -862,7 +869,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="zgE-yr-rEg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="SFUIDisplay-Regular" family="SF UI Display" pointSize="15"/>
                                 <state key="normal" title="Login with Facebook"/>
                                 <connections>
                                     <action selector="easyFacebookLogin" destination="ioB-od-TvL" eventType="touchUpInside" id="0QK-uj-8jF"/>

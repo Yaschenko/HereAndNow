@@ -73,16 +73,20 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         self.loginButton.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let gl = self.gradientLayer
+        gl.frame = self.view.bounds
+        gl.colors = [self.colors[0], self.colors[1]]
+        gl.locations = [0.0, 1]
+        gl.startPoint = CGPoint(x: 0, y: 0)
+        gl.endPoint = CGPoint(x: 1, y: 1)
+    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.createSwipeLayer()
         self.startAnimationForCurrentIndex()
         let gl = self.gradientLayer
-        gl.colors = [self.colors[0], self.colors[1]]
-        gl.locations = [0.0, 1]
-        gl.startPoint = CGPoint(x: 0, y: 0)
-        gl.endPoint = CGPoint(x: 1, y: 1)
         gl.frame = self.view.bounds
     }
     func createSwipeLayer() {
@@ -157,15 +161,18 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         isAnimating = false
     }
     func bgAnimation(duration:Double) {
-        if self.currentIndex > 3 {return}
+        
+        if self.currentIndex > 4 {return}
+        if self.currentIndex < 1 {return}
         let gl = self.gradientLayer
-        gl.colors = [self.colors[self.currentIndex+1], self.colors[self.currentIndex+2]]
+        gl.colors = [self.colors[self.currentIndex], self.colors[self.currentIndex+1]]
         let anim:CABasicAnimation = CABasicAnimation()
         anim.keyPath = "colors"
-        anim.fromValue = [self.colors[self.currentIndex], self.colors[self.currentIndex+1]]//NSValue(CGPoint: CGPoint(x: self.view.bounds.width, y: gl.position.y))
-        anim.toValue = [self.colors[self.currentIndex+1], self.colors[self.currentIndex+2]]//NSValue(CGPoint: CGPoint(x: 0, y: gl.position.y))
+        anim.fromValue = [self.colors[self.currentIndex-1], self.colors[self.currentIndex]]//NSValue(CGPoint: CGPoint(x: self.view.bounds.width, y: gl.position.y))
+        anim.toValue = [self.colors[self.currentIndex], self.colors[self.currentIndex+1]]//NSValue(CGPoint: CGPoint(x: 0, y: gl.position.y))
         anim.repeatCount = 1
         anim.duration = duration
+        anim.removedOnCompletion = true
         gl.addAnimation(anim, forKey: nil)
     }
     func startAnimation() {

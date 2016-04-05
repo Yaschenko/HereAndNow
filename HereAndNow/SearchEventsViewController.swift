@@ -11,21 +11,19 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
     var geoPointViews:[GeoPointView] = []
     var point:GeoPointView?
     var eventsModel:EventModel?
-    
+    let gradientLayer:CAGradientLayer = CAGradientLayer()
     @IBOutlet weak var mapLayer1:UIView!
     @IBOutlet weak var mapLayer2:UIView!
     @IBOutlet weak var mapLayer3:UIView!
-    
+    @IBOutlet weak var bgView:UIView!
     @IBOutlet weak var collectionView:CustomCollectionView!
     var data:[AnyObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createEventModel()
         self.collectionView.collectionViewDelegate = self
+        self.bgView.layer.addSublayer(self.gradientLayer)
         // Do any additional setup after loading the view.
-    }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,8 +48,19 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         // Add both effects to your view
         view.addMotionEffect(group)
     }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let gl = self.gradientLayer
+        gl.colors = [UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
+        gl.locations = [0.0, 1]
+        gl.startPoint = CGPoint(x: 0, y: 0)
+        gl.endPoint = CGPoint(x: 1, y: 1)
+        gl.frame = self.bgView.frame
+    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        let gl = self.gradientLayer
+        gl.frame = self.bgView.frame
         self.collectionView.prepareSubviews()
         self.setMotionEffect(self.mapLayer1, valueX: 10, valueY: 3)
         self.setMotionEffect(self.mapLayer2, valueX: 30, valueY: 10)

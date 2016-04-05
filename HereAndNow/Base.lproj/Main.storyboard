@@ -735,8 +735,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="H5P-cf-eAB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H5P-cf-eAB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUt-bW-bbK">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -826,6 +827,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="bzg-z2-bhe"/>
                     <connections>
+                        <outlet property="bgView" destination="H5P-cf-eAB" id="lKH-YR-5CT"/>
                         <outlet property="collectionView" destination="IdH-mT-rFX" id="bUQ-Vr-M0q"/>
                         <outlet property="mapLayer1" destination="TUt-bW-bbK" id="hos-oL-Mpa"/>
                         <outlet property="mapLayer2" destination="C7T-95-ftg" id="qhY-tG-dCy"/>
@@ -1791,7 +1793,6 @@
     </scenes>
     <resources>
         <image name="bar-list-button" width="146" height="146"/>
-        <image name="bg_1" width="375" height="667"/>
         <image name="city-1" width="387" height="313"/>
         <image name="city-2" width="375" height="381"/>
         <image name="city-3" width="375" height="533"/>

@@ -22,10 +22,13 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     let frameDuration:Double = 0.03
     let imagesForAnimation:[[Int]] = [[74, 74],[100, 180],[225, 285],[350, 390],[420, 489]]
     @IBOutlet weak var animationImageViewSuperView:UIView!
+    let gradientLayer:CAGradientLayer = CAGradientLayer()
     var animationImageView:UIImageView?
     var swipeLayer:CALayer?
     var currentIndex:Int! = 0
     var directionRight:Bool = true
+    let colors:[CGColor] = [UIColor(red: 119.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1).CGColor, UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor,  UIColor(red: 234.0/255.0, green: 209.0/255.0, blue: 121.0/255.0, alpha: 1).CGColor,  UIColor(red: 1, green: 110.0/255.0, blue: 186.0/255.0, alpha: 1).CGColor,  UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
+    
     let titlesData:[String] = ["Welcome", "Two hours", "Find it on map", "Make a quick", "Go in action"]
     let textsData:[String] = ["Hey! You are a part of SWAMPOFF now! My name is Mr. Swampoff, nice to meet you. You did the right thing.", "Here's the deal. You have to pick an event around you within two hours. They are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out) It's not a chat. Make a call. Everything you're looking for is on the map. Join your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward! I wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
@@ -65,6 +68,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.layer.insertSublayer(self.gradientLayer, atIndex: 0)
         self.loginButton.layer.cornerRadius = 22
         self.loginButton.layer.masksToBounds = true
         // Do any additional setup after loading the view.
@@ -74,6 +78,12 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidAppear(animated)
         self.createSwipeLayer()
         self.startAnimationForCurrentIndex()
+        let gl = self.gradientLayer
+        gl.colors = [self.colors[0], self.colors[1]]
+        gl.locations = [0.0, 1]
+        gl.startPoint = CGPoint(x: 0, y: 0)
+        gl.endPoint = CGPoint(x: 1, y: 1)
+        gl.frame = self.view.bounds
     }
     func createSwipeLayer() {
         let fontSize:CGFloat = 19+5
@@ -146,6 +156,18 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         self.animationImageView!.layer.addAnimation(anim, forKey: nil)
         isAnimating = false
     }
+    func bgAnimation(duration:Double) {
+        if self.currentIndex > 3 {return}
+        let gl = self.gradientLayer
+        gl.colors = [self.colors[self.currentIndex+1], self.colors[self.currentIndex+2]]
+        let anim:CABasicAnimation = CABasicAnimation()
+        anim.keyPath = "colors"
+        anim.fromValue = [self.colors[self.currentIndex], self.colors[self.currentIndex+1]]//NSValue(CGPoint: CGPoint(x: self.view.bounds.width, y: gl.position.y))
+        anim.toValue = [self.colors[self.currentIndex+1], self.colors[self.currentIndex+2]]//NSValue(CGPoint: CGPoint(x: 0, y: gl.position.y))
+        anim.repeatCount = 1
+        anim.duration = duration
+        gl.addAnimation(anim, forKey: nil)
+    }
     func startAnimation() {
         self.pages.currentPage = self.currentIndex
         self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: self.currentIndex, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
@@ -169,6 +191,8 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         self.createImageView(stop)
         
+        
+        
         let anim:CAKeyframeAnimation = CAKeyframeAnimation()
         anim.keyPath = "contents"
         let array = self.loadCGImages(start, to: stop)
@@ -177,6 +201,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         anim.duration = Double(anim.values!.count) * self.frameDuration
         anim.delegate = self
         anim.removedOnCompletion = true
+        self.bgAnimation(Double(anim.values!.count) * self.frameDuration)
         self.animationImageView!.layer.addAnimation(anim, forKey: nil)
     }
     override func didReceiveMemoryWarning() {

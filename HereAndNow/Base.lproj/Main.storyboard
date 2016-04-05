@@ -442,7 +442,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="ipx-Gn-6b5" appends="YES" id="wo3-Ns-9av"/>
+                                            <outletCollection property="gestureRecognizers" destination="APf-TR-60J" appends="YES" id="gsx-dg-eRM"/>
                                         </connections>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrQ-5f-ibV">
@@ -513,6 +513,7 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="4fm-jl-IVD" firstAttribute="leading" secondItem="FSl-yN-Ad5" secondAttribute="leading" constant="20" id="02B-69-hsE"/>
                                     <constraint firstAttribute="bottom" secondItem="C6Y-bk-GrF" secondAttribute="bottom" constant="15" id="5C5-yQ-v8d"/>
@@ -569,11 +570,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FW0-Ds-COw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ipx-Gn-6b5">
+                <swipeGestureRecognizer direction="down" id="APf-TR-60J">
                     <connections>
-                        <action selector="hide" destination="5zi-2J-ik0" id="r3z-qM-wua"/>
+                        <action selector="hide" destination="5zi-2J-ik0" id="T9M-Wo-jwK"/>
                     </connections>
-                </pongPressGestureRecognizer>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="270" y="-2389"/>
         </scene>

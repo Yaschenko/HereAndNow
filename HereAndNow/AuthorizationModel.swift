@@ -39,6 +39,10 @@ class AuthorizationModel: NSObject {
             self.setUser(jsonObj as! [String:String], callback: callback)
         }
     }
+    static func logout() {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("auth_token")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
     private func setUser(user:[String:String], callback:(token:String?, errorString:String?)->Void) {
         NSUserDefaults.standardUserDefaults().setValue(user["auth_token"], forKey: "auth_token")
         callback(token: user["auth_token"], errorString: nil)

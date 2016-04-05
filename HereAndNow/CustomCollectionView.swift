@@ -94,7 +94,7 @@ class CustomCollectionView: UIView {
             self.addSubview(self.thirdView!)
             self.addSubview(self.secondView!)
             self.addSubview(self.firstView!)
-            let swipe:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeView:")
+            let swipe:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(CustomCollectionView.swipeView(_:)))
             swipe.direction = UISwipeGestureRecognizerDirection.Left
             self.addGestureRecognizer(swipe)
         }

@@ -241,6 +241,9 @@ class Event: NSObject {
         }
     }
 }
+enum EventAccessType:Int {
+    case PublicOnly, PrivateOnly, All
+}
 class EventModel: NSObject {
     var range:Double = 200000000
     var longitude:Double
@@ -249,6 +252,7 @@ class EventModel: NSObject {
     var totalObjects:Int = Int.max
     var data:[Event] = []
     var type:String = "all"
+    var accessType:EventAccessType = EventAccessType.All
     init(longitude:Double, latitude:Double) {
         self.longitude = longitude
         self.latitude = latitude
@@ -278,6 +282,14 @@ class EventModel: NSObject {
         var arr:[String:String] = ["longitude":"\(self.longitude)", "latitude":"\(self.latitude)", "page": "\(page)", "range":"\(self.range)" ]
         if self.type != "all" {
             arr["kind"] = self.type
+        }
+        switch self.accessType {
+        case .PrivateOnly:
+            arr["public"] = "0"
+        case .PublicOnly:
+            arr["public"] = "1"
+        default:
+            break
         }
         ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/all", data: arr) { (result, json) -> Void in
             if !result {

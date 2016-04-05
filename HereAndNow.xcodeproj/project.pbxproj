@@ -2430,7 +2430,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bdcc2e5a-d977-4390-b1b2-acf5cbc2d840";
+				PROVISIONING_PROFILE = "d319fb8f-92e8-44ca-beec-3c7f0eca62dd";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

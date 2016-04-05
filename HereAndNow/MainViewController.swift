@@ -91,28 +91,29 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         self.addBlurView(toView:self.fullScreenModalViewContainer)
         self.modalViewContainer.layer.cornerRadius = 20
         self.modalViewContainer.layer.masksToBounds = true
-        if let json = NSUserDefaults.standardUserDefaults().objectForKey("MyEvent") as? NSDictionary {
-            if let event = Event.event(json) {
-                if NSDate().timeIntervalSinceDate(event.createDate) < livePeriod {
-                    Event.myEvent = event
-                    Event.getActiveEvent() {(result) in
-                        if result == false {
-                            dispatch_async(dispatch_get_main_queue(), { 
-                                self.showAuthViewController()
-                            })
-                        }
-                    }
-                    print("current event id \(event.id)")
-                }
-            }
-        }
         
-//        self.setTabbarVisible(true, animation: false)
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
         
         self.updateMyLocation()
         if AuthorizationModel.sharedInstance.isAuthorized() {
+            
+            if let json = NSUserDefaults.standardUserDefaults().objectForKey("MyEvent") as? NSDictionary {
+                if let event = Event.event(json) {
+                    if NSDate().timeIntervalSinceDate(event.createDate) < livePeriod {
+                        Event.myEvent = event
+                        Event.getActiveEvent() {(result) in
+                            if result == false {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.showAuthViewController()
+                                })
+                            }
+                        }
+                        print("current event id \(event.id)")
+                    }
+                }
+            }
+            
             guard let _ = Event.myEvent else {
                 self.showCreateEventViewController()
                 return
@@ -144,6 +145,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, CustomTab
         return self.storyboard!.instantiateViewControllerWithIdentifier(indentifier)
     }
     func showAuthViewController() {
+        Event.deleteMyEvent()
+        AuthorizationModel.logout()
         self.hideAllControllers()
         self.hideFullScreenModalController()
         self.hideModalController()

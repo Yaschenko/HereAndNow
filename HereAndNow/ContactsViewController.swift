@@ -79,7 +79,19 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath)
         if let view = cell.viewWithTag(1) {
-            view.layer.cornerRadius = 5
+            let mLayer:CAShapeLayer = CAShapeLayer()
+            if indexPath.row == 0 && indexPath.row == self.data.count - 1 {
+                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: UIRectCorner.AllCorners, cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else if indexPath.row == 0 {
+                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: [UIRectCorner.TopRight, UIRectCorner.TopLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else if indexPath.row == self.data.count - 1 {
+                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: [UIRectCorner.BottomRight, UIRectCorner.BottomLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else {
+                view.layer.mask = nil
+            }
             view.layer.masksToBounds = true
         }
         if let view = cell.viewWithTag(2) as? UILabel {
@@ -102,7 +114,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         self.data[indexPath.row].action(self.event)
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 64
+        return 70
     }
     @IBAction func callPhone() {
         ContactsType.Phone.action(self.event)

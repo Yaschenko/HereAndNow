@@ -17,6 +17,7 @@ class IntroCell: UICollectionViewCell {
 class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var collectionView:UICollectionView!
     @IBOutlet weak var loginButton:UIButton!
+    @IBOutlet weak var pages:UIPageControl!
     var isAnimating:Bool = false
     let frameDuration:Double = 0.03
     let imagesForAnimation:[[Int]] = [[74, 74],[100, 180],[225, 285],[350, 390],[420, 489]]
@@ -85,7 +86,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         gl.endPoint = CGPoint(x: 1, y: 0.5)
         gl.frame = CGRect(x: 0, y: 0, width: fontSize, height: fontSize)
         let parentLayer:CALayer = CALayer()
-        parentLayer.frame = CGRect(x: 0 ,y: self.view.bounds.height - fontSize - 30 ,width: self.view.bounds.width,height: fontSize)
+        parentLayer.frame = CGRect(x: 0 ,y: self.view.bounds.height - fontSize - 60 ,width: self.view.bounds.width,height: fontSize)
         let textLayer = CATextLayer()
         textLayer.frame = CGRect(x: 0,y: 0,width: self.view.bounds.width,height: fontSize)
         textLayer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0).CGColor
@@ -127,6 +128,8 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         if let layer = self.swipeLayer {
             layer.hidden = (self.currentIndex == 4)
         }
+        self.pages.hidden = (self.currentIndex == 4)
+        
         self.loginButton.hidden = (self.currentIndex != 4)
         var start:Int
         var stop:Int
@@ -144,6 +147,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         isAnimating = false
     }
     func startAnimation() {
+        self.pages.currentPage = self.currentIndex
         self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: self.currentIndex, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         
         if isAnimating {

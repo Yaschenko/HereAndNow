@@ -70,6 +70,7 @@
                 <outlet property="title" destination="tw0-Fn-Gw9" id="Tf0-nQ-0s6"/>
                 <outletCollection property="gestureRecognizers" destination="x4Y-vw-Ro3" appends="YES" id="bfu-gS-4eu"/>
                 <outletCollection property="gestureRecognizers" destination="pIx-Nk-z4a" appends="YES" id="vx2-PQ-2BL"/>
+                <outletCollection property="gestureRecognizers" destination="DLO-Jx-d8K" appends="YES" id="Vlf-62-CgM"/>
             </connections>
             <point key="canvasLocation" x="340" y="260"/>
         </view>
@@ -83,6 +84,11 @@
                 <action selector="swipeView:" destination="-1" id="tsY-mC-TFy"/>
             </connections>
         </swipeGestureRecognizer>
+        <tapGestureRecognizer id="DLO-Jx-d8K">
+            <connections>
+                <action selector="cellAction" destination="66n-Rv-q2d" id="fDr-bf-iZ0"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="card" width="445" height="190"/>

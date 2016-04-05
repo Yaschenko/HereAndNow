@@ -32,7 +32,9 @@ class CustomCollectionViewCell: UIView {
         button.frame = CGRect(x: self.frame.width - buttonWidth - offset, y: (self.frame.height - buttonHeight)/2, width: buttonWidth, height: buttonHeight)
         
     }
-    
+    @IBAction func cellAction() {
+        self.delegate.actionInCell(self, sender: self.button)
+    }
     @IBAction func cellAction(sender:UIButton?) {
         self.delegate.actionInCell(self, sender: sender)
     }
@@ -43,8 +45,8 @@ class CustomCollectionView: UIView {
     var thirdView:CustomCollectionViewCell?
     var startPosition:CGPoint?
     var width:CGFloat = 0
-    let widthK:CGFloat = 0.9
-    let distanceK:CGFloat = 0.8
+    let widthK:CGFloat = 0.92
+    let distanceK:CGFloat = 0.93
     var data:[Event] = []
     var currentIndex:Int! = 0
     var isSwipeLeft:Bool = false
@@ -69,8 +71,8 @@ class CustomCollectionView: UIView {
     func setSubviewsFrames() {
         let height:CGFloat = self.frame.height - 30
         self.firstView!.frame = CGRect(x:(self.frame.width - self.width) / 2.0, y: 25, width: self.width, height: height)
-        self.secondView!.frame = CGRect(x:(self.frame.width - self.width * self.distanceK) / 2.0 , y: 25-10, width: self.width * self.distanceK, height: height * self.distanceK)
-        self.thirdView!.frame = CGRect(x:(self.frame.width - self.width * self.distanceK * self.distanceK) / 2.0 , y: 25 - 20, width: self.width * self.distanceK * self.distanceK, height: height * self.distanceK * self.distanceK)
+        self.secondView!.frame = CGRect(x:(self.frame.width - self.width * self.distanceK) / 2.0 , y: 25-8, width: self.width * self.distanceK, height: height * self.distanceK)
+        self.thirdView!.frame = CGRect(x:(self.frame.width - self.width * self.distanceK * self.distanceK) / 2.0 , y: 25-16, width: self.width * self.distanceK * self.distanceK, height: height * self.distanceK * self.distanceK)
     }
     func setSubviewsBGColor() {
         self.thirdView!.backgroundImage.alpha = 0.25

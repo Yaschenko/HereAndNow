@@ -886,6 +886,9 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQ1-62-2rJ">
                                                     <rect key="frame" x="30" y="280" width="260" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="OhU-SX-HKW"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="SFUIDisplay-Medium" family="SF UI Display" pointSize="22"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -905,12 +908,14 @@
                                         <color key="backgroundColor" red="0.21960784310000001" green="0.30980392159999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="NQ1-62-2rJ" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="280" id="29M-wJ-1dZ"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="7Oe-tN-Mls" secondAttribute="bottom" constant="142" id="4eb-mD-cYT"/>
                                             <constraint firstAttribute="trailing" secondItem="jiB-cZ-H55" secondAttribute="trailing" id="5MS-3G-uRa"/>
                                             <constraint firstItem="7Oe-tN-Mls" firstAttribute="leading" secondItem="gWt-M8-2hz" secondAttribute="leading" constant="40" id="8LU-js-2xC"/>
                                             <constraint firstItem="7Oe-tN-Mls" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" constant="310" id="CfZ-21-ePB"/>
                                             <constraint firstAttribute="trailing" secondItem="7Oe-tN-Mls" secondAttribute="trailing" constant="40" id="Iaf-sa-gwJ"/>
                                             <constraint firstAttribute="trailing" secondItem="NQ1-62-2rJ" secondAttribute="trailing" constant="30" id="SJi-30-6uB"/>
                                             <constraint firstItem="jiB-cZ-H55" firstAttribute="leading" secondItem="gWt-M8-2hz" secondAttribute="leading" id="ZyL-4E-CAC"/>
+                                            <constraint firstItem="7Oe-tN-Mls" firstAttribute="top" secondItem="NQ1-62-2rJ" secondAttribute="bottom" id="agb-pz-1Tj"/>
                                             <constraint firstItem="jiB-cZ-H55" firstAttribute="top" secondItem="gWt-M8-2hz" secondAttribute="top" id="bDW-Aa-eFs"/>
                                             <constraint firstAttribute="bottom" secondItem="7Oe-tN-Mls" secondAttribute="bottom" constant="150" id="cma-16-4CO"/>
                                             <constraint firstAttribute="bottom" secondItem="jiB-cZ-H55" secondAttribute="bottom" id="gxy-wz-wRj"/>
@@ -919,6 +924,9 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="29M-wJ-1dZ"/>
+                                                <exclude reference="CfZ-21-ePB"/>
+                                                <exclude reference="agb-pz-1Tj"/>
                                                 <exclude reference="cma-16-4CO"/>
                                             </mask>
                                         </variation>
@@ -951,7 +959,15 @@
                                     <constraint firstItem="Sz7-VX-xNN" firstAttribute="top" secondItem="dnY-ya-f1s" secondAttribute="top" id="AOW-Wb-j2M"/>
                                     <constraint firstAttribute="trailing" secondItem="Sz7-VX-xNN" secondAttribute="trailing" id="SvR-h8-C2s"/>
                                     <constraint firstItem="Sz7-VX-xNN" firstAttribute="leading" secondItem="dnY-ya-f1s" secondAttribute="leading" id="X1Z-bf-eoe"/>
+                                    <constraint firstItem="Sz7-VX-xNN" firstAttribute="centerX" secondItem="dnY-ya-f1s" secondAttribute="centerX" id="huA-K5-xEb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Sz7-VX-xNN" secondAttribute="bottom" constant="248" id="uTq-wd-NNO"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="SvR-h8-C2s"/>
+                                        <exclude reference="X1Z-bf-eoe"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="wcd-kY-1d0" appends="YES" id="JrS-y5-wA6"/>
                                     <outletCollection property="gestureRecognizers" destination="Twh-6B-6kv" appends="YES" id="I7W-vM-yxp"/>
@@ -969,11 +985,20 @@
                                     <action selector="easyFacebookLogin" destination="ioB-od-TvL" eventType="touchUpInside" id="0QK-uj-8jF"/>
                                 </connections>
                             </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="ECa-rT-02L">
+                                <rect key="frame" x="0.0" y="509" width="320" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="heC-8q-xMt"/>
+                                </constraints>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ECa-rT-02L" secondAttribute="trailing" id="8aS-TA-asx"/>
                             <constraint firstItem="cKh-2C-v0b" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leading" id="9ly-8Q-CDW"/>
                             <constraint firstItem="cKh-2C-v0b" firstAttribute="top" secondItem="STL-Xb-PYA" secondAttribute="bottom" constant="-20" id="L1B-Ib-hKr"/>
+                            <constraint firstItem="JML-Ek-n6Z" firstAttribute="top" secondItem="ECa-rT-02L" secondAttribute="bottom" constant="22" id="UXM-tv-ACp"/>
+                            <constraint firstItem="ECa-rT-02L" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leading" id="WsC-l4-KKP"/>
                             <constraint firstItem="dnY-ya-f1s" firstAttribute="top" secondItem="STL-Xb-PYA" secondAttribute="bottom" constant="-20" id="Yez-w5-6bl"/>
                             <constraint firstItem="JML-Ek-n6Z" firstAttribute="top" secondItem="kWV-0w-9QA" secondAttribute="bottom" constant="20" id="ZNm-pf-HRu"/>
                             <constraint firstItem="kWV-0w-9QA" firstAttribute="leading" secondItem="Q06-Mx-NtO" secondAttribute="leadingMargin" constant="20" id="cVq-ts-Zyx"/>
@@ -996,6 +1021,7 @@
                         <outlet property="animationImageViewSuperView" destination="Sz7-VX-xNN" id="Gip-ta-Kpd"/>
                         <outlet property="collectionView" destination="cKh-2C-v0b" id="ttb-fk-6s5"/>
                         <outlet property="loginButton" destination="kWV-0w-9QA" id="slS-hR-joL"/>
+                        <outlet property="pages" destination="ECa-rT-02L" id="5dA-5a-dsA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rv3-td-46M" userLabel="First Responder" sceneMemberID="firstResponder"/>

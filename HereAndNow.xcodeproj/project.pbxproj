@@ -489,6 +489,7 @@
 		5AE530AC1CB23A180010D15A /* Onboarding-30fps_00488.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52EED1CB23A180010D15A /* Onboarding-30fps_00488.png */; };
 		5AE530AD1CB23A180010D15A /* Onboarding-30fps_00489.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52EEE1CB23A180010D15A /* Onboarding-30fps_00489.png */; };
 		5AE530EC1CB276E50010D15A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE530EB1CB276E50010D15A /* SettingsViewController.swift */; };
+		5AE531311CB536EB0010D15A /* WhiteGeoPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE531301CB536EB0010D15A /* WhiteGeoPointView.xib */; };
 		5AFAA5001CA1E64200EB5ADC /* DetailEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */; };
 		5AFAA5021CA3D1CD00EB5ADC /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */; };
 		5AFAA5041CA510D900EB5ADC /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAA5031CA510D900EB5ADC /* RequestModel.swift */; };
@@ -1002,6 +1003,7 @@
 		5AE52EED1CB23A180010D15A /* Onboarding-30fps_00488.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Onboarding-30fps_00488.png"; sourceTree = "<group>"; };
 		5AE52EEE1CB23A180010D15A /* Onboarding-30fps_00489.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Onboarding-30fps_00489.png"; sourceTree = "<group>"; };
 		5AE530EB1CB276E50010D15A /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5AE531301CB536EB0010D15A /* WhiteGeoPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WhiteGeoPointView.xib; sourceTree = "<group>"; };
 		5AFAA4FF1CA1E64200EB5ADC /* DetailEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEventViewController.swift; sourceTree = "<group>"; };
 		5AFAA5011CA3D1CD00EB5ADC /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		5AFAA5031CA510D900EB5ADC /* RequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -1103,6 +1105,7 @@
 				5AD720EB1C8456C900FF1A05 /* CustomTabbar.swift */,
 				5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */,
 				5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */,
+				5AE531301CB536EB0010D15A /* WhiteGeoPointView.xib */,
 				5AD720F51C85C16100FF1A05 /* GeoPointView.xib */,
 				5A06554F1C88364D00F3FEC9 /* CustomCollectionViewCell.xib */,
 				5A06554B1C87518900F3FEC9 /* CustomCollectionView.swift */,
@@ -1734,6 +1737,7 @@
 				5AE52F3C1CB23A180010D15A /* Onboarding-30fps_00120.png in Resources */,
 				5AE52F1F1CB23A180010D15A /* Onboarding-30fps_00091.png in Resources */,
 				5AE52FC01CB23A180010D15A /* Onboarding-30fps_00252.png in Resources */,
+				5AE531311CB536EB0010D15A /* WhiteGeoPointView.xib in Resources */,
 				5AE52FED1CB23A180010D15A /* Onboarding-30fps_00297.png in Resources */,
 				5AE530291CB23A180010D15A /* Onboarding-30fps_00357.png in Resources */,
 				5AE52FFB1CB23A180010D15A /* Onboarding-30fps_00311.png in Resources */,
@@ -2412,7 +2416,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ae9dfa43-ab72-4ec6-a0fb-10ffbdd52286";
+				PROVISIONING_PROFILE = "935f8a3d-a135-4f0e-ac72-1e1fb3337cd0";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2430,7 +2434,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d319fb8f-92e8-44ca-beec-3c7f0eca62dd";
+				PROVISIONING_PROFILE = "e2085110-04c7-4343-a304-9830081f2720";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

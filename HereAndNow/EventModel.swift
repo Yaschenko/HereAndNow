@@ -30,6 +30,8 @@ class Event: NSObject {
     var isPublic:Bool = true
     var createDate:NSDate = NSDate()
     var isSendRequest:Bool = false
+    var type = "common"
+    
     static func deleteMyEvent () {
         Event.myEvent = nil
         NSUserDefaults.standardUserDefaults().removeObjectForKey("MyEvent")
@@ -168,6 +170,10 @@ class Event: NSObject {
             return false
         }
         self.title = t as? String
+        
+        if let k = json.valueForKey("kind") as? String {
+            self.type = k
+        }
         
         if let c = json.valueForKey("createDate") as? NSDate {
             self.createDate = c

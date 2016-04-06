@@ -233,7 +233,7 @@ class CustomCollectionView: UIView {
         case UIGestureRecognizerState.Ended, UIGestureRecognizerState.Cancelled, UIGestureRecognizerState.Failed :
             if recognizer.velocityInView(self).x > 100 {
                 self.mustMove = 1
-            } else if recognizer.velocityInView(self).x < -100 {
+            } else if ((recognizer.velocityInView(self).x < -100) && (self.currentIndex + 1 < self.data.count)) {
                 self.mustMove = -1
             } else {
                 self.mustMove = 0

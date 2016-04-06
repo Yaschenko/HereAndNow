@@ -53,8 +53,8 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         let gl = self.gradientLayer
         gl.colors = [UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
         gl.locations = [0.0, 1]
-        gl.startPoint = CGPoint(x: 0, y: 0)
-        gl.endPoint = CGPoint(x: 1, y: 1)
+        gl.startPoint = CGPoint(x: 0, y: 1)
+        gl.endPoint = CGPoint(x: 1, y: 0)
         gl.frame = self.bgView.frame
     }
     override func viewDidAppear(animated: Bool) {
@@ -66,7 +66,9 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         self.setMotionEffect(self.mapLayer2, valueX: 30, valueY: 10)
         self.setMotionEffect(self.mapLayer3, valueX: 50, valueY: 20)
     }
-    func addPointAtPosiotion(i:Int, inView view:UIView)->GeoPointView {
+    func addPointAtPosiotion(i:Int, event:Event)->GeoPointView {
+        let view:UIView = self.getLayerForEvent(self.eventsModel!.data[i])
+        
         let ii = 16 - i
         var s:CGFloat = 10
         if view == self.mapLayer3 {
@@ -76,7 +78,7 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         let height:CGFloat = (view.frame.height - 280)/4.0
         let x:CGFloat = CGFloat(arc4random_uniform(UInt32(width-15))) + 7 + width * CGFloat(ii % 4)
         let y:CGFloat = CGFloat(arc4random_uniform(UInt32(height-15))) + 120 + height * CGFloat(Int (ii/4))
-        let point = self.addPoint(CGRect(x: x, y: y, width: s, height: s), inView: view)
+        let point = self.addPoint(CGRect(x: x, y: y, width: s, height: s), event:event)
         return point
     }
     func  getLayerForEvent(event:Event!) -> UIView {
@@ -95,12 +97,13 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         }
         self.geoPointViews.removeAll()
         for i in 0...count-1 {
-            let view:UIView = self.getLayerForEvent(self.eventsModel!.data[i])
-            self.geoPointViews.append(self.addPointAtPosiotion(i, inView: view))
+            self.geoPointViews.append(self.addPointAtPosiotion(i, event: self.eventsModel!.data[i]))
         }
     }
-    func addPoint(frame:CGRect, inView view:UIView) -> GeoPointView {
-        let point:GeoPointView = UINib(nibName:"GeoPointView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! GeoPointView
+    func addPoint(frame:CGRect, event:Event) -> GeoPointView {
+        let view:UIView = self.getLayerForEvent(event)
+        let nibName = event.type == "advertisement" ? "GeoPointView" : "WhiteGeoPointView"
+        let point:GeoPointView = UINib(nibName:nibName, bundle: nil).instantiateWithOwner(self, options: nil)[0] as! GeoPointView
         point.geoPointDelegate = self
         point.frame = frame
         view.addSubview(point)
@@ -125,6 +128,9 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
     func updateData() {
         
         self.eventsModel!.loadEvents { (result, data, error) -> Void in
+            if ((data?.count == 0) || (error != nil)) {
+                return
+            }
             self.collectionView.data = self.eventsModel!.data
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if self.eventsModel!.data.count == 0 {
@@ -186,19 +192,19 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         if index >= self.geoPointViews.count {
             let i = index % self.geoPointViews.count
             point = self.geoPointViews[i]
-            let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
+//            let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
             point.removeFromSuperview()
             
             self.geoPointViews.removeAtIndex(i)
-            point = self.addPointAtPosiotion(i, inView:view)
+            point = self.addPointAtPosiotion(i, event: self.eventsModel!.data[index])
             self.geoPointViews.insert(point, atIndex: i)
         } else {
             point = self.geoPointViews[index]
             if self.getLayerForEvent(self.eventsModel!.data[index]) != point.superview {
-                let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
+//                let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
                 point.removeFromSuperview()
                 self.geoPointViews.removeAtIndex(index)
-                point = self.addPointAtPosiotion(index, inView:view)
+                point = self.addPointAtPosiotion(index, event: self.eventsModel!.data[index])
                 self.geoPointViews.insert(point, atIndex: index)
             }
         }

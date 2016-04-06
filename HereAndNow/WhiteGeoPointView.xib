@@ -14,7 +14,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEz-fh-g6C" customClass="RoundView" customModule="HereAndNow" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" red="0.4039215686" green="0.76862745099999996" blue="1" alpha="0.30479307432432434" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.30479307432432434" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="600" id="7Uo-Wa-Bmt"/>
                         <constraint firstAttribute="width" secondItem="jEz-fh-g6C" secondAttribute="height" multiplier="1:1" id="LLx-Gl-jeu"/>
@@ -41,7 +41,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.4039215686" green="0.76862745099999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="0oA-RC-Qe8" secondAttribute="bottom" id="6w6-Yt-p7c"/>
                         <constraint firstItem="0oA-RC-Qe8" firstAttribute="leading" secondItem="SL7-4o-F17" secondAttribute="leading" id="7Uh-Gi-iQV"/>

@@ -14,6 +14,11 @@ class CustomTabbarButton: UIView {
     @IBOutlet weak var tabbarView:CustomTabbarView?
     func setSelected(selected:Bool) {
         self.selectedIndicator.hidden = !selected
+        if selected == true {
+            self.button.alpha = 1
+        } else {
+            self.button.alpha = 0.6
+        }
     }
     @IBAction func buttonAction(button:UIButton) {
         self.setSelected(true)

@@ -30,7 +30,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     let colors:[CGColor] = [UIColor(red: 119.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1).CGColor, UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor,  UIColor(red: 234.0/255.0, green: 209.0/255.0, blue: 121.0/255.0, alpha: 1).CGColor,  UIColor(red: 1, green: 110.0/255.0, blue: 186.0/255.0, alpha: 1).CGColor,  UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
     
     let titlesData:[String] = ["Welcome", "Two hours", "Find it on map", "Make a quick", "Go in action"]
-    let textsData:[String] = ["Hey! You are a part of SWAMPOFF now! My name is Mr. Swampoff, nice to meet you. You did the right thing.", "Here's the deal. You have to pick an event around you within two hours. They are called Quickies.", "Oh you're late? Sorry! This is SWAMP (a two hour lock-out) It's not a chat. Make a call. Everything you're looking for is on the map. Join your local quickies.", "Fireflies with different colors on the map - is what you are looking for. Haven't found anything interesting? Make a Quick yourself! Use special offers!", "Check in the location, get a discount for a reward! I wish you luck, my friend! Go offline, don't drink alone anymore. Go in action!"]
+    let textsData:[String] = ["Hey, Dude! Now you are the one of SWAMPOFF! My Name Is Mr. Swampoff! You’ve made the right choice! Here is rules of the private club!", "You have just 2 hours to find a party around you! I call it Quicky! Don’t waste your time! Can't you find nada? Waaathchaa! Its SWAMP bwoi! (Lock-out for 2 hours)", "Its not a chat! Blink it! All that you are looking for is around you, Bo-Bo! You can find it on the map! Follow the local Quickies! Let the colored fireflies to guide throw the night!", "Didn’t found anything? Don't be cold fish! Express yourself - Make the cool Quicky! Mdaaa! Go in action! Take a rest - do the bar-quest! Stick around ! - find your discount!", "Heyyaaa! Make a hit! Go offline - there friends and wine!"]
     func loadCGImages(from:Int, to:Int) -> [CGImageRef] {
         var images:[CGImageRef] = []
         if from < to {
@@ -69,12 +69,13 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.layer.insertSublayer(self.gradientLayer, atIndex: 0)
-        self.loginButton.layer.cornerRadius = 22
         self.loginButton.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.loginButton.layer.cornerRadius = self.loginButton.bounds.height / 2.0
+        
         let gl = self.gradientLayer
         gl.frame = self.view.bounds
         gl.colors = [self.colors[0], self.colors[1]]
@@ -84,6 +85,7 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.loginButton.layer.cornerRadius = self.loginButton.bounds.height / 2.0
         self.createSwipeLayer()
         self.startAnimationForCurrentIndex()
         let gl = self.gradientLayer
@@ -161,11 +163,12 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         isAnimating = false
     }
     func bgAnimation(duration:Double) {
-        
-        if self.currentIndex > 4 {return}
-        if self.currentIndex < 1 {return}
+
         let gl = self.gradientLayer
         gl.colors = [self.colors[self.currentIndex], self.colors[self.currentIndex+1]]
+
+        if self.currentIndex > 4 {return}
+        if self.currentIndex < 1 {return}
         let anim:CABasicAnimation = CABasicAnimation()
         anim.keyPath = "colors"
         anim.fromValue = [self.colors[self.currentIndex-1], self.colors[self.currentIndex]]//NSValue(CGPoint: CGPoint(x: self.view.bounds.width, y: gl.position.y))
@@ -244,7 +247,15 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell:IntroCell = collectionView.dequeueReusableCellWithReuseIdentifier("IntroCell", forIndexPath: indexPath) as! IntroCell
-        cell.textLabel.text = self.textsData[indexPath.row]
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        paragraphStyle.alignment = NSTextAlignment.Center
+        
+        let attrString = NSMutableAttributedString(string: self.textsData[indexPath.row])
+        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        attrString.addAttribute(NSFontAttributeName, value: cell.textLabel.font, range: NSMakeRange(0, attrString.length))
+//        cell.textLabel.text = self.textsData[indexPath.row]
+        cell.textLabel.attributedText = attrString
         cell.titleLabel.text = self.titlesData[indexPath.row]
         return cell
     }

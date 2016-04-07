@@ -47,7 +47,8 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
         })
         task.resume();
     }
-    func sendMultipartData(path path:String!, file:String!, data:[String:String]?, callback:((result:Bool!, json:AnyObject?)->Void)?) {
+    func sendMultipartData(path path:String!, file file0:String!, data:[String:String]?, callback:((result:Bool!, json:AnyObject?)->Void)?) {
+        let file:String = NSString(string: file0).lastPathComponent
         let requestUrl:String! = self.serverUrlString+path
         let urlRequest:NSMutableURLRequest = NSMutableURLRequest(URL: NSURL(string: requestUrl)!)
         let boundarySytring:String! = "Asrf456BGe4h"
@@ -62,8 +63,8 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
             }
         }
         httpData.appendContentsOf("--\(boundarySytring)\r\n")
-        httpData.appendContentsOf("Content-Disposition: form-data; name=\"video\"; filename=\"\(file)\"\r\n")
-        httpData.appendContentsOf("Content-Type: video/mp4\r\n\r\n")
+        httpData.appendContentsOf("Content-Disposition: form-data; name=\"photo\"; filename=\"\(file)\"\r\n")
+        httpData.appendContentsOf("Content-Type: image/jpeg\r\n\r\n")
         bodyData.appendData((httpData as NSString).dataUsingEncoding(NSUTF8StringEncoding)!)
         do {
             let string:String = NSTemporaryDirectory().stringByAppendingString(file)

@@ -2416,7 +2416,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "935f8a3d-a135-4f0e-ac72-1e1fb3337cd0";
+				PROVISIONING_PROFILE = "e4e6998d-4519-4452-81e0-80ef65d0f2b8";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2434,7 +2434,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.nostris.HereAndNow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e2085110-04c7-4343-a304-9830081f2720";
+				PROVISIONING_PROFILE = "b00674af-98d2-4cd9-a2b1-791d16b7f3d5";
 				SWIFT_OBJC_BRIDGING_HEADER = "HereAndNow/HereAndNow-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

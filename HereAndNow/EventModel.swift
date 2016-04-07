@@ -64,7 +64,9 @@ class Event: NSObject {
         RequestModel().createRequest(self, callback: callback)
     }
     func uploadEvent(callback:(success:Bool!, result:String?)->Void) {
-        ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json(false) as? [String:String]) { (result, json) -> Void in
+        let file = self.photo
+        self.photo = nil
+        ServerConnectionsManager.sharedInstance.sendMultipartData(path: "events", file: file, data: self.json(false) as? [String:String]) { (result, json) in
             guard result == true else {
                 let error = json!["error"] as! String
                 callback(success: false, result: error)
@@ -78,9 +80,9 @@ class Event: NSObject {
     }
     
     func checkEvent()->Bool {
-        if photo == nil {
-            return false
-        }
+//        if photo == nil {
+//            return false
+//        }
         if longitude == nil {
             return false
         }
@@ -94,8 +96,9 @@ class Event: NSObject {
             return nil
         }
         let json:NSMutableDictionary = NSMutableDictionary()
-        
-        json["photo"] = self.photo!
+        if let p = self.photo {
+            json["photo"] = p
+        }
         json["longitude"] = "\(self.longitude!)"
         json["latitude"] = "\(self.latitude!)"
         if let desc = self.eventDescription {

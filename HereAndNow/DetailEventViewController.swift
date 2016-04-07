@@ -17,6 +17,9 @@ class DetailEventViewController: UIViewController {
     @IBOutlet weak var acceptButton:UIButton!
     @IBOutlet weak var rejectButton:UIButton!
     @IBOutlet weak var locationButton:UIButton!
+    @IBOutlet weak var textHeight:NSLayoutConstraint!
+    @IBOutlet weak var titleHeight:NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var event:Event
@@ -88,6 +91,15 @@ class DetailEventViewController: UIViewController {
                 })
             })
         }
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let e = self.event else {
+            return
+        }
+        self.titleHeight.constant = e.title!.textHeight(forWidth: self.titleLabel.frame.width-10, font: self.titleLabel.font)+17
+        self.textHeight.constant = e.eventDescription!.textHeight(forWidth: self.descriptionLabel.frame.width-10, font: self.descriptionLabel.font)+17
+        self.view.layoutIfNeeded()
     }
     @IBAction func hide() {
         self.hideModalController()

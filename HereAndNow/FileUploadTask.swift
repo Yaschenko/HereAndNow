@@ -28,9 +28,10 @@ class FileUploadTask: NSObject {
     }
     func uploadUIIMage(image:UIImage, callback:(success:Bool, result:String?)->Void) {
         let fileName:String = "\(NSDate().timeIntervalSince1970)"
-        let path = NSTemporaryDirectory() + "/" + fileName + ".png"
-        UIImageJPEGRepresentation(image, 1)?.writeToFile(path, atomically: true)
-        self.uploadPhoto(path, callback: callback)
+        let path = NSTemporaryDirectory() + "/" + fileName + ".jpeg"
+        UIImageJPEGRepresentation(image, 0.6)?.writeToFile(path, atomically: true)
+        callback(success: true, result: path)
+//        self.uploadPhoto(path, callback: callback)
     }
     func uploadPhoto(path:String!, callback:(success:Bool, result:String?)->Void) {
         self.uploadFile(path, contentType: "image/jpeg", callback: callback)

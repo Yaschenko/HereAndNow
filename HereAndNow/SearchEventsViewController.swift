@@ -9,7 +9,7 @@
 import UIKit
 class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomCollectionViewActionProtocol {
     var geoPointViews:[GeoPointView] = []
-    var point:GeoPointView?
+    weak var point:GeoPointView?
     var eventsModel:EventModel?
     let gradientLayer:CAGradientLayer = CAGradientLayer()
     @IBOutlet weak var mapLayer1:UIView!
@@ -17,12 +17,13 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
     @IBOutlet weak var mapLayer3:UIView!
     @IBOutlet weak var bgView:UIView!
     @IBOutlet weak var collectionView:CustomCollectionView!
+    @IBOutlet weak var filtersView:UIView!
     var data:[AnyObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createEventModel()
         self.collectionView.collectionViewDelegate = self
-        self.bgView.layer.addSublayer(self.gradientLayer)
+//        self.bgView.layer.addSublayer(self.gradientLayer)
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -50,11 +51,13 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.prepareFiltersView()
         let gl = self.gradientLayer
-        gl.colors = [UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
+        gl.colors = [UIColor(red: 119.0/255.0, green: 207.0/255.0, blue: 207.0/255.0, alpha: 1).CGColor, UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
+            //[UIColor(red: 119.0/255.0, green: 107.0/255.0, blue: 1, alpha: 1).CGColor,  UIColor(red: 229.0/255.0, green: 75.0/255.0, blue: 189.0/255.0, alpha: 1).CGColor]
         gl.locations = [0.0, 1]
-        gl.startPoint = CGPoint(x: 0, y: 1)
-        gl.endPoint = CGPoint(x: 1, y: 0)
+        gl.startPoint = CGPoint(x: 0.5, y: 0)
+        gl.endPoint = CGPoint(x: 0.5, y: 1)
         gl.frame = self.bgView.frame
     }
     override func viewDidAppear(animated: Bool) {
@@ -62,9 +65,9 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         let gl = self.gradientLayer
         gl.frame = self.bgView.frame
         self.collectionView.prepareSubviews()
-        self.setMotionEffect(self.mapLayer1, valueX: 10, valueY: 3)
-        self.setMotionEffect(self.mapLayer2, valueX: 30, valueY: 10)
-        self.setMotionEffect(self.mapLayer3, valueX: 50, valueY: 20)
+        self.setMotionEffect(self.mapLayer1, valueX: 20, valueY: 3)
+        self.setMotionEffect(self.mapLayer2, valueX: 40, valueY: 10)
+        self.setMotionEffect(self.mapLayer3, valueX: 70, valueY: 20)
     }
     func addPointAtPosiotion(i:Int, event:Event)->GeoPointView {
         let view:UIView = self.getLayerForEvent(self.eventsModel!.data[i])
@@ -76,8 +79,11 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         }
         let width:CGFloat = (view.frame.width - 30) / 4.0
         let height:CGFloat = (view.frame.height - 280)/4.0
-        let x:CGFloat = CGFloat(arc4random_uniform(UInt32(width-15))) + 7 + width * CGFloat(ii % 4)
-        let y:CGFloat = CGFloat(arc4random_uniform(UInt32(height-15))) + 120 + height * CGFloat(Int (ii/4))
+        let w = width > 15 ? UInt32(width-15) : 1
+        let h = height > 15 ? UInt32(height-15) : 1
+        
+        let x:CGFloat = CGFloat(arc4random_uniform(w)) + 7 + width * CGFloat(ii % 4)
+        let y:CGFloat = CGFloat(arc4random_uniform(h)) + 120 + height * CGFloat(Int (ii/4))
         let point = self.addPoint(CGRect(x: x, y: y, width: s, height: s), event:event)
         return point
     }
@@ -91,22 +97,26 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
             return self.mapLayer1
         }
     }
-    func generatePoints(count:Int) {
+    func removeGeopoints() {
         for point in self.geoPointViews {
             point.removeFromSuperview()
         }
         self.geoPointViews.removeAll()
+    }
+    func generatePoints(count:Int) {
+        self.removeGeopoints()
         for i in 0...count-1 {
             self.geoPointViews.append(self.addPointAtPosiotion(i, event: self.eventsModel!.data[i]))
         }
     }
     func addPoint(frame:CGRect, event:Event) -> GeoPointView {
-        let view:UIView = self.getLayerForEvent(event)
+        let view:UIView = self.mapLayer3//self.getLayerForEvent(event)
         let nibName = event.type == "advertisement" ? "GeoPointView" : "WhiteGeoPointView"
         let point:GeoPointView = UINib(nibName:nibName, bundle: nil).instantiateWithOwner(self, options: nil)[0] as! GeoPointView
         point.geoPointDelegate = self
         point.frame = frame
         view.addSubview(point)
+        
         point.prepareView()
         return point
     }
@@ -200,14 +210,63 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
             self.geoPointViews.insert(point, atIndex: i)
         } else {
             point = self.geoPointViews[index]
+            /*
             if self.getLayerForEvent(self.eventsModel!.data[index]) != point.superview {
 //                let view:UIView = self.getLayerForEvent(self.eventsModel!.data[index])
                 point.removeFromSuperview()
                 self.geoPointViews.removeAtIndex(index)
                 point = self.addPointAtPosiotion(index, event: self.eventsModel!.data[index])
                 self.geoPointViews.insert(point, atIndex: index)
-            }
+            }*/
         }
         self.didSelectPoint(point)
+    }
+    @IBAction func showAdds(sender:UIButton) {
+        self.uncheckAllFilters()
+        sender.selected = true
+        sender.backgroundColor = UIColor.whiteColor()
+        self.eventsModel!.type = "advertisement"
+        self.eventsModel!.accessType = EventAccessType.All
+        self.eventsModel!.reset()
+        self.collectionView.resetData()
+        self.removeGeopoints()
+        self.updateData()
+    }
+    @IBAction func showAll(sender:UIButton) {
+        self.uncheckAllFilters()
+        sender.selected = true
+        sender.backgroundColor = UIColor.whiteColor()
+        self.eventsModel!.type = "all"
+        self.eventsModel!.accessType = EventAccessType.All
+        self.eventsModel!.reset()
+        self.collectionView.resetData()
+        self.removeGeopoints()
+        self.updateData()
+    }
+    @IBAction func showPublic(sender:UIButton) {
+        self.uncheckAllFilters()
+        sender.selected = true
+        sender.backgroundColor = UIColor.whiteColor()
+        self.eventsModel!.type = "all"
+        self.eventsModel!.accessType = EventAccessType.PublicOnly
+        self.eventsModel!.reset()
+        self.collectionView.resetData()
+        self.removeGeopoints()
+        self.updateData()
+    }
+    func uncheckAllFilters() {
+        for filterView in self.filtersView.subviews {
+            if let f = filterView as? UIButton {
+                f.selected = false
+                f.backgroundColor = UIColor.clearColor()
+            }
+        }
+    }
+    func prepareFiltersView() {
+        for filterView in self.filtersView.subviews {
+            filterView.layer.borderColor = UIColor.whiteColor().CGColor
+            filterView.layer.borderWidth = 1
+            filterView.layer.cornerRadius = filterView.bounds.height / 2
+        }
     }
 }

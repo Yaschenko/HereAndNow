@@ -25,7 +25,7 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var transitionView:UIView!
     @IBOutlet weak var waitingView:UIView!
     @IBOutlet weak var isPublic:UISwitch!
-    
+    @IBOutlet weak var imageTopPosition:NSLayoutConstraint!
     var profileImage:UIImage? = nil
     let maxLettersCount:Int! = 100
     var keyboarHeight:CGFloat! = 0.0
@@ -178,8 +178,8 @@ class CreateEventViewController: UIViewController, UIImagePickerControllerDelega
         } else {
             self.topPosition.constant = self.keyboarHeight
         }
-//        print(self.textView.text.textHeight(forWidth: self.textView.frame.width, font: UIFont.systemFontOfSize(14)))
         self.textViewHeight.constant = self.textView.text.textHeight(forWidth: self.textView.frame.width - 10, font: self.textView.font!) + 17
+//        self.imageTopPosition.constant = 30 - self.textViewHeight.constant + 30
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.view.layoutIfNeeded()
             }) { (result) -> Void in

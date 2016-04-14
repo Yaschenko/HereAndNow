@@ -20,6 +20,14 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
     
     func sendRequest(urlRequest:NSURLRequest!, callback:((result:Bool!, json:AnyObject?)->Void)?) {
         let task:NSURLSessionDataTask = self.urlSession.dataTaskWithRequest(urlRequest, completionHandler: {(data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+//            guard let r = response as? NSHTTPURLResponse else {
+//                callback!(result: false, json: ["error":"Some thing went wrong."])
+//                return
+//            }
+//            if r.statusCode == 401 {
+//                print("Not auth")
+//                return
+//            }
             if data != nil {
                 print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 var json:AnyObject?
@@ -28,7 +36,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
                     json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! NSDictionary
                 }
                 catch {
-                    json = ["error":"Some thing went wrong."]
+                    json = ["error":"Some thing went wrong. Cannot serialize json."]
                     result = false
                 }
 //                if json?.valueForKey("message") != nil {result = false}
@@ -42,7 +50,7 @@ class ServerConnectionsManager : NSObject, NSURLSessionDelegate{
             } else if let err = error {
                 callback!(result: false, json: ["error":err.localizedDescription])
             } else {
-                callback!(result: false, json: ["error":"Some thing went wrong."])
+                callback!(result: false, json: ["error":"Some thing went wrong. Response data is empty."])
             }
         })
         task.resume();

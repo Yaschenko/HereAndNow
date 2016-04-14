@@ -6,6 +6,48 @@
 //  Copyright © 2016 Nostris. All rights reserved.
 //
 
+public extension UIDevice {
+    
+    var frameRateDev: Int {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        
+        switch identifier {
+        case "iPod5,1":                                 return 2//"iPod Touch 5"
+        case "iPod7,1":                                 return 2//"iPod Touch 6"
+        case "iPhone3,1", "iPhone3,2", "iPhone3,3":     return 2//"iPhone 4"
+        case "iPhone4,1":                               return 2//"iPhone 4s"
+        case "iPhone5,1", "iPhone5,2":                  return 2//"iPhone 5"
+        case "iPhone5,3", "iPhone5,4":                  return 2//"iPhone 5c"
+        case "iPhone6,1", "iPhone6,2":                  return 1//"iPhone 5s"
+        case "iPhone7,2":                               return 1//"iPhone 6"
+        case "iPhone7,1":                               return 1//"iPhone 6 Plus"
+        case "iPhone8,1":                               return 1//"iPhone 6s"
+        case "iPhone8,2":                               return 1//"iPhone 6s Plus"
+        case "iPhone8,4":                               return 1//"iPhone SE"
+        case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":return 2//"iPad 2"
+        case "iPad3,1", "iPad3,2", "iPad3,3":           return 2//"iPad 3"
+        case "iPad3,4", "iPad3,5", "iPad3,6":           return 2//"iPad 4"
+        case "iPad4,1", "iPad4,2", "iPad4,3":           return 2//"iPad Air"
+        case "iPad5,3", "iPad5,4":                      return 1//"iPad Air 2"
+        case "iPad2,5", "iPad2,6", "iPad2,7":           return 2//"iPad Mini"
+        case "iPad4,4", "iPad4,5", "iPad4,6":           return 2//"iPad Mini 2"
+        case "iPad4,7", "iPad4,8", "iPad4,9":           return 2//"iPad Mini 3"
+        case "iPad5,1", "iPad5,2":                      return 1//"iPad Mini 4"
+        case "iPad6,3", "iPad6,4", "iPad6,7", "iPad6,8":return 1//"iPad Pro"
+        case "AppleTV5,3":                              return 2//"Apple TV"
+        case "i386", "x86_64":                          return 1//"Simulator"
+        default:                                        return 1//identifier
+        }
+    }
+    
+}
+
 import UIKit
 import QuartzCore
 class IntroCell: UICollectionViewCell {
@@ -35,9 +77,9 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         var images:[CGImageRef] = []
         if from < to {
             for i in from...to {
-//                if i%2 == 0 {
+                if i % UIDevice.currentDevice().frameRateDev == 0 {
                     images.append(self.loadImage(i).CGImage!)
-//                }
+                }
             }
         } else {
 //            for var i = from;i >= to; i -= 1 {
@@ -61,10 +103,14 @@ class AuthorizeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         return images
     }
+//    func cleanImageData(index:Int) {
+//        let fileName:String = String(format:"Onboarding-30fps_00%03i", index)
+//        UIImage.remove
+//    }
     func loadImage(index:Int) -> UIImage {
         let fileName:String = String(format:"Onboarding-30fps_00%03i", index)
-            let imgN = /*UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource(fileName, ofType: "png")!)*/UIImage(named: fileName)!
-            return imgN
+        let imgN = /*UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource(fileName, ofType: "png")!)*/UIImage(named: fileName)!
+        return imgN
     }
     override func viewDidLoad() {
         super.viewDidLoad()

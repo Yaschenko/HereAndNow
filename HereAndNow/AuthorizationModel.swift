@@ -29,7 +29,7 @@ class AuthorizationModel: NSObject {
     private func loginWithFBToken(token:String!, callback:(token:String?, errorString:String?)->Void) {
         ServerConnectionsManager.sharedInstance.sendPostRequest(path: "facebook/login", data: ["token":token]) { (result, json) -> Void in
             guard let jsonObj = json else {
-                callback(token: nil, errorString: "Something went wrong. Try agin late.")
+                callback(token: nil, errorString: "Something went wrong. Try again late.")
                 return
             }
             if !result {

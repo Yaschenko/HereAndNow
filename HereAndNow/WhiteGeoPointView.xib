@@ -21,47 +21,49 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SL7-4o-F17">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <subviews>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oA-RC-Qe8">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="33" id="Rqm-wx-eo2"/>
-                                <constraint firstAttribute="height" constant="33" id="pxc-2Z-6jx"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="Rqm-wx-eo2"/>
-                                    <exclude reference="pxc-2Z-6jx"/>
-                                </mask>
-                            </variation>
-                            <connections>
-                                <action selector="didSelectAction:" destination="QPr-zs-GMt" eventType="touchUpInside" id="Ftm-s2-qWa"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                    <rect key="frame" x="15" y="15" width="570" height="570"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="0oA-RC-Qe8" secondAttribute="bottom" id="6w6-Yt-p7c"/>
-                        <constraint firstItem="0oA-RC-Qe8" firstAttribute="leading" secondItem="SL7-4o-F17" secondAttribute="leading" id="7Uh-Gi-iQV"/>
                         <constraint firstAttribute="width" secondItem="SL7-4o-F17" secondAttribute="height" multiplier="1:1" id="N3j-JK-SAh"/>
-                        <constraint firstItem="0oA-RC-Qe8" firstAttribute="top" secondItem="SL7-4o-F17" secondAttribute="top" id="t86-Pz-FWV"/>
-                        <constraint firstAttribute="trailing" secondItem="0oA-RC-Qe8" secondAttribute="trailing" id="zst-MP-Z34"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oA-RC-Qe8">
+                    <rect key="frame" x="278" y="278" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="OSi-t8-LXd"/>
+                        <constraint firstAttribute="width" constant="33" id="Rqm-wx-eo2"/>
+                        <constraint firstAttribute="height" constant="44" id="pep-PW-8O4"/>
+                        <constraint firstAttribute="height" constant="33" id="pxc-2Z-6jx"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Rqm-wx-eo2"/>
+                            <exclude reference="pxc-2Z-6jx"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="didSelectAction:" destination="QPr-zs-GMt" eventType="touchUpInside" id="Ftm-s2-qWa"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="SL7-4o-F17" firstAttribute="centerX" secondItem="QPr-zs-GMt" secondAttribute="centerX" id="8br-CE-6L3"/>
-                <constraint firstItem="SL7-4o-F17" firstAttribute="width" secondItem="QPr-zs-GMt" secondAttribute="height" multiplier="1:1" id="b1S-m5-FB6"/>
+                <constraint firstItem="0oA-RC-Qe8" firstAttribute="centerX" secondItem="QPr-zs-GMt" secondAttribute="centerX" id="9rU-X1-2bB"/>
+                <constraint firstItem="0oA-RC-Qe8" firstAttribute="height" secondItem="jEz-fh-g6C" secondAttribute="height" id="HJ7-aX-Tru"/>
+                <constraint firstItem="0oA-RC-Qe8" firstAttribute="centerY" secondItem="QPr-zs-GMt" secondAttribute="centerY" id="OjX-RG-PyD"/>
+                <constraint firstItem="SL7-4o-F17" firstAttribute="width" secondItem="QPr-zs-GMt" secondAttribute="height" multiplier="1:1" constant="-30" id="b1S-m5-FB6"/>
                 <constraint firstItem="SL7-4o-F17" firstAttribute="width" secondItem="QPr-zs-GMt" secondAttribute="width" constant="-400" id="k7q-fo-dsE"/>
                 <constraint firstItem="jEz-fh-g6C" firstAttribute="centerY" secondItem="QPr-zs-GMt" secondAttribute="centerY" id="nO0-ot-y2C"/>
                 <constraint firstItem="SL7-4o-F17" firstAttribute="centerY" secondItem="QPr-zs-GMt" secondAttribute="centerY" id="rlH-OP-DOX"/>
                 <constraint firstItem="jEz-fh-g6C" firstAttribute="centerX" secondItem="QPr-zs-GMt" secondAttribute="centerX" id="yky-7s-Nla"/>
+                <constraint firstItem="0oA-RC-Qe8" firstAttribute="width" secondItem="jEz-fh-g6C" secondAttribute="width" id="zbC-hi-Yka"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="HJ7-aX-Tru"/>
+                    <exclude reference="zbC-hi-Yka"/>
                     <exclude reference="k7q-fo-dsE"/>
                 </mask>
             </variation>

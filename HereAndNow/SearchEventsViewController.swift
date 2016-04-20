@@ -73,9 +73,9 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         let view:UIView = self.getLayerForEvent(self.eventsModel!.data[i])
         
         let ii = 16 - i
-        var s:CGFloat = 10
+        var s:CGFloat = 40
         if view == self.mapLayer3 {
-            s = 15
+            s = 45
         }
         let width:CGFloat = (view.frame.width - 30) / 4.0
         let height:CGFloat = (view.frame.height - 280)/4.0
@@ -116,7 +116,7 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
         point.geoPointDelegate = self
         point.frame = frame
         view.addSubview(point)
-        
+        point.content = event
         point.prepareView()
         return point
     }
@@ -186,6 +186,15 @@ class SearchEventsViewController: UIViewController, GeoPointDelegate, CustomColl
             self.mapLayer2.alpha = 1
             self.mapLayer3.alpha = 1
         }
+        guard let event = point.content as? Event else {
+            return
+        }
+        let index = self.collectionView.data.indexOf(event)
+        if index != self.collectionView.currentIndex && index != nil {
+            self.collectionView.currentIndex = index!
+            self.collectionView.reloadVisibleCells()
+        }
+        
     }
     func collectionView(collectionView: CustomCollectionView!, actionInCell cell: CustomCollectionViewCell, index:Int) {
         let VC:DetailEventViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailPublicEventViewController") as! DetailEventViewController

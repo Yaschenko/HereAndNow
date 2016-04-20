@@ -23,6 +23,7 @@ protocol GeoPointDelegate:NSObjectProtocol {
     func didSelectPoint(point:GeoPointView)
 }
 class GeoPointView: UIView {
+    var content:AnyObject?
     @IBOutlet weak var roundView:RoundView!
     @IBOutlet weak var centerView:UIView!
     @IBOutlet weak var widthConstraint:NSLayoutConstraint!
@@ -38,7 +39,7 @@ class GeoPointView: UIView {
         
         self.button.layer.cornerRadius = self.button.frame.width / 2
         self.button.layer.masksToBounds = true
-        self.viewWidth = self.frame.width
+        self.viewWidth = self.frame.width - 30
         self.widthConstraint.constant = self.viewWidth
         self.roundView.color = self.roundView.backgroundColor
         self.roundView.backgroundColor = UIColor.clearColor()

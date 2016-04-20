@@ -33,6 +33,7 @@
 		5AD720F01C859BDF00FF1A05 /* GeoPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */; };
 		5AD720F21C85A8AD00FF1A05 /* SearchEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */; };
 		5AD720F61C85C16100FF1A05 /* GeoPointView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD720F51C85C16100FF1A05 /* GeoPointView.xib */; };
+		5AE20EB41CC0BFD100B0E177 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE20EB31CC0BFD100B0E177 /* CameraViewController.swift */; };
 		5AE52D261CB233D80010D15A /* SFUIDisplay-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52D1D1CB233D80010D15A /* SFUIDisplay-Black.ttf */; };
 		5AE52D271CB233D80010D15A /* SFUIDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52D1E1CB233D80010D15A /* SFUIDisplay-Bold.ttf */; };
 		5AE52D281CB233D80010D15A /* SFUIDisplay-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AE52D1F1CB233D80010D15A /* SFUIDisplay-Heavy.ttf */; };
@@ -101,6 +102,7 @@
 		5AD720EF1C859BDF00FF1A05 /* GeoPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPointView.swift; sourceTree = "<group>"; };
 		5AD720F11C85A8AD00FF1A05 /* SearchEventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEventsViewController.swift; sourceTree = "<group>"; };
 		5AD720F51C85C16100FF1A05 /* GeoPointView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPointView.xib; sourceTree = "<group>"; };
+		5AE20EB31CC0BFD100B0E177 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		5AE52D1D1CB233D80010D15A /* SFUIDisplay-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Black.ttf"; sourceTree = "<group>"; };
 		5AE52D1E1CB233D80010D15A /* SFUIDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		5AE52D1F1CB233D80010D15A /* SFUIDisplay-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Heavy.ttf"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				5AB640621C9DA58400F92533 /* HereAndNow-Bridging-Header.h */,
 				5AE530EB1CB276E50010D15A /* SettingsViewController.swift */,
 				5A34CE851CB69BF300930DF4 /* Animation.xcassets */,
+				5AE20EB31CC0BFD100B0E177 /* CameraViewController.swift */,
 			);
 			path = HereAndNow;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				5AB640611C9D9A6500F92533 /* EventModel.swift in Sources */,
 				5A04AE151C7B5331009BD4E6 /* AuthorizeViewController.swift in Sources */,
 				5AB640671C9FE46300F92533 /* FileUploadTask.swift in Sources */,
+				5AE20EB41CC0BFD100B0E177 /* CameraViewController.swift in Sources */,
 				5AFAA5451CA8254C00EB5ADC /* RequestsViewController.swift in Sources */,
 				5AD720EC1C8456C900FF1A05 /* CustomTabbar.swift in Sources */,
 				5AB6405D1C9AF63100F92533 /* AuthorizationModel.swift in Sources */,

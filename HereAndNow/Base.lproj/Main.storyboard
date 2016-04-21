@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RzY-EK-r9l">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -735,6 +735,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Wo-ga-Wo5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="688" y="-2389"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="pE4-XH-NZI">
+            <objects>
+                <viewController id="RzY-EK-r9l" customClass="CameraViewController" customModule="HereAndNow" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oMS-uG-Mpl"/>
+                        <viewControllerLayoutGuide type="bottom" id="jPe-I6-d95"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yXq-L1-bvk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIU-PX-bV6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yIU-PX-bV6" secondAttribute="trailing" id="8Kw-wi-f4w"/>
+                            <constraint firstItem="yIU-PX-bV6" firstAttribute="top" secondItem="yXq-L1-bvk" secondAttribute="top" id="ER7-WM-mvZ"/>
+                            <constraint firstItem="yIU-PX-bV6" firstAttribute="leading" secondItem="yXq-L1-bvk" secondAttribute="leading" id="Rnv-WY-oEt"/>
+                            <constraint firstItem="jPe-I6-d95" firstAttribute="top" secondItem="yIU-PX-bV6" secondAttribute="bottom" id="VNL-6Q-5e3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraView" destination="yIU-PX-bV6" id="w1r-Op-AWR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mkb-Pb-ovw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1306" y="-2373"/>
         </scene>
         <!--Search Events View Controller-->
         <scene sceneID="x3c-nF-sdE">

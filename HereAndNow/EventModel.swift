@@ -7,7 +7,24 @@
 //
 
 import UIKit
-
+class Checkin: NSObject {
+    var id:Int?
+    var can_checkin:Bool?
+    var event_id:Int?
+    var todays_quota:Int?
+    var checked_in:Bool?
+    var name:String?
+    var data:String?
+    var quota_number:Int?
+    func checkin(lat:Double, lon:Double, callback:(success:Bool!, result:AnyObject?)->Void) {
+        ServerConnectionsManager.sharedInstance.sendPostRequest(path: "checkins", data: ["checkin_id":"\(self.id!)", "lat":"\(lat)", "long":"\(lon)"]) { (result, json) in
+            if result == true, let v = json as? [String:Int] {
+                self.quota_number = v["quota_number"]
+            }
+            callback(success: result, result: json)
+        }
+    }
+}
 class Event: NSObject {
     
     static var myEvent:Event? = nil
@@ -31,7 +48,22 @@ class Event: NSObject {
     var createDate:NSDate = NSDate()
     var isSendRequest:Bool = false
     var type = "common"
-    
+    var checkin : Checkin?
+    func canCheckin() -> Bool {
+        guard let c = self.checkin else {
+            return false
+        }
+        guard let v = c.can_checkin else {
+            return false
+        }
+        return v
+    }
+    func tryCheckin(lat:Double, lon:Double, callback:(success:Bool!, result:AnyObject?)->Void) {
+        guard let c = checkin else {
+            return callback(success: false, result: nil)
+        }
+        c.checkin(lat, lon: lon, callback: callback)
+    }
     static func deleteMyEvent () {
         Event.myEvent = nil
         NSUserDefaults.standardUserDefaults().removeObjectForKey("MyEvent")
@@ -63,20 +95,66 @@ class Event: NSObject {
     func sendRequest(callback:(success:Bool!, result:String?)->Void) {
         RequestModel().createRequest(self, callback: callback)
     }
+    func uploadImageFile1(path:String!, presignedUrlH:String!, presignedUrlL:String!, callback:(success:Bool, result:String?)->Void) {
+        let fileName:String = "lq_" + NSString(string: path).lastPathComponent
+        let urlPreL = NSURL(string: presignedUrlL)!
+        let request:NSMutableURLRequest = NSMutableURLRequest(URL: urlPreL)
+        request.HTTPMethod = "PUT"
+        request.setValue("image/jpeg", forHTTPHeaderField: "Content-Type")
+        request.setValue(fileName, forHTTPHeaderField: "AWSKey")
+        request.setValue(NSURL(scheme: urlPreL.scheme, host: urlPreL.host, path: urlPreL.path!)?.absoluteString, forHTTPHeaderField: "AWSUploadedPath")
+        
+        let task = NSURLSession.sharedSession().uploadTaskWithRequest(request, fromFile: NSURL(fileURLWithPath: NSTemporaryDirectory() + "/" + fileName)) { (data, response, error) -> Void in
+            callback(success: true, result: nil)
+            let fileName:String = NSString(string: path).lastPathComponent
+            let urlPreH = NSURL(string: presignedUrlH)!
+            let request:NSMutableURLRequest = NSMutableURLRequest(URL: urlPreH)
+            request.HTTPMethod = "PUT"
+            request.setValue("image/jpeg", forHTTPHeaderField: "Content-Type")
+            request.setValue(fileName, forHTTPHeaderField: "AWSKey")
+            request.setValue(NSURL(scheme: urlPreH.scheme, host: urlPreH.host, path: urlPreH.path!)?.absoluteString, forHTTPHeaderField: "AWSUploadedPath")
+            
+            let task = NSURLSession.sharedSession().uploadTaskWithRequest(request, fromFile: NSURL(fileURLWithPath: path)) { (data, response, error) -> Void in
+//                callback(success: true, result: nil)
+            }
+            task.resume()
+        }
+        task.resume()
+    }
+    
     func uploadEvent(callback:(success:Bool!, result:String?)->Void) {
         let file = self.photo
         self.photo = nil
-        ServerConnectionsManager.sharedInstance.sendMultipartData(path: "events", file: file, data: self.json(false) as? [String:String]) { (result, json) in
+        ServerConnectionsManager.sharedInstance.sendPostRequest(path: "events", data: self.json(false) as? [String:String]) { (result, json) in
+            guard let j = json as? NSDictionary else {
+                return callback(success: false, result: nil)
+            }
             guard result == true else {
-                let error = json!["error"] as! String
+                let error = j["error"] as! String
                 callback(success: false, result: error)
                 return
             }
-            
-            self.setValuesFromJson(json as! NSDictionary)
+
+            self.setValuesFromJson(j)
             Event.setMyEventFromEvent(self)
+            if let p = file, let urlH = j["presign_hq"]as? NSDictionary, let urlL = j["presign_lq"] as? NSDictionary {
+                self.uploadImageFile1(p, presignedUrlH: urlH["presigned_url"] as! String, presignedUrlL: urlL["presigned_url"] as! String, callback: callback)
+                return
+            }
             callback(success: true, result: "Done")
         }
+
+//        ServerConnectionsManager.sharedInstance.sendMultipartData(path: "events", file: file, data: self.json(false) as? [String:String]) { (result, json) in
+//            guard result == true else {
+//                let error = json!["error"] as! String
+//                callback(success: false, result: error)
+//                return
+//            }
+//            
+//            self.setValuesFromJson(json as! NSDictionary)
+//            Event.setMyEventFromEvent(self)
+//            callback(success: true, result: "Done")
+//        }
     }
     
     func checkEvent()->Bool {
@@ -177,7 +255,19 @@ class Event: NSObject {
         if let k = json.valueForKey("kind") as? String {
             self.type = k
         }
-        
+        if let v = json.valueForKey("checkins") as? [[String:AnyObject]] {
+            if v.count > 0 {
+                let checkin = Checkin()
+                checkin.id = v[0]["id"] as? Int
+                checkin.can_checkin = v[0]["can_checkin"] as? Bool
+                checkin.event_id = v[0]["event_id"] as? Int
+                checkin.todays_quota = v[0]["todays_quota"] as? Int
+                checkin.checked_in = v[0]["checked_in"] as? Bool
+                checkin.name = v[0]["name"] as? String
+                checkin.data = v[0]["description"] as? String
+                self.checkin = checkin
+            }
+        }
         if let c = json.valueForKey("createDate") as? NSDate {
             self.createDate = c
         } else {
@@ -274,6 +364,7 @@ class EventModel: NSObject {
         data = []
     }
     private func parse(data:[NSDictionary])->[Event] {
+        print(data)
         var events:[Event] = []
         for jsonObj in data {
             guard let event = Event.event(jsonObj) else {
@@ -301,17 +392,19 @@ class EventModel: NSObject {
             break
         }
         ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events/all", data: arr) { (result, json) -> Void in
-            if !result {
-                let error = json!["error"] as! String
-                callback(result: false, data: nil, error: error)
-                return
-            }
             guard let res = (json as? NSDictionary)  else {
                 callback(result: false, data: nil, error: "Somethig went wrong.")
                 return
             }
+            if !result {
+                let error = res["error"] as! String
+                callback(result: false, data: nil, error: error)
+                return
+            }
+            print(res)
             self.totalObjects = res.valueForKey("total_entries") as! Int
             let events = self.parse(res.valueForKey("events") as! [NSDictionary])
+            print(events)
             self.data += events
             self.page = self.page + 1
             callback(result: true, data: events, error: nil)
@@ -319,13 +412,13 @@ class EventModel: NSObject {
     }
     func getMyEvents(callback:(result:Bool!, data:[Event]?, error:String?)->Void) {
         ServerConnectionsManager.sharedInstance.sendGetRequest(path: "events", data: nil) { (result, json) -> Void in
-            if !result {
-                let error = json!["error"] as! String
-                callback(result: false, data: nil, error: error)
-                return
-            }
             guard let res = (json as? NSDictionary)  else {
                 callback(result: false, data: nil, error: "Somethig went wrong.")
+                return
+            }
+            if !result {
+                let error = res["error"] as! String
+                callback(result: false, data: nil, error: error)
                 return
             }
             let events = self.parse(res.valueForKey("events") as! [NSDictionary])

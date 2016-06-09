@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLocation
+
 class DetailEventViewController: UIViewController {
     var event:Event?
     var request:Requst?
@@ -19,17 +21,34 @@ class DetailEventViewController: UIViewController {
     @IBOutlet weak var locationButton:UIButton!
     @IBOutlet weak var textHeight:NSLayoutConstraint!
     @IBOutlet weak var titleHeight:NSLayoutConstraint!
+    @IBOutlet weak var checkinValue:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         var event:Event
+        self.checkinValue.hidden = true
         if let e = self.event {
             event = e
             button.hidden = false
             button.alpha = 1
             if e.isPublic {
-                button.setTitle("SHOW CONTACTS", forState: UIControlState.Normal)
-                button.addTarget(self, action: #selector(DetailEventViewController.showContactas), forControlEvents: UIControlEvents.TouchUpInside)
+                if e.canCheckin(), let location = self.getMainViewController()?.locationManager?.location {
+                    let fromLocation = CLLocation(latitude:e.latitude!, longitude:e.longitude!)
+                    location.distanceFromLocation(fromLocation)
+                    self.checkinValue.hidden = false
+                    if let c = e.checkin!.quota_number {
+                        self.checkinValue.text = "\(c)"
+                        button.hidden = true
+                    } else {
+                        self.checkinValue.text = e.checkin!.data
+                        button.setTitle("CHECK IN", forState: UIControlState.Normal)
+                        button.addTarget(self, action: #selector(checkin), forControlEvents: UIControlEvents.TouchUpInside)
+                    }
+                    
+                } else {
+                    button.setTitle("SHOW CONTACTS", forState: UIControlState.Normal)
+                    button.addTarget(self, action: #selector(DetailEventViewController.showContactas), forControlEvents: UIControlEvents.TouchUpInside)
+                }
             }else if e.isSendRequest == true {
                 button.enabled = false
                 button.setTitle("WAITING FOR COMFIRMATION", forState: UIControlState.Normal)
@@ -100,6 +119,24 @@ class DetailEventViewController: UIViewController {
         self.titleHeight.constant = e.title!.textHeight(forWidth: self.titleLabel.frame.width-10, font: self.titleLabel.font)+17
         self.textHeight.constant = e.eventDescription!.textHeight(forWidth: self.descriptionLabel.frame.width-10, font: self.descriptionLabel.font)+17
         self.view.layoutIfNeeded()
+    }
+    func checkin() {
+        if self.event!.canCheckin(), let _ = self.getMainViewController()?.locationManager?.location {
+            self.event!.tryCheckin(/*location.coordinate.latitude*/7.21462, lon: 51.4748/*location.coordinate.longitude*/, callback: { (success, result) in
+                print(result)
+                if success == false {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        LocalNotificationManager.showError("Sorry, you cannot checkin here now. Please, try late.", inViewController: self, completion:nil)
+                    })
+                } else if let v = result as? [String:Int] {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let c = v["quota_number"]!
+                        self.checkinValue.text = "\(c)"
+                        self.button.hidden = true
+                    })
+                }
+            })
+        }
     }
     @IBAction func hide() {
         self.hideModalController()

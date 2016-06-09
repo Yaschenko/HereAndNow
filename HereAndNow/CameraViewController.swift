@@ -94,10 +94,10 @@ class CameraViewController: UIViewController {
     }
     
     private func initCamera() {
-        guard self.cameraAvaiable() == true else {
+        guard CameraViewController.cameraAvaiable() == true else {
             return
         }
-        if self.cameraAvaiable() == true {
+        if CameraViewController.cameraAvaiable() == true {
             self.setInput()
             captureSession.startRunning()
             
@@ -111,7 +111,7 @@ class CameraViewController: UIViewController {
 //    func addInput(position:AVCaptureDevicePosition) -> Bool {
 //        
 //    }
-    func cameraAvaiable() -> Bool {
+    static func cameraAvaiable() -> Bool {
         let devices = AVCaptureDevice.devices().filter{ $0.hasMediaType(AVMediaTypeVideo)}
         return devices.count > 0 ? true : false
     }
@@ -131,5 +131,21 @@ class CameraViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func getPhoto(callback:(image:UIImage?, error:NSError?)->Void) {
+        guard let output = self.stillImageOutput else {
+            return
+        }
+        let videoConnection = output.connectionWithMediaType(AVMediaTypeVideo)
+        if videoConnection.active == false {
+            return
+        }
+        output.captureStillImageAsynchronouslyFromConnection(videoConnection) { (buffer, error) in
+            if let er = error {
+                callback(image: nil, error: er)
+                return
+            }
+            let image = UIImage(data: AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer))
+            callback(image:image, error: nil)
+        }
+    }
 }

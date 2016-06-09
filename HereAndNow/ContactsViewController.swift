@@ -7,6 +7,31 @@
 //
 
 import UIKit
+class ContactCell:UITableViewCell {
+    var type:Int!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let cell = self
+        print(cell.bounds)
+        if let view = cell.viewWithTag(1) {
+            let mLayer:CAShapeLayer = CAShapeLayer()
+            if self.type == 1 {
+                mLayer.path = UIBezierPath.init(roundedRect: cell.bounds, byRoundingCorners: UIRectCorner.AllCorners, cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else if self.type == 2 {
+                mLayer.path = UIBezierPath.init(roundedRect: cell.bounds, byRoundingCorners: [UIRectCorner.TopRight, UIRectCorner.TopLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else if self.type == 3 {
+                mLayer.path = UIBezierPath.init(roundedRect: cell.bounds, byRoundingCorners: [UIRectCorner.BottomRight, UIRectCorner.BottomLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
+                view.layer.mask = mLayer
+            } else {
+                view.layer.mask = nil
+            }
+            view.layer.masksToBounds = true
+        }
+    }
+}
 enum ContactsType:Int {
     case FB, Phone, Email, Sms
     func stringValue()->String {
@@ -77,22 +102,15 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         return self.data.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath)
-        if let view = cell.viewWithTag(1) {
-            let mLayer:CAShapeLayer = CAShapeLayer()
-            if indexPath.row == 0 && indexPath.row == self.data.count - 1 {
-                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: UIRectCorner.AllCorners, cornerRadii: CGSize(width: 5, height: 5)).CGPath
-                view.layer.mask = mLayer
-            } else if indexPath.row == 0 {
-                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: [UIRectCorner.TopRight, UIRectCorner.TopLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
-                view.layer.mask = mLayer
-            } else if indexPath.row == self.data.count - 1 {
-                mLayer.path = UIBezierPath.init(roundedRect: view.bounds, byRoundingCorners: [UIRectCorner.BottomRight, UIRectCorner.BottomLeft], cornerRadii: CGSize(width: 5, height: 5)).CGPath
-                view.layer.mask = mLayer
-            } else {
-                view.layer.mask = nil
-            }
-            view.layer.masksToBounds = true
+        let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as! ContactCell
+        if indexPath.row == 0 && indexPath.row == self.data.count - 1 {
+            cell.type = 1
+        } else if indexPath.row == 0 {
+            cell.type = 2
+        } else if indexPath.row == self.data.count - 1 {
+            cell.type = 3
+        } else {
+            cell.type = 0
         }
         if let view = cell.viewWithTag(2) as? UILabel {
             view.text = data[indexPath.row].stringValue()

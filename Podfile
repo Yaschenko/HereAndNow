@@ -7,7 +7,7 @@ target 'HereAndNow' do
     pod 'FBSDKLoginKit'
     pod 'FBSDKShareKit'
     pod 'FBSDKCoreKit'
-    #    pod 'AWSS3'
+    #pod 'AWSS3'
 end
 
 target 'HereAndNowTests' do
